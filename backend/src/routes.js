@@ -1,7 +1,10 @@
 const express = require('express');
-const { celebrate, Segments, Joi } = require('celebrate');
 
 const routes = express.Router();
 
+routes.get('/', (req, res) => {
+    res.json({ hello: "world" });
+})
 
+routes.use('/members', require('./routes/members'));
 module.exports = routes;
