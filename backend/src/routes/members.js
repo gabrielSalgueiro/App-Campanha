@@ -8,8 +8,9 @@ var routes = express.Router();
 // INDEX ROUTE
 routes.get('/', celebrate({
     [Segments.QUERY]: Joi.object().keys({
-        name: Joi.string().allow('').optional(),
-        team: Joi.string().allow('').optional()
+        name: Joi.string().allow('').optional().default(''),
+        team: Joi.string().allow('').optional().default(''),
+        hasCar: Joi.number().optional().default(0)
     })
 }), MemberController.index);
 
@@ -21,8 +22,10 @@ routes.post('/', celebrate({
         password: Joi.string().required(),
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
-        image: Joi.string().required(),
-        course: Joi.string().required()
+        image: Joi.string().optional(),
+        course: Joi.string().required(),
+        hasCar: Joi.number().optional(),
+        coord: Joi.boolean().optional()
     })
 }), MemberController.create);
 
@@ -45,7 +48,9 @@ routes.put('/:id', celebrate({
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
         image: Joi.string().required(),
-        course: Joi.string().required()
+        course: Joi.string().required(),
+        hasCar: Joi.number().optional(),
+        coord: Joi.boolean().optional()
     })
 }), MemberController.update);
 

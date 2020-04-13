@@ -9,6 +9,9 @@ module.exports = {
             },
             team: {
                 $regex: "^" + req.query.team
+            },
+            hasCar: {
+                $gte: req.query.hasCar
             }
         }, (err, members) => {
             if (err) {
@@ -29,7 +32,9 @@ module.exports = {
             wpp: req.body.wpp,
             team: req.body.team,
             image: req.body.image,
-            course: req.body.course
+            course: req.body.course,
+            hasCar: req.body.hasCar,
+            coord: req.body.coord
         };
 
         Member.create(newMember, function (err, member) {
@@ -63,7 +68,9 @@ module.exports = {
             wpp: req.body.wpp,
             team: req.body.team,
             image: req.body.image,
-            course: req.body.course
+            course: req.body.course,
+            hasCar: req.body.hasCar,
+            coord: req.body.coord
         };
 
         Member.findByIdAndUpdate(req.params.id, newMemberInfos, { new: true }, (err, member) => {

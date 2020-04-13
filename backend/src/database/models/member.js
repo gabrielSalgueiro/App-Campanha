@@ -7,7 +7,9 @@ var memberSchema = new mongoose.Schema({
     wpp: String,
     team: String,
     image: String,
-    course: String
+    course: String,
+    hasCar: Number,
+    coord: Boolean
 });
 
 module.exports = mongoose.model("Member", memberSchema);
