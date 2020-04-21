@@ -7,4 +7,8 @@ routes.get('/', (req, res) => {
 })
 
 routes.use('/members', require('./routes/members'));
+routes.use('/teams', require('./routes/teams'));
+
+routes.use('/applyCorongaTo', require('./routes/coronga'));
+
 module.exports = routes;

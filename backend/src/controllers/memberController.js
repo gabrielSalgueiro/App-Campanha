@@ -2,18 +2,7 @@ const Member = require('../database/models/member');
 
 module.exports = {
     index(req, res) {
-        Member.find({
-            name: {
-                $regex: "^" + req.query.name,
-                $options: 'i'
-            },
-            team: {
-                $regex: "^" + req.query.team
-            },
-            hasCar: {
-                $gte: req.query.hasCar
-            }
-        }, (err, members) => {
+        Member.find({}).populate("team").exec( (err, members) => {
             if (err) {
                 return res.status(204).json({
                     error: `Error on database: ${ err.message }`
@@ -50,7 +39,7 @@ module.exports = {
     },
 
     show(req, res) {
-        Member.findById(req.params.id, (err, member) => {
+        Member.findById(req.params.id).populate("team").exec( (err, member) => {
             if (err) {
                 return res.status(400).json({
                     error: `Error on database: ${ err.message }`

@@ -6,7 +6,10 @@ var memberSchema = new mongoose.Schema({
     email: String,
     password: String,
     wpp: String,
-    team: String,
+    team: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team"
+    },
     image: String,
     course: String,
     hasCar: Number,

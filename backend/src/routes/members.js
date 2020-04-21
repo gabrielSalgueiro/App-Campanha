@@ -6,14 +6,7 @@ const MemberController = require('../controllers/memberController');
 var routes = express.Router();
 
 // INDEX ROUTE
-routes.get('/', celebrate({
-    // Use this only for extreme cases, instead, make the selection on front-end
-    [Segments.QUERY]: Joi.object().keys({
-        name: Joi.string().allow('').optional().default(''),
-        team: Joi.string().allow('').optional().default(''),
-        hasCar: Joi.number().optional().default(0)
-    })
-}), MemberController.index);
+routes.get('/', MemberController.index);
 
 // CREATE ROUTE
 routes.post('/', celebrate({
