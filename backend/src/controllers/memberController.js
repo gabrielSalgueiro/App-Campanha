@@ -27,6 +27,7 @@ module.exports = {
     create(req, res) {
         const newMember =  {
             name: req.body.name,
+            realName: req.body.realName,
             email: req.body.email,
             password: req.body.password,
             wpp: req.body.wpp,
@@ -63,6 +64,7 @@ module.exports = {
     update(req, res) {
         const newMemberInfos = {
             name: req.body.name,
+            realName: req.body.realName,
             email: req.body.email,
             password: req.body.password,
             wpp: req.body.wpp,

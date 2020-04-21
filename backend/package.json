@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "test": "nodemon src/server.js"
   },
   "author": "Psy",
   "license": "ISC",

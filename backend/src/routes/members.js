@@ -7,6 +7,7 @@ var routes = express.Router();
 
 // INDEX ROUTE
 routes.get('/', celebrate({
+    // Use this only for extreme cases, instead, make the selection on front-end
     [Segments.QUERY]: Joi.object().keys({
         name: Joi.string().allow('').optional().default(''),
         team: Joi.string().allow('').optional().default(''),
@@ -18,11 +19,12 @@ routes.get('/', celebrate({
 routes.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
+        realName: Joi.string().optional().default(''),
         email: Joi.string().required().email(),
         password: Joi.string().required(),
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
-        image: Joi.string().optional(),
+        image: Joi.string().optional().default(''),
         course: Joi.string().required(),
         hasCar: Joi.number().optional(),
         coord: Joi.boolean().optional()
@@ -43,11 +45,12 @@ routes.put('/:id', celebrate({
     }),
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
+        realName: Joi.string().optional().default(''),
         email: Joi.string().required().email(),
         password: Joi.string().required(),
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
-        image: Joi.string().required(),
+        image: Joi.string().optional().default(''),
         course: Joi.string().required(),
         hasCar: Joi.number().optional(),
         coord: Joi.boolean().optional()
