@@ -2,9 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-    scrollContainer:{
+    cardsContainer:{
         flex: 1,
         backgroundColor: '#3DACE1',
+        paddingHorizontal: 5,
+        
     },
 
     searchBar: {
@@ -18,7 +20,7 @@ export default StyleSheet.create({
     },
     inputText: {
         height: 46,
-        width: 294,
+        width: 350,
         alignSelf: 'stretch',
         backgroundColor: '#fff',
         borderWidth: 1,
@@ -26,11 +28,6 @@ export default StyleSheet.create({
         borderRadius: 30,
         marginTop: 13,
         paddingHorizontal: 16,
-    },
-
-    searchButton: {
-        marginLeft: 16,
-        marginTop: 16,
     },
 
     filter: {
@@ -58,6 +55,50 @@ export default StyleSheet.create({
         width: 340,
         alignSelf: 'center',
         margin: 5,
-    }
+    },
+    avatar: {
+        width: 100,
+        height: 100,
+        resizeMode: 'cover',
+    },
+    card: {
+        borderColor: '#DDD',
+        borderRadius: 6,
+        borderWidth: 0.5,
+        marginTop: 5,
+        height: 100,
+        elevation: 2,
+        flexDirection: 'row',
+        backgroundColor: '#F3F3F3',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        resizeMode: 'cover',
+        borderRadius: 17,
+        backgroundColor: '#FFF8F8'
+    },
+    cardInfoContainer:{
+        flexDirection: 'column',
+    },
 
+    cardInfo:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
+    },
+    name:{
+        color: "#000000",
+        fontSize: 16,
+        fontWeight: "bold",
+        alignSelf: 'center',
+        width: 100,
+        alignContent: 'stretch'
+    },
+    profileIcon:{
+        width: 50,
+        alignContent: 'stretch'
+    }
 });
