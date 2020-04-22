@@ -19,32 +19,99 @@ export default function MemberList() {
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
 
-
-    function handleCheckBox() {
-        if (checkCar === true) {
-            setCheckCar(false)
-        } else {
-            setCheckCar(true)
-        }
-    }
-
-
     function sendWhatsapp(whatsapp){
         Linking.openURL(`whatsapp://send?phone=+55${whatsapp}`)
     }
 
-    function filterMembers(){
-
-        console.log(team)
-
-        let members = allMembers.filter((member) =>{
-            
-            return ((member.name.includes(name) === true)) 
-                    && (member.hasCar === checkCar) 
-                    && (member.team.includes(team) === true)
-        })
-        setFilteredMembers(members)
+    function handleCheckBox() {
+        
+        if (checkCar == true) {
+            setCheckCar(false)
+            filterMembersbyCar(false);
+        } else {
+            setCheckCar(true)
+            filterMembersbyCar(true);
+        }
+        
     }
+
+    function filterMembersbyTeam(team){
+        setTeam(team);
+        const newData = allMembers.filter(member =>{
+            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
+            const textData =  name.toUpperCase();
+            if(checkCar == false){
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1)
+                else
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.team.name.toUpperCase() == team.toUpperCase())
+            }else{
+
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.hasCar == 1);
+                else
+                    return  (memberData.indexOf(textData) > -1) &&
+                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
+                            (member.hasCar == 1);
+            }
+        });
+
+        setFilteredMembers(newData);
+    };
+
+    function filterMembersbyCar(hasCar){
+        const newData = allMembers.filter(member =>{
+            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
+            const textData =  name.toUpperCase();
+            if(hasCar == false){
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1)
+                else
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.team.name.toUpperCase() == team.toUpperCase())
+            }else{
+
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.hasCar == 1);
+                else
+                    return  (memberData.indexOf(textData) > -1) &&
+                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
+                            (member.hasCar == 1);
+            }
+            
+        });
+
+        setFilteredMembers(newData);
+    };
+    
+    function filterMembersbyName(name){
+        setName(name);
+        const newData = allMembers.filter(member =>{
+            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
+            const textData =  name.toUpperCase();
+            if(checkCar == false){
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1)
+                else
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.team.name.toUpperCase() == team.toUpperCase())
+            }else{
+
+                if(team == 'all')
+                    return (memberData.indexOf(textData) > -1) &&
+                        (member.hasCar == 1);
+                else
+                    return  (memberData.indexOf(textData) > -1) &&
+                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
+                            (member.hasCar == 1);
+            }
+        });
+
+        setFilteredMembers(newData);
+    };
 
     useEffect(() => {
         async function loadMembers(){
@@ -84,8 +151,7 @@ export default function MemberList() {
                         placeholder="Nome do Membro..."
                         placeholderTextColor="#B7B7B7"
                         style={styles.inputText}
-                        value={name}
-                        onChangeText={setName}
+                        onChangeText={name => filterMembersbyName(name)}
                     >
                     </TextInput>
     
@@ -95,9 +161,9 @@ export default function MemberList() {
                 <View style={styles.filter}>
                     <Text>Carro:</Text>
                     <CheckBox
+                        checked = {checkCar}
                         center
                         onPress={handleCheckBox}
-                        checked={checkCar}
                         uncheckedColor='#003D5C'
                         checkedColor='#003D5C'
                     />
@@ -107,16 +173,16 @@ export default function MemberList() {
                         <Picker
 
                             selectedValue={team}
-                            onValueChange={(itemValue, itemIndex) => {setTeam(itemValue); filterMembers()}}
+                            onValueChange={(itemValue, itemIndex) => {filterMembersbyTeam(itemValue)}}
                             style={styles.Picker}
                             mode = 'dropdown'
                         >
                             
-                            <Picker.Item color='#B7B7B7' value='\n' label='Núcleo...' />
+                            <Picker.Item color='#B7B7B7' value='all' label='Núcleo...' />
                             <Picker.Item label="Entidades" value="Entidades" />
                             <Picker.Item label="Divulgação" value="Divulgação" />
                             <Picker.Item label="Infra" value="Infraestrutura" />
-                            <Picker.Item label="RE" value="RE" />
+                            <Picker.Item label="RE" value="Relações Externas" />
 
                         </Picker>
                         
@@ -137,11 +203,11 @@ export default function MemberList() {
                     renderItem = { ( { item } ) => (
                         <View style = {styles.card}>
                     
-                            <Image style={styles.avatar} source={item.image === null? personIcon : {uri: item.image}} />
+                            <Image style={styles.avatar} defaultSource={number = require('../../assets/Icons/person.png')} source={{uri: item.image}} />
                             
                             <View style = {styles.cardInfoContainer}>
                                 <View style = {styles.cardInfo}>
-                                    <Text style = {styles.name}>{item.name}</Text>
+                                    <Text style = {styles.name}>{item.realName}</Text>
                                     <TouchableOpacity style = {styles.profileIcon}>
                                         <Image source={profileIcon} />
                                     </TouchableOpacity>
@@ -151,11 +217,11 @@ export default function MemberList() {
 
                                 </View>
                                 
-                                <View style = {styles.cardInfo}>
-                                    <Text style = {styles.name}>Time:</Text>
-                                    <Text style = {styles.name}>{item.team}</Text>
-                                    <MaterialIcons name={'directions-car'} color={item.hasCar ===1 ? '#979797' : '#F3F3F3'} size={32}/>
-                                
+                                <View style = {styles.cardInfo2}>
+                                    <Text style = {styles.team}>{item.team.name}</Text>
+                                    <View style = {styles.carIcon}>
+                                        <MaterialIcons name={'directions-car'} color={item.hasCar ===1 ? '#979797' : '#F3F3F3'} size={32}/>
+                                    </View>
                                 </View>
                             </View>
                         </View>

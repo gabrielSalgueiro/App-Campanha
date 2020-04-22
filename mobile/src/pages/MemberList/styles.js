@@ -5,7 +5,7 @@ export default StyleSheet.create({
     cardsContainer:{
         flex: 1,
         backgroundColor: '#3DACE1',
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         
     },
 
@@ -56,11 +56,6 @@ export default StyleSheet.create({
         alignSelf: 'center',
         margin: 5,
     },
-    avatar: {
-        width: 100,
-        height: 100,
-        resizeMode: 'cover',
-    },
     card: {
         borderColor: '#DDD',
         borderRadius: 6,
@@ -71,7 +66,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#F3F3F3',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-evenly'
     },
     avatar: {
         width: 80,
@@ -81,24 +76,37 @@ export default StyleSheet.create({
         backgroundColor: '#FFF8F8'
     },
     cardInfoContainer:{
+        justifyContent: 'flex-end',
         flexDirection: 'column',
     },
 
     cardInfo:{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+    },
+    cardInfo2:{
+        flexDirection: 'row', // signfica q esse container vai ser organizado como uma coluna
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        alignContent: 'stretch'
     },
     name:{
         color: "#000000",
         fontSize: 16,
         fontWeight: "bold",
+        width: 180,
+    },
+    team:{
+        color: "#000000",
+        fontSize: 16,
+        fontWeight: "bold",
         alignSelf: 'center',
-        width: 100,
-        alignContent: 'stretch'
+        width: 160,
     },
     profileIcon:{
-        width: 50,
-        alignContent: 'stretch'
+        paddingRight: 32
+    },
+    carIcon:{
+        paddingLeft: 48,
     }
 });
