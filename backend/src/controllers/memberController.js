@@ -2,7 +2,10 @@ const Member = require('../database/models/member');
 
 module.exports = {
     index(req, res) {
-        Member.find({}).populate("team").exec( (err, members) => {
+        Member.find({}).sort({
+            coord: -1,
+            name: 1
+        }).populate("team").exec( (err, members) => {
             if (err) {
                 return res.status(204).json({
                     error: `Error on database: ${ err.message }`
