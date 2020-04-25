@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Picker, Image, ImageBackground,View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { FlatList, Picker, View, TextInput, Text} from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/native'
 
-import { MaterialIcons, Feather, FontAwesome5 } from '@expo/vector-icons';
-import profileIcon from '../../assets/Icons/Profile.png';
-import personIcon from '../../assets/Icons/person.png';
-
 import styles from './styles';
-import globalStyles from '../globalStyles';
+import globalStyles from '../../globalStyles';
+
+import Header from '../../components/header';
+import MemberCard from '../../components/memberCard';
 
 import api from '../../services/api';
 
@@ -133,17 +132,7 @@ export default function MemberList() {
         style={globalStyles.container}>
 
             {/* HEADER DA PÁGINA */}
-            <View style={globalStyles.header}>
-                <TouchableOpacity 
-                    style={globalStyles.arrow}
-                >
-                    <Feather name={'arrow-left'} color='#F2F2F2' size={28} />
-                </TouchableOpacity>
-                <Text style={globalStyles.headerText}>Lista de Membros</Text>
-                <TouchableOpacity>
-                    <Image source={profileIcon} />
-                </TouchableOpacity>
-            </View>
+            <Header title = 'Lista de Membros'/>
 
             {/* SEARCH BAR */}
             <View style={styles.searchBar}>
@@ -206,24 +195,7 @@ export default function MemberList() {
                     showsVerticalScrollIndicator={false}
                     keyExtractor = {member => member._id}
                     renderItem = { ( { item: member } ) => (
-                        <TouchableOpacity 
-                        style = {styles.card}
-                        onPress ={() => NavigateToViewProfile(member)}>
-                        <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                            <Image style={styles.avatar}  source={{uri: member.image}} />
-                        </ImageBackground>     
-                            <View style = {styles.memberInfo}>
-                                <View> 
-                                    <Text style = {styles.nickname}>{member.realName}</Text>
-                                    <Text style = {styles.name}>{member.name}</Text>
-                                </View>
-                                <Text style = {styles.team}>{member.team.name}</Text>
-                            </View>
-                            <View style = {styles.iconsInfo}>
-                                <FontAwesome5 name={'crown'} color={member.coord === true ? '#003D5C' : '#F3F3F3'} size={28}/>
-                                <MaterialIcons  name={'directions-car'} color={member.hasCar ===1 ? '#003D5C' : '#F3F3F3'} size={32}/>
-                            </View>
-                        </TouchableOpacity>
+                        <MemberCard member={member} navigateFunction = {() => NavigateToViewProfile(member)}/>
                     )}
                 />
 

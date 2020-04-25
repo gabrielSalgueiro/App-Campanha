@@ -6,7 +6,9 @@ import { MaterialIcons, Feather, FontAwesome5 } from '@expo/vector-icons';
 import personIcon from '../../assets/Icons/person.png';
 
 import styles from './styles';
-import globalStyles from '../globalStyles';
+import globalStyles from '../../globalStyles';
+
+import Header from '../../components/header'
 
 import api from '../../services/api';
 
@@ -19,18 +21,9 @@ export default function ViewProfile(){
     }
 
     return (
-        <View style={globalStyles.container}>
-
-            {/* HEADER DA PÁGINA */}
-            <View style={globalStyles.header}>
-                <TouchableOpacity 
-                    onPress={NavigateBack}
-                    style={globalStyles.arrow}
-                >
-                    <Feather name={'arrow-left'} color='#F2F2F2' size={28} />
-                </TouchableOpacity>
-                <Text style={globalStyles.headerText}>Ver Perfil</Text>
-            </View>
+        <View 
+            style={globalStyles.container}>
+            <Header title='Perfil' backFunc = {NavigateBack}/>
         </View>
     )
 }

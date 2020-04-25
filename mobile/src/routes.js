@@ -4,8 +4,6 @@ import { createStackNavigator }  from '@react-navigation/stack';
 
 const appStack = createStackNavigator();
 
-import globalStyles from './pages/globalStyles'
-
 import MemberList from './pages/MemberList/';
 import ViewProfile from './pages/ViewProfile';
 
