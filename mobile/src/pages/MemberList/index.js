@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Linking, FlatList, Picker, Image, View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { FlatList, Picker, Image, ImageBackground,View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import { useNavigation} from '@react-navigation/native'
 
-import { MaterialIcons, Feather, FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, Feather, FontAwesome5 } from '@expo/vector-icons';
 import profileIcon from '../../assets/Icons/Profile.png';
 import personIcon from '../../assets/Icons/person.png';
 
@@ -13,15 +14,13 @@ import api from '../../services/api';
 
 export default function MemberList() {
 
+    const navigation =  useNavigation();
+
     const [name, setName] = useState('');
     const [team, setTeam] = useState('');
     const [checkCar, setCheckCar] = useState(false);
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
-
-    function sendWhatsapp(whatsapp){
-        Linking.openURL(`whatsapp://send?phone=+55${whatsapp}`)
-    }
 
     function handleCheckBox() {
         
@@ -124,6 +123,10 @@ export default function MemberList() {
         loadMembers();
     }, [])
 
+    function NavigateToViewProfile(member){
+        navigation.navigate('ViewProfile', {member});
+    }
+
     return (
         <View 
         
@@ -131,7 +134,9 @@ export default function MemberList() {
 
             {/* HEADER DA PÁGINA */}
             <View style={globalStyles.header}>
-                <TouchableOpacity style={globalStyles.arrow}>
+                <TouchableOpacity 
+                    style={globalStyles.arrow}
+                >
                     <Feather name={'arrow-left'} color='#F2F2F2' size={28} />
                 </TouchableOpacity>
                 <Text style={globalStyles.headerText}>Lista de Membros</Text>
@@ -171,7 +176,6 @@ export default function MemberList() {
                     <Text>Time:</Text>
                     <View style={styles.PickerView}>
                         <Picker
-
                             selectedValue={team}
                             onValueChange={(itemValue, itemIndex) => {filterMembersbyTeam(itemValue)}}
                             style={styles.Picker}
@@ -183,6 +187,7 @@ export default function MemberList() {
                             <Picker.Item label="Divulgação" value="Divulgação" />
                             <Picker.Item label="Infra" value="Infraestrutura" />
                             <Picker.Item label="RE" value="Relações Externas" />
+                            <Picker.Item label="Geral" value="Geral" />
 
                         </Picker>
                         
@@ -200,31 +205,25 @@ export default function MemberList() {
                     vertical
                     showsVerticalScrollIndicator={false}
                     keyExtractor = {member => member._id}
-                    renderItem = { ( { item } ) => (
-                        <View style = {styles.card}>
-                    
-                            <Image style={styles.avatar} defaultSource={number = require('../../assets/Icons/person.png')} source={{uri: item.image}} />
-                            
-                            <View style = {styles.cardInfoContainer}>
-                                <View style = {styles.cardInfo}>
-                                    <Text style = {styles.name}>{item.realName}</Text>
-                                    <TouchableOpacity style = {styles.profileIcon}>
-                                        <Image source={profileIcon} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={()=>sendWhatsapp(item.wpp)}>
-                                        <FontAwesome name={'whatsapp'} color='#003D5C' size={28} />
-                                    </TouchableOpacity>
-
+                    renderItem = { ( { item: member } ) => (
+                        <TouchableOpacity 
+                        style = {styles.card}
+                        onPress ={() => NavigateToViewProfile(member)}>
+                        <ImageBackground style={styles.standartAvatar} source={personIcon}>
+                            <Image style={styles.avatar}  source={{uri: member.image}} />
+                        </ImageBackground>     
+                            <View style = {styles.memberInfo}>
+                                <View> 
+                                    <Text style = {styles.nickname}>{member.realName}</Text>
+                                    <Text style = {styles.name}>{member.name}</Text>
                                 </View>
-                                
-                                <View style = {styles.cardInfo2}>
-                                    <Text style = {styles.team}>{item.team.name}</Text>
-                                    <View style = {styles.carIcon}>
-                                        <MaterialIcons name={'directions-car'} color={item.hasCar ===1 ? '#979797' : '#F3F3F3'} size={32}/>
-                                    </View>
-                                </View>
+                                <Text style = {styles.team}>{member.team.name}</Text>
                             </View>
-                        </View>
+                            <View style = {styles.iconsInfo}>
+                                <FontAwesome5 name={'crown'} color={member.coord === true ? '#003D5C' : '#F3F3F3'} size={28}/>
+                                <MaterialIcons  name={'directions-car'} color={member.hasCar ===1 ? '#003D5C' : '#F3F3F3'} size={32}/>
+                            </View>
+                        </TouchableOpacity>
                     )}
                 />
 

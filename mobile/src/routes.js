@@ -7,6 +7,7 @@ const appStack = createStackNavigator();
 import globalStyles from './pages/globalStyles'
 
 import MemberList from './pages/MemberList/';
+import ViewProfile from './pages/ViewProfile';
 
 export default function Routes(){
 
@@ -14,6 +15,7 @@ export default function Routes(){
         <NavigationContainer>
             <appStack.Navigator screenOptions={{headerShown: false}}>
                 <appStack.Screen name  =  "MemberList" component = {MemberList} />
+                <appStack.Screen name  =  "ViewProfile" component = {ViewProfile} />
             </appStack.Navigator>
         </NavigationContainer>
     );

@@ -2,13 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-    cardsContainer:{
-        flex: 1,
-        backgroundColor: '#3DACE1',
-        paddingHorizontal: 10,
-        
-    },
-
     searchBar: {
         backgroundColor: '#3DACE1',
         height: 150,
@@ -56,6 +49,11 @@ export default StyleSheet.create({
         alignSelf: 'center',
         margin: 5,
     },
+    cardsContainer:{
+        flex: 1,
+        backgroundColor: '#3DACE1',
+        paddingHorizontal: 10,
+    },
     card: {
         borderColor: '#DDD',
         borderRadius: 6,
@@ -65,46 +63,42 @@ export default StyleSheet.create({
         elevation: 2,
         flexDirection: 'row',
         backgroundColor: '#F3F3F3',
-        alignItems: 'center',
-        justifyContent: 'space-evenly'
+        justifyContent: 'center',
+    },
+    standartAvatar:{
+        backgroundColor: '#FFF8F8',
+        alignSelf: 'center'
     },
     avatar: {
         width: 80,
         height: 80,
         resizeMode: 'cover',
         borderRadius: 17,
-        backgroundColor: '#FFF8F8'
+        alignSelf: 'center'
     },
-    cardInfoContainer:{
-        justifyContent: 'flex-end',
-        flexDirection: 'column',
+    memberInfo:{
+        paddingLeft: 20,
+        justifyContent: 'space-evenly'
     },
-
-    cardInfo:{
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cardInfo2:{
-        flexDirection: 'row', // signfica q esse container vai ser organizado como uma coluna
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        alignContent: 'stretch'
-    },
-    name:{
-        color: "#000000",
+    nickname:{
         fontSize: 16,
         fontWeight: "bold",
         width: 180,
     },
-    team:{
-        color: "#000000",
-        fontSize: 16,
-        fontWeight: "bold",
-        alignSelf: 'center',
-        width: 160,
+    name:{
+        fontSize: 14,
+        width: 180,
+        color: '#B7B7B7'
     },
-    profileIcon:{
-        paddingRight: 32
+    team:{
+        fontSize: 14,
+        width: 180,
+    },
+
+    iconsInfo:{
+        paddingLeft: 40,
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     carIcon:{
         paddingLeft: 48,
