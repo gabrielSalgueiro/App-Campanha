@@ -26,6 +26,6 @@ export default function MemberCard({member, navigateFunction}){
                 <FontAwesome5 name={'crown'} color={member.coord === true ? '#003D5C' : '#F3F3F3'} size={28}/>
                 <MaterialIcons  name={'directions-car'} color={member.hasCar ===1 ? '#003D5C' : '#F3F3F3'} size={32}/>
             </View>
-    </TouchableOpacity>
+        </TouchableOpacity>
     )
 }

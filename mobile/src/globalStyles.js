@@ -17,11 +17,12 @@ export default StyleSheet.create({
         flexDirection: "row",
     },
     headerText:{
+        width: 220,
         fontWeight: 'bold',
         color: '#FEFEFE',
         fontSize: 24,
         justifyContent: 'center',
-        alignSelf: 'center'
+        textAlign: 'center'
     },
 
 })
