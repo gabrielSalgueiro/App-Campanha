@@ -6,7 +6,7 @@ import { useNavigation} from '@react-navigation/native'
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
-import Header from '../../components/header';
+import Footer from '../../components/footer';
 import MemberCard from '../../components/memberCard';
 
 import api from '../../services/api';
@@ -131,8 +131,6 @@ export default function MemberList() {
         
         style={globalStyles.container}>
 
-            {/* HEADER DA PÁGINA */}
-            <Header title = 'Lista de Membros'/>
 
             {/* SEARCH BAR */}
             <View style={styles.searchBar}>
@@ -200,7 +198,8 @@ export default function MemberList() {
                 />
 
             </View>
-
+             {/* HEADER DA PÁGINA */}
+             <Footer />
         </View>
     )
 

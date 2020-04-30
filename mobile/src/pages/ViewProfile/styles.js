@@ -18,17 +18,29 @@ export default StyleSheet.create({
         marginRight: 50,
         alignSelf: 'center'
     },
+    hideEditButton:{
+        marginRight: 78,
+    },
     photo:{
-        marginTop: 30,
         marginRight: 90,
+        marginTop: 70,
+        justifyContent:'space-around'
+    },
+    showCrown:{
+        alignSelf: 'center',
+        marginBottom: 90,
+    },
+    hideCrown:{
+        alignSelf: 'center',
+        marginBottom: 135,
     },
     standartAvatar:{
+        marginTop: 10,
         alignSelf: 'center',
         borderRadius: 40,
         borderWidth: 0.5,
         borderColor: '#3DACE1',
-        backgroundColor: '#FFF8F8'
-        
+        backgroundColor: '#FFF8F8',
     },
     avatar: {
         width: 80,
@@ -79,6 +91,9 @@ export default StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
+    },
+    car:{
+        alignSelf: 'center'
     },
     frequencyCard:{
         height: 160,

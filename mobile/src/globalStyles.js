@@ -6,23 +6,26 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#003D5C',
+        backgroundColor: '#3DACE1',
     },
 
-    header:{
+    footer:{
         backgroundColor: '#003D5C',
         justifyContent: 'space-around',
         alignItems: "center",
-        height: 48,
+        height: 55,
         flexDirection: "row",
     },
-    headerText:{
-        width: 220,
-        fontWeight: 'bold',
+    footerText:{
+        fontWeight: '500',
         color: '#FEFEFE',
-        fontSize: 24,
+        fontSize: 12,
         justifyContent: 'center',
         textAlign: 'center'
     },
+    footerButton:{
+        flexDirection: 'column',
+        alignItems: 'center'
+    }
 
 })

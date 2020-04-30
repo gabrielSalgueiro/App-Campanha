@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Image, ImageBackground, View, Text, TouchableOpacity } from 'react-native';
+import { Image, Clipboard,ImageBackground, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { MaterialIcons, Feather, FontAwesome5, FontAwesome} from '@expo/vector-icons';
 import personIcon from '../../assets/Icons/person.png';
+import carIcon from '../../assets/Icons/Car.png'
+import notCarIcon from '../../assets/Icons/notCar.png'
 
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
-import Header from '../../components/header'
+import ShowCrown from '../../components/ShowCrown'
+import ShowEdit from '../../components/ShowEdit'
+import Footer from '../../components/footer'
 
 import api from '../../services/api';
 
 export default function ViewProfile(){
 
+    const route = useRoute();
+
+    const logged_memberID = "5e9f73d4ba69b800176e0ac5"
+    
+    const member = route.params.member;
     const navigation =  useNavigation();
+
+
+    function sendWhatsapp(){
+        Linking.openURL(`whatsapp://send?phone=+55${member.wpp}`)
+    }
+
+    function copyToClipboard(){
+        Clipboard.setString(member.email)
+    }
 
     function NavigateBack(){
         navigation.goBack();
@@ -23,21 +41,23 @@ export default function ViewProfile(){
     return (
         <View 
             style={globalStyles.container}>
-            <Header title='Perfil' backFunc = {NavigateBack}/>
+            
             
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
                 <View style = {styles.photographyContainer}>
                     <View style = {styles.editButtonContainer}>
+                       
+                        
                         <View style = {styles.photo}>
+                            
                             <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                <Image style={styles.avatar}  source={{uri: 'https://avatars1.githubusercontent.com/u/39507204?s=460&u=5fc1f198be9793fc056d9b62f0c7272b89d9de49&v=4'}} />
+                                <Image style={styles.avatar}  source={{uri: member.image}} />
                             </ImageBackground>
+                            <ShowCrown show ={member.coord}/>
                         </View>
-                        <View style={styles.editButton}>
-                            <MaterialIcons name={'edit'} color='#003D5C' size={28} />
-                        </View>
+                        <ShowEdit show = {member._id == logged_memberID}/>
                     </View>
                     
                 </View>
@@ -46,16 +66,16 @@ export default function ViewProfile(){
                 <View styles =  {styles.infoContainer}>
                    
                     <View style =  {styles.names}>
-                        <Text style = {styles.realName}>Gabriel Alfonso Nascimento Salgueiro</Text>
-                        <Text style = {styles.nickname}>(Grajaú)</Text>
+                        <Text style = {styles.realName}>{member.name}</Text>
+                        <Text style = {styles.nickname}>({member.realName})</Text>
                     </View>
                     <View style = {styles.informations}>
                         <View style={styles.iconTextContainer}>
                             <Feather name={'mail'} color = '#003D5C'size={29}/>
                             <Text style = {styles.textInfo}>
-                                gabrielalfonsosalgueiro@usp.br
+                                {member.email}
                             </Text>
-                            <TouchableOpacity style = {styles.clipboard}>
+                            <TouchableOpacity  onPress = {copyToClipboard}style = {styles.clipboard}>
                                 <FontAwesome5 name={'copy'} color = '#003D5C' size={22}/>
                             </TouchableOpacity>
                             
@@ -64,25 +84,24 @@ export default function ViewProfile(){
                         <View style={styles.iconTextContainer}>
                             <MaterialIcons name={'school'} color = '#003D5C'size={29}/>
                             <Text style = {styles.textInfo}>
-                                Ciências da Computação
+                                {member.course}
                             </Text>
                         </View>
                         <View style={styles.iconTextContainer}>
                             <FontAwesome name={'whatsapp'} color = '#003D5C'size={34}/>
                             <Text style = {styles.textInfo}>
-                                (11) 97806 - 6163
+                                ({member.wpp.slice(0,2)}) {member.wpp.slice(2,7)} - {member.wpp.slice(7)}
                             </Text>
-                            <TouchableOpacity style = {styles.clipboard}>
-                                <FontAwesome5 name={'link'} alt="Copy to clipboard" color = '#003D5C' size={18}/>
+                            <TouchableOpacity onPress = {sendWhatsapp}style = {styles.clipboard}>
+                                <FontAwesome5 name={'link'} color = '#003D5C' size={18}/>
                             </TouchableOpacity>
                         </View>
                         
                     </View>
 
                     <View style = {styles.carTeamContainer}>
-
-                        <MaterialIcons  name={'directions-car'} color='#003D5C' size={32}/>
-                            <MaterialIcons name={'people-outline'} color = '#003D5C'size={32}/>
+                        <Image style = {styles.car} source = {member.hasCar == 0 ? notCarIcon : carIcon}/>
+                        <MaterialIcons name={'people-outline'} color = '#003D5C'size={32}/>
 
                     </View>
 
@@ -116,6 +135,7 @@ export default function ViewProfile(){
 
                 </View>
             </View>
+            <Footer />
         </View>
     )
 }
