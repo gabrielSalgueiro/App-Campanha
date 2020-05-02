@@ -8,6 +8,7 @@ import globalStyles from '../../globalStyles';
 
 import Footer from '../../components/footer';
 import MemberCard from '../../components/memberCard';
+import Loading from '../../components/Loading';
 
 import api from '../../services/api';
 
@@ -20,6 +21,7 @@ export default function MemberList() {
     const [checkCar, setCheckCar] = useState(false);
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
+    const [loading, setLoading] =  useState(true)
 
     function handleCheckBox() {
         
@@ -118,15 +120,21 @@ export default function MemberList() {
             })
             setAllMembers(resp.data);
             setFilteredMembers(resp.data)
+            setLoading(false)
         }
         loadMembers();
     }, [])
 
     function NavigateToViewProfile(member){
-        navigation.navigate('ViewProfile', {member});
+        navigation.navigate('ViewProfile', {id: member._id});
     }
 
-    return (
+    if(loading == true)
+        return(
+            <Loading/>
+        )
+    else if(loading == false)
+        return (
         <View 
         
         style={globalStyles.container}>

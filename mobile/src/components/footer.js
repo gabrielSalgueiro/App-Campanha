@@ -13,6 +13,9 @@ export default function Footer(){
 
     const navigation =  useNavigation();
 
+    function NavigateToViewProfile(){
+        navigation.navigate('ViewProfile', {id:'5e9f74fcba69b800176e0ac7'});
+    }
     function NavigateToMemberList(){
         navigation.navigate('MemberList');
     }
@@ -32,7 +35,7 @@ export default function Footer(){
                 <Image source = {searchIcon}/>
                 <Text style = {styles.footerText}>Membros</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.footerButton}>
+            <TouchableOpacity style={styles.footerButton} onPress={NavigateToViewProfile}>
                 <Image source={profileIcon} />
                 <Text style = {styles.footerText}>Perfil</Text>
             </TouchableOpacity>
