@@ -1,8 +1,10 @@
 // REACT E REACT NATIVES IMPORTS
 
 import React, { useState, useEffect } from 'react';
-import { Image, RefreshControl, Clipboard,ImageBackground, View, Text, TouchableOpacity, Linking } from 'react-native';
+import { Image, Clipboard,ImageBackground, View, Text, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native'
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import { showMessage} from "react-native-flash-message";
 
 // ICONS
 import { MaterialIcons, Feather, FontAwesome5, FontAwesome} from '@expo/vector-icons';
@@ -23,16 +25,17 @@ import globalStyles from '../../globalStyles';
 import ShowCrown from '../../components/showCrown'
 import ShowEdit from '../../components/showEdit'
 import Footer from '../../components/footer'
-import Loading from '../../components/Loading'
 
 import api from '../../services/api';
 
 export default function ViewProfile(){
 
     const route = useRoute();
-    const [loading, setLoading] =  useState(true)
+    const [loaded, setLoaded] =  useState(false)
     const [teamIcon, setTeamIcon] = useState()
-    const [member, setMember] = useState({})
+    const [member, setMember] = useState({
+        wpp: ''
+    })
     const logged_memberID = "5e9f74fcba69b800176e0ac7" // ID DO MIOJAO
     
     const memberId = route.params.id; // ID DO MEMBRO DO PERFIL
@@ -58,7 +61,7 @@ export default function ViewProfile(){
                 setTeamIcon(divulgaIcon)
             else
                 setTeamIcon(reIcon)
-            setLoading(false)
+            setLoaded(true)
         }
         getMember();
     }, [])
@@ -69,14 +72,14 @@ export default function ViewProfile(){
 
     function copyToClipboard(){
         Clipboard.setString(member.email)
+        showMessage({
+            message: "Copiado para a Área de Transferência.",
+            type: "info",
+            backgroundColor: "#3DACE1"
+          });
     }
 
-    if(loading == true)
-        return(
-            <Loading/>
-        )
-    else if(loading == false)
-        return (
+    return (
         <View 
             style={globalStyles.container}>
             
@@ -84,93 +87,120 @@ export default function ViewProfile(){
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
-                <View style = {styles.photographyContainer}>
-                    <View style = {styles.editButtonContainer}>
-                       
+                <ShimmerPlaceHolder
+                    style={{height:120, width:'90%', marginTop: 10, marginLeft: 10}} 
+                    autoRun={true} 
+                    visible={loaded}
+                >
+                    <View style = {styles.photographyContainer}>
+                        <View style = {styles.editButtonContainer}>
                         
-                        <View style = {styles.photo}>
-                            
-                            <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                <Image style={styles.avatar}  source={{uri: member.image}} />
-                            </ImageBackground>
-                            <ShowCrown show ={member.coord}/>
+                            <View style = {styles.photo}>
+                                
+                                <ImageBackground style={styles.standartAvatar} source={personIcon}>
+                                    <Image style={styles.avatar}  source={{uri: member.image}} />
+                                </ImageBackground>
+                                <ShowCrown show ={member.coord}/>
+                            </View>
+                            <ShowEdit show = {member._id == logged_memberID}/>
                         </View>
-                        <ShowEdit show = {member._id == logged_memberID}/>
                     </View>
-                    
-                </View>
+                </ShimmerPlaceHolder>
                 {/* Informações do membro */}
-
+                
                 <View styles =  {styles.infoContainer}>
-                   
-                    <View style =  {styles.names}>
-                        <Text style = {styles.realName}>{member.name}</Text>
-                        <Text style = {styles.nickname}>({member.realName})</Text>
-                    </View>
-                    <View style = {styles.informations}>
-                        <View style={styles.iconTextContainer}>
-                            <Feather name={'mail'} color = '#003D5C'size={29}/>
-                            <Text style = {styles.textInfo}>
-                                {member.email}
-                            </Text>
-                            <TouchableOpacity  onPress = {copyToClipboard}style = {styles.clipboard}>
-                                <FontAwesome5 name={'copy'} color = '#003D5C' size={22}/>
-                            </TouchableOpacity>
-                            
-                            
+                    
+                    <ShimmerPlaceHolder
+                        style={{height:70, width: '80%', marginTop: 10,marginHorizontal: 30}} 
+                        autoRun={true} 
+                        visible={loaded}
+                    >
+                        <View style =  {styles.names}>
+                            <Text style = {styles.realName}>{member.name}</Text>
+                            <Text style = {styles.nickname}>({member.realName})</Text>
                         </View>
-                        <View style={styles.iconTextContainer}>
-                            <MaterialIcons name={'school'} color = '#003D5C'size={29}/>
-                            <Text style = {styles.textInfo}>
-                                {member.course}
-                            </Text>
-                        </View>
-                        <View style={styles.iconTextContainer}>
-                            <FontAwesome name={'whatsapp'} color = '#003D5C'size={34}/>
-                            <Text style = {styles.textInfo}>
-                                ({member.wpp.slice(0,2)}) {member.wpp.slice(2,7)} - {member.wpp.slice(7)}
-                            </Text>
-                            <TouchableOpacity onPress = {sendWhatsapp}style = {styles.clipboard}>
-                                <FontAwesome5 name={'link'} color = '#003D5C' size={18}/>
-                            </TouchableOpacity>
-                        </View>
+                    </ShimmerPlaceHolder>
+                    <ShimmerPlaceHolder
+                        style={{height:160, width: '80%', marginTop: 10,marginHorizontal: 30}} 
+                        autoRun={true} 
+                        visible={loaded}
+                    >
+                        <View style = {styles.informations}>
+                    
+                            <View style={styles.iconTextContainer}>
+                                <Feather name={'mail'} color = '#003D5C'size={29}/>
+                                <Text style = {styles.textInfo}>
+                                    {member.email}
+                                </Text>
+                                <TouchableOpacity  onPress = {copyToClipboard}style = {styles.clipboard}>
+                                    <FontAwesome5 name={'copy'} color = '#003D5C' size={22}/>
+                                </TouchableOpacity>
+                                
+                                
+                            </View>
+                            <View style={styles.iconTextContainer}>
+                                <MaterialIcons name={'school'} color = '#003D5C'size={29}/>
+                                <Text style = {styles.textInfo}>
+                                    {member.course}
+                                </Text>
+                            </View>
+                            <View style={styles.iconTextContainer}>
+                                <FontAwesome name={'whatsapp'} color = '#003D5C'size={34}/>
+                                <Text style = {styles.textInfo}>
+                                    ({member.wpp.slice(0,2)}) {member.wpp.slice(2,7)} - {member.wpp.slice(7)}
+                                </Text>
+                                <TouchableOpacity onPress = {sendWhatsapp}style = {styles.clipboard}>
+                                    <FontAwesome5 name={'link'} color = '#003D5C' size={18}/>
+                                </TouchableOpacity>
+                            </View>
                         
-                    </View>
+                        </View>
+                    </ShimmerPlaceHolder>
+                    <ShimmerPlaceHolder
+                        style={{height:70, width: '80%', marginTop: 10,marginHorizontal: 30}} 
+                        autoRun={true} 
+                        visible={loaded}
+                    >
+                        <View style = {styles.carTeamContainer}>
+                            <Image style = {styles.car} source = {member.hasCar == 0 ? notCarIcon : carIcon}/>
+                            <Image source = {teamIcon}/>
+                        </View>
+                    </ShimmerPlaceHolder>
 
-                    <View style = {styles.carTeamContainer}>
-                        <Image style = {styles.car} source = {member.hasCar == 0 ? notCarIcon : carIcon}/>
-                        <Image source = {teamIcon}/>
-                        
-
-                    </View>
                     {/* Card de Frequencia*/}
-                    <View style={styles.frequencyCard}>
-                        <Text style={styles.title}>Frequência:</Text>
-                        
-                        <View style = {styles.frequency}>
-                            <Text>Reuniões de Núcleo:</Text>
-                            <View style={styles.frequencyValue}>
-                                <View style={styles.colorBox}/>
-                                <Text>80%</Text>
+                    <ShimmerPlaceHolder
+                    style={{height:160, width: '80%', marginHorizontal: 30, marginTop: 30}} 
+                    autoRun={true} 
+                    visible={loaded}
+                    >
+                        <View style={styles.frequencyCard}>
+                            <Text style={styles.title}>Frequência:</Text>
+                            
+                            <View style = {styles.frequency}>
+                                <Text>Reuniões de Núcleo:</Text>
+                                <View style={styles.frequencyValue}>
+                                    <View style={styles.colorBox}/>
+                                    <Text>80%</Text>
+                                </View>
                             </View>
-                        </View>
-                        <View style = {styles.frequency}>
-                            <Text>Reuniões Gerais:</Text>
-                            <View style={styles.frequencyValue}>
-                                <View style={styles.colorBox}/>
-                                <Text>50%</Text>
+                            <View style = {styles.frequency}>
+                                <Text>Reuniões Gerais:</Text>
+                                <View style={styles.frequencyValue}>
+                                    <View style={styles.colorBox}/>
+                                    <Text>50%</Text>
+                                </View>
                             </View>
-                        </View>
-                        <View style = {styles.frequency}>
-                            <Text>Eventos:</Text>
-                            <View style={styles.frequencyValue}>
-                                <View style={styles.colorBox}/>
-                                <Text>10%</Text>
+                            <View style = {styles.frequency}>
+                                <Text>Eventos:</Text>
+                                <View style={styles.frequencyValue}>
+                                    <View style={styles.colorBox}/>
+                                    <Text>10%</Text>
+                                </View>
+                                
                             </View>
                             
                         </View>
-                        
-                    </View>
+                    </ShimmerPlaceHolder>
 
                 </View>
             </View>

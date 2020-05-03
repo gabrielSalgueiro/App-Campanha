@@ -7,7 +7,6 @@ export default function Loading(){
     return (
         <View>
             <Text> Loading Page</Text>
-
         </View>
     )
 }
