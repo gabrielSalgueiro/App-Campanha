@@ -1,20 +1,20 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, TouchableOpacity} from 'react-native';
 
-import styles from '../pages/ViewProfile/styles'
+import globalStyles from '../globalStyles'
 import { MaterialIcons} from '@expo/vector-icons';
 
 import crownIcon from '../assets/Icons/crown.png'
 
-export default function ShowEdit({show}){
+export default function ShowEdit({show, onPress}){
     if(show == false){
-        return <View style={styles.hideEditButton}>
+        return <View style={globalStyles.hideEditButton}>
             </View>
     }else{
         return(
-            <View style={styles.editButton}>
+            <TouchableOpacity onPress={onPress} style={globalStyles.editButton}>
                 <MaterialIcons name={'edit'} color='#003D5C' size={28} />
-            </View>
+            </TouchableOpacity>
         )
     } 
 

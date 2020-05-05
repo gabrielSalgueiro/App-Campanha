@@ -15,9 +15,22 @@ export default StyleSheet.create({
         flexDirection:  'row',
     },
     photo:{
-        marginRight: 90,
+        marginRight: 80,
         marginTop: 70,
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+    },
+    camera:{
+        borderRadius: 30,
+        borderWidth: 0.5,
+        borderColor: '#3DACE1',
+        backgroundColor: '#FFF8F8',
+        marginLeft: 70,
+        marginTop: 60,
+        marginBottom: 20,
+        height: 35,
+        width: 35,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     standartAvatar:{
         marginTop: 10,
@@ -44,15 +57,19 @@ export default StyleSheet.create({
         marginHorizontal: 40,
         marginBottom: 10
     },
-    realName:{
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 24
+    nameBox:{
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#003D5C',
+        borderRadius: 3,
+        marginTop: 13,
+        paddingHorizontal: 16,
+        justifyContent: 'center'
     },
-    nickname:{
-        fontWeight: '500',
-        fontSize: 16,
+    nameInput:{
         textAlign: 'center',
+        fontSize: 18,
+        color: '#7D7D7D'
     },
     informations:{
         alignItems: 'center',
@@ -62,54 +79,39 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         paddingHorizontal: 20,
-        alignItems: 'center'
     },
-    textInfo:{
-        marginLeft: 20,
-        fontWeight: '500',
-        fontSize: 16,
-    },
-    clipboard:{
+    infoBox:{
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#003D5C',
+        borderRadius: 3,
+        width: 280,
+        justifyContent: 'center',
         marginLeft: 10
+    },
+    infoInput:{
+        alignSelf: 'stretch',
+        paddingHorizontal: 10,
+        color: '#7D7D7D',
+        fontSize: 14,
     },
     carTeamContainer:{
         marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
     },
+    carTeamButton:{
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#003D5C',
+        borderRadius: 3,
+        height: 35,
+        width: 35,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     car:{
         alignSelf: 'center'
     },
-    frequencyCard:{
-        height: 160,
-        marginHorizontal: 30,
-        borderRadius: 8,
-        marginTop: 30,
-        backgroundColor: '#ECECEC',
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-    },
-    title:{
-        color: '#003D5C',
-        fontWeight: 'bold',
-        fontSize: 24,
-        marginBottom: 5
-    },
-    frequency:{
-        marginVertical: 5,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    frequencyValue:{
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    colorBox:{
-        backgroundColor: '#B93B3B',
-        height: 16,
-        width: 16,
-        marginRight: 10,
-        
-    }
 
 })

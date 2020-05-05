@@ -26,6 +26,22 @@ export default StyleSheet.create({
     footerButton:{
         flexDirection: 'column',
         alignItems: 'center'
-    }
+    },
+
+    showCrown:{
+        alignSelf: 'center',
+        marginBottom: 90,
+    },
+    hideCrown:{
+        alignSelf: 'center',
+        marginBottom: 135,
+    },
+    editButton:{
+        marginRight: 50,
+        alignSelf: 'center'
+    },
+    hideEditButton:{
+        marginRight: 78,
+    },
 
 })

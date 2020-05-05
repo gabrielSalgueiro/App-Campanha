@@ -36,11 +36,15 @@ export default function ViewProfile(){
     const [member, setMember] = useState({
         wpp: ''
     })
-    const logged_memberID = "5e9f74fcba69b800176e0ac7" // ID DO MIOJAO
+    const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
     
     const memberId = route.params.id; // ID DO MEMBRO DO PERFIL
     const navigation =  useNavigation();
     
+    function NavigateToEditProfile(member){
+        navigation.navigate('EditProfile', {member});
+    }
+
     // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
     useEffect(()=>{
         
@@ -102,7 +106,7 @@ export default function ViewProfile(){
                                 </ImageBackground>
                                 <ShowCrown show ={member.coord}/>
                             </View>
-                            <ShowEdit show = {member._id == logged_memberID}/>
+                            <ShowEdit onPress={()=>NavigateToEditProfile(member)}show = {member._id == logged_memberID}/>
                         </View>
                     </View>
                 </ShimmerPlaceHolder>

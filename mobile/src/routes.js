@@ -9,6 +9,7 @@ const appStack = createStackNavigator();
 
 import MemberList from './pages/MemberList/';
 import ViewProfile from './pages/ViewProfile';
+import EditProfile from './pages/EditProfile'
 
 export default function Routes(){
 
@@ -17,6 +18,7 @@ export default function Routes(){
             <appStack.Navigator screenOptions={{headerShown: false}}>
                 <appStack.Screen name  =  "MemberList" component = {MemberList} />
                 <appStack.Screen name  =  "ViewProfile" component = {ViewProfile} />
+                <appStack.Screen name  =  "EditProfile" component = {EditProfile} />
             </appStack.Navigator>
             <FlashMessage position={{ top: 600, left: 20, right: 20 }} animated={true} floating={true}/>
         </NavigationContainer>
