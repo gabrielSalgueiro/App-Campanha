@@ -22,8 +22,7 @@ import globalStyles from '../../globalStyles';
 
 // COMPONENTES
 import ShowCrown from '../../components/showCrown'
-import ShowEdit from '../../components/showEdit'
-import Footer from '../../components/footer'
+import ShowEditSave from '../../components/showEditSave'
 
 import api from '../../services/api';
 
@@ -42,6 +41,7 @@ export default function EditProfile(){
     const [course, setCourse] =  useState(member.course)
     const [wpp, setWpp] =  useState(member.wpp)
     const [hasCar, setHasCar] = useState(member.hasCar)
+    const [photo, setPhoto] = useState(member.image)
 
     useEffect(()=>{
         if(member.team.name == 'Geral')
@@ -55,13 +55,26 @@ export default function EditProfile(){
         else
             setTeamIcon(reIcon)
     }, [])
-
+    let data ={
+        name: name,
+        realName: nickname,
+        email: email,
+        password: member.password,
+        wpp: wpp,
+        team: member.team._id,
+        image: photo,
+        course: course,
+        hasCar: hasCar,
+        coord: true
+    }
+    async function saveInformations(){
+        const resp = await api.put(`/members/${member._id}`, data)
+        navigation.push('ViewProfile', {id: member._id});
+    }
 
     return (
         <View 
             style={globalStyles.container}>
-            
-            
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
@@ -72,7 +85,7 @@ export default function EditProfile(){
                             <View style = {styles.photo}>
                                 
                                 <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                    <Image style={styles.avatar}  source={{uri: member.image}} />
+                                    <Image style={styles.avatar}  source={{uri: photo}} />
                                 </ImageBackground>
                                 <TouchableOpacity activeOpacity={0.4} style =  {styles.camera}>    
                                     <MaterialIcons name = "photo-camera" color = "#003D5C" size={28}/>
@@ -80,7 +93,7 @@ export default function EditProfile(){
                                 <ShowCrown show ={member.coord}/>
                                 
                             </View>
-                            <ShowEdit show = {true}/>
+                            <ShowEditSave onPress={saveInformations} type="save"show = {true}/>
                         </View>
                     </View>
                 
@@ -103,10 +116,12 @@ export default function EditProfile(){
                                 <TextInput 
                                     style = {styles.nameInput}
                                     autoCapitalize="words" 
+                                    multiline={true}
                                     value={nickname}
                                     onChangeText={nickname=>setNickName(nickname)}
                                 />
                             </View>
+                            
                         </View>
                     
                         <View style = {styles.informations}>
@@ -153,7 +168,10 @@ export default function EditProfile(){
                     
                         <View style = {styles.carTeamContainer}>
                             
-                            <TouchableOpacity style = {styles.carTeamButton} onPress={() => setHasCar(!hasCar)}>
+                            <TouchableOpacity 
+                                style = {styles.carTeamButton} 
+                                onPress={() => setHasCar(hasCar==0? 1:0)}
+                            >
                                 <Image style = {styles.car} source = {hasCar == 0 ? notCarIcon : carIcon}/>
                             </TouchableOpacity>
                             <TouchableOpacity style = {styles.carTeamButton}>
@@ -161,8 +179,8 @@ export default function EditProfile(){
                             </TouchableOpacity>
                         </View>
 
-                        <TouchableOpacity>
-                              <Text>Alterar Senha</Text>
+                        <TouchableOpacity style = {styles.passwordContainer}>
+                              <Text style={styles.password}>Alterar Senha</Text>
                         </TouchableOpacity>
 
                 </View>

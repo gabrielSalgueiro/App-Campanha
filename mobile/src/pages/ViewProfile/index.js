@@ -23,12 +23,11 @@ import globalStyles from '../../globalStyles';
 
 // COMPONENTES
 import ShowCrown from '../../components/showCrown'
-import ShowEdit from '../../components/showEdit'
-import Footer from '../../components/footer'
+import ShowEditSave from '../../components/showEditSave'
 
 import api from '../../services/api';
 
-export default function ViewProfile(){
+export default function ViewProfile({logged_ID= ''}){
 
     const route = useRoute();
     const [loaded, setLoaded] =  useState(false)
@@ -38,16 +37,21 @@ export default function ViewProfile(){
     })
     const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
     
-    const memberId = route.params.id; // ID DO MEMBRO DO PERFIL
+    
     const navigation =  useNavigation();
     
     function NavigateToEditProfile(member){
-        navigation.navigate('EditProfile', {member});
+        navigation.push('EditProfile', {member});
     }
-
+    let memberId
     // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
     useEffect(()=>{
-        
+        memberId = '5e9f710aba69b800176e0abf'
+        if (route.params?.id) {
+            memberId = route.params?.id
+          }
+
+
         async function getMember(){
             const resp =  await api.get(`/members/${memberId}`,{
 
@@ -106,7 +110,7 @@ export default function ViewProfile(){
                                 </ImageBackground>
                                 <ShowCrown show ={member.coord}/>
                             </View>
-                            <ShowEdit onPress={()=>NavigateToEditProfile(member)}show = {member._id == logged_memberID}/>
+                            <ShowEditSave type="edit" onPress={()=>NavigateToEditProfile(member)}show = {member._id == logged_memberID}/>
                         </View>
                     </View>
                 </ShimmerPlaceHolder>
@@ -208,8 +212,6 @@ export default function ViewProfile(){
 
                 </View>
             </View>
-
-            <Footer />
 
         </View>
     )

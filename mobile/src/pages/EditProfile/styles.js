@@ -113,5 +113,20 @@ export default StyleSheet.create({
     car:{
         alignSelf: 'center'
     },
+    passwordContainer:{
+        marginTop: 24,
+        width: 116,
+        height: 24,
+        alignSelf: 'center',
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: '#003D5C',
+    },
+    password:{
+        marginTop: 1,
+        textAlign: 'center',
+        fontSize: 12,
+        fontWeight: "500",
+    }
 
 })

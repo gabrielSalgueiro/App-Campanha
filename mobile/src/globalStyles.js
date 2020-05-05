@@ -11,10 +11,7 @@ export default StyleSheet.create({
 
     footer:{
         backgroundColor: '#003D5C',
-        justifyContent: 'space-around',
-        alignItems: "center",
         height: 55,
-        flexDirection: "row",
     },
     footerText:{
         fontWeight: '500',
@@ -27,7 +24,6 @@ export default StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center'
     },
-
     showCrown:{
         alignSelf: 'center',
         marginBottom: 90,

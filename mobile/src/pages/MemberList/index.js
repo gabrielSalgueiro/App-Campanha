@@ -6,7 +6,6 @@ import { useNavigation} from '@react-navigation/native'
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
-import Footer from '../../components/footer';
 import MemberCard from '../../components/memberCard';
 import Loading from '../../components/Loading';
 
@@ -126,7 +125,7 @@ export default function MemberList() {
     }, [])
 
     function NavigateToViewProfile(member){
-        navigation.navigate('ViewProfile', {id: member._id});
+        navigation.push('ViewProfile', {id: member._id});
     }
 
     if(loading == true)
@@ -206,8 +205,8 @@ export default function MemberList() {
                 />
 
             </View>
-             {/* HEADER DA PÁGINA */}
-             <Footer />
+             {/* HEADER DA PÁGINA <Footer />*/}
+             
         </View>
     )
 
