@@ -28,10 +28,10 @@ import api from '../../services/api';
 
 export default function EditProfile(){
 
+    // NAVIGATION PROPS
     const route = useRoute();
-    
-    const member = route.params.member; // ID DO MEMBRO DO PERFIL
     const navigation =  useNavigation();
+    const member = route.params.member; // ID DO MEMBRO DO PERFIL
     
     //STATES
     const [teamIcon, setTeamIcon] = useState()
@@ -65,11 +65,28 @@ export default function EditProfile(){
         image: photo,
         course: course,
         hasCar: hasCar,
-        coord: true
+        coord: member.coord
     }
     async function saveInformations(){
         const resp = await api.put(`/members/${member._id}`, data)
-        navigation.push('ViewProfile', {id: member._id});
+        
+
+        // reseta a pagina de perfil
+        // ainda não entendi como funciona direito
+        navigation.reset({
+            index: 0,
+            routes: [{name: "Perfil"}]
+        });
+
+        // Navega para a tela de perfil da BottomTab
+        navigation.navigate('BottomTab', {
+            screen: "Perfil"
+        })
+        showMessage({
+            message: "Informações salvas com sucesso!",
+            type: "info",
+            backgroundColor: "#3DACE1"
+          });
     }
 
     return (

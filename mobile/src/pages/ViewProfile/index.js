@@ -25,11 +25,14 @@ import globalStyles from '../../globalStyles';
 import ShowCrown from '../../components/showCrown'
 import ShowEditSave from '../../components/showEditSave'
 
+// API
 import api from '../../services/api';
 
-export default function ViewProfile({logged_ID= ''}){
+export default function ViewProfile(){
 
     const route = useRoute();
+    const navigation =  useNavigation();
+
     const [loaded, setLoaded] =  useState(false)
     const [teamIcon, setTeamIcon] = useState()
     const [member, setMember] = useState({
@@ -38,15 +41,18 @@ export default function ViewProfile({logged_ID= ''}){
     const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
     
     
-    const navigation =  useNavigation();
+    
     
     function NavigateToEditProfile(member){
-        navigation.push('EditProfile', {member});
+        navigation.navigate('EditProfile', {member});
     }
     let memberId
     // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
     useEffect(()=>{
-        memberId = '5e9f710aba69b800176e0abf'
+
+        // O PADRAO DA TELA É A TELA DE PERFIL DO USUARIO LOGADO
+        // SE HOUVER UM ID NA ROTA, ENTAO EU PEGO OS DADOS DO MEMBRO QUE TEM ESSE ID NOVO
+        memberId = logged_memberID
         if (route.params?.id) {
             memberId = route.params?.id
           }

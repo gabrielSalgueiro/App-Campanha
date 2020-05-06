@@ -15,6 +15,7 @@ export default function MemberList() {
 
     const navigation =  useNavigation();
 
+    const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
     const [name, setName] = useState('');
     const [team, setTeam] = useState('');
     const [checkCar, setCheckCar] = useState(false);
@@ -125,7 +126,11 @@ export default function MemberList() {
     }, [])
 
     function NavigateToViewProfile(member){
-        navigation.push('ViewProfile', {id: member._id});
+        if(member._id == logged_memberID){
+            navigation.navigate('Perfil');
+        }
+
+        navigation.navigate('MemberViewProfile', {id: member._id} );
     }
 
     if(loading == true)

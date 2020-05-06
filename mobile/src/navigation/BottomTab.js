@@ -1,14 +1,12 @@
+// REACT E REACT NAVIGATION IMPORTS
 import React from 'react';
-import { Image} from 'react-native';
-import { useNavigation} from '@react-navigation/native'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import { Image } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // COMPONENTS
 import MemberList from '../pages/MemberList';
-import profileStackScreen from './profileStack';
-import memberListStackScreen from './memberListStack'
-
-const Tabs = createBottomTabNavigator();
+import ViewProfile from '../pages/ViewProfile';
+import MemberListStackScreen from './memberListStack';
 
 // ESTILOS E ICONES
 import styles from '../globalStyles'
@@ -18,18 +16,20 @@ import searchIcon from '../assets/Icons/search.png'
 import calendarIcon from '../assets/Icons/calendar.png'
 
 
+// BOTTOM TAB NAVIGATOR
+const Tabs = createBottomTabNavigator();
+
 export default function BottomTab(){
 
     return (
 
-        <Tabs.Navigator  initialRouteName="Membros" 
-            backBehavior={{
-                initialRoute:true
-            }}
+        <Tabs.Navigator  
+            screenOptions={{headerShown: false}}
+            initialRouteName="Membros"
             tabBarOptions={{style: styles.footer
                 ,labelStyle: styles.footerText,
             }}
-            screenOptions={{headerShown: false}}
+            
         >
             <Tabs.Screen 
                 name  =  "Inicio" 
@@ -51,12 +51,19 @@ export default function BottomTab(){
             />
             <Tabs.Screen 
                 name  =  "Membros" 
+                listeners={({ navigation }) => ({
+                    tabPress: () => {
+                        // Força o navegador para ir para a tela de lista de membros
+                        // ao invés de ir apra o topo da stack
+                        navigation.navigate("Membros")
+                    }
+                })}
                 options={{
                     tabBarIcon:() => (
                         <Image source = {searchIcon}/>
                 )
                 }}
-                component = {memberListStackScreen} 
+                component = {MemberListStackScreen} 
             />
             <Tabs.Screen 
                 name  =  "Perfil" 
@@ -65,8 +72,9 @@ export default function BottomTab(){
                         <Image source = {profileIcon}/>
                 )
                 }}
-                component = {profileStackScreen} 
+                component = {ViewProfile} 
             />
+            
         </Tabs.Navigator>
     )
 }
