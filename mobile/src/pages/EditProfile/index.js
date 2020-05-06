@@ -85,7 +85,8 @@ export default function EditProfile(){
         showMessage({
             message: "Informações salvas com sucesso!",
             type: "info",
-            backgroundColor: "#3DACE1"
+            backgroundColor: "#3DACE1",
+            position: { top: 70, left: 20, right: 20 }
           });
     }
 

@@ -21,7 +21,7 @@ export default function Routes(){
                 <appStack.Screen name="BottomTab" component={BottomTab} />
                 <appStack.Screen name="EditProfile" component={EditProfile} />
             </appStack.Navigator>
-            <FlashMessage position={{ top: 600, left: 20, right: 20 }} animated={true} floating={true}/>
+            <FlashMessage position={{ bottom: 70, left: 20, right: 20 }} animated={true} floating={true}/> 
         </NavigationContainer>
     );
 
