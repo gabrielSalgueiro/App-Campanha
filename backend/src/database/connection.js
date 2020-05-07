@@ -8,7 +8,7 @@ mongoose.connect(process.env.ACDATABASEURL || "mongodb://localhost/app_campanha"
 }).then(() => {
     console.log("Connected to DB");
 }).catch(err => {
-    console.log("ERROR: ", err.message);
+    console.log(process.env.ACDATABASEURL, "ERROR: ", err.message);
 });
 
 module.exports = mongoose;

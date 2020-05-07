@@ -1,4 +1,5 @@
 const Team = require('../database/models/team');
+const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
     index(req, res) {
@@ -15,6 +16,7 @@ module.exports = {
 
     create(req, res) {
         const newTeam = {
+            _id: req.body.id,
             name: req.body.name,
             shortName: req.body.shortName,
             description: req.body.description,

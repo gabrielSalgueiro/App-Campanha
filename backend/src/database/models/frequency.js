@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
 var frequencySchema = new mongoose.Schema({
-    memberId: {
+    member: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Member"
     },
-    eventId: {
+    event: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Event"
     }

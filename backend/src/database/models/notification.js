@@ -2,17 +2,10 @@ var mongoose = require("mongoose");
 
 var eventSchema = new mongoose.Schema({
     title: String,
-    description: String,
     image: String,
+    description: String,
     summary: String,
-    team: {
-        type: String,
-        ref: "Team"
-    },
-    eventGroup: String,
-    date: mongoose.Schema.Types.Date,
-    location: String,
-    conclusion: String
+    isActive: Boolean
 });
 
 module.exports = mongoose.model("Event", eventSchema);

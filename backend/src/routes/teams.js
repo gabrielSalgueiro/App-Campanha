@@ -11,6 +11,7 @@ routes.get('/', TeamController.index);
 // CREATE ROUTE
 routes.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required(),
         name: Joi.string().required(),
         shortName: Joi.string().optional().default(''),
         description: Joi.string().optional().default(''),

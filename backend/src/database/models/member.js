@@ -7,7 +7,7 @@ var memberSchema = new mongoose.Schema({
     password: String,
     wpp: String,
     team: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Team"
     },
     image: String,
