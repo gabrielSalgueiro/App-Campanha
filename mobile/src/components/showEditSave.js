@@ -8,18 +8,18 @@ import crownIcon from '../assets/Icons/crown.png'
 
 export default function ShowEditSave({show, onPress, type}){
     if(show == false){
-        return <View style={globalStyles.hideEditButton}>
+        return <View style={globalStyles.hideEditSaveButton}>
             </View>
     }else{
         if(type == "save"){
             return(
-                <TouchableOpacity onPress={onPress} style={globalStyles.editButton}>
+                <TouchableOpacity onPress={onPress} style={globalStyles.editSaveButton}>
                     <MaterialIcons name={"check"} color='#003D5C' size={28} />
                 </TouchableOpacity>
             )
         }else{
             return(
-                <TouchableOpacity onPress={onPress} style={globalStyles.editButton}>
+                <TouchableOpacity onPress={onPress} style={globalStyles.editSaveButton}>
                     <MaterialIcons name={"edit"} color='#003D5C' size={28} />
                 </TouchableOpacity>
             )

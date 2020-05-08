@@ -108,15 +108,17 @@ export default function ViewProfile(){
                 >
                     <View style = {styles.photographyContainer}>
                         <View style = {styles.editButtonContainer}>
-                        
-                            <View style = {styles.photo}>
-                                
-                                <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                    <Image style={styles.avatar}  source={{uri: member.image}} />
-                                </ImageBackground>
+                            <View style = {styles.photoContainer}>
+                                <View style = {styles.photo}>
                                 <ShowCrown show ={member.coord}/>
+                                    <ImageBackground style={styles.standartAvatar} source={personIcon}>
+                                        <Image style={styles.avatar}  source={{uri: member.image}} />
+                                    </ImageBackground>
+                                    
+                                </View>
                             </View>
                             <ShowEditSave type="edit" onPress={()=>NavigateToEditProfile(member)}show = {member._id == logged_memberID}/>
+                        
                         </View>
                     </View>
                 </ShimmerPlaceHolder>

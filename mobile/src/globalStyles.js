@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
+
+let {height, width} = Dimensions.get('window');
+
 
 export default StyleSheet.create({
 
@@ -11,7 +14,7 @@ export default StyleSheet.create({
 
     footer:{
         backgroundColor: '#003D5C',
-        height: 55,
+        height: 0.08 * height,
     },
     footerText:{
         fontWeight: '500',
@@ -20,24 +23,18 @@ export default StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center'
     },
-    footerButton:{
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
     showCrown:{
         alignSelf: 'center',
-        marginBottom: 90,
     },
     hideCrown:{
         alignSelf: 'center',
-        marginBottom: 135,
     },
-    editButton:{
-        marginRight: 50,
+    editSaveButton:{
+        marginRight: 0.12 * width,
         alignSelf: 'center'
     },
-    hideEditButton:{
-        marginRight: 78,
+    hideEditSaveButton:{
+        marginRight: 0.18 * width,
     },
 
 })

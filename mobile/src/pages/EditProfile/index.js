@@ -100,17 +100,21 @@ export default function EditProfile(){
                     <View style = {styles.photographyContainer}>
                         <View style = {styles.editButtonContainer}>
                         
-                            <View style = {styles.photo}>
-                                
-                                <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                    <Image style={styles.avatar}  source={{uri: photo}} />
-                                </ImageBackground>
-                                <TouchableOpacity activeOpacity={0.4} style =  {styles.camera}>    
-                                    <MaterialIcons name = "photo-camera" color = "#003D5C" size={28}/>
-                                </TouchableOpacity>
-                                <ShowCrown show ={member.coord}/>
-                                
+                            <View style = {styles.photoContainer}>
+                                <View style = {styles.photo}>
+                                    <ShowCrown show ={member.coord}/>
+                                    <ImageBackground style={styles.standartAvatar} source={personIcon}>
+                                        <Image style={styles.avatar}  source={{uri: photo}} />
+                                    </ImageBackground>
+                                    
+                                </View>
+                                <View style = {styles.cameraContainer}>
+                                    <TouchableOpacity activeOpacity={0.4} style =  {styles.camera}>    
+                                        <MaterialIcons name = "photo-camera" color = "#003D5C" size={28}/>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
+                            
                             <ShowEditSave onPress={saveInformations} type="save"show = {true}/>
                         </View>
                     </View>

@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+let {height, width} = Dimensions.get('window');
 
 export default StyleSheet.create({
     profileContainer:{
@@ -6,34 +8,48 @@ export default StyleSheet.create({
         flex: 1,
     },
     photographyContainer:{
-        height: 120,
+        height: 0.16* height,
     },
     editButtonContainer:{
         backgroundColor: '#3DACE1',
-        height: 72,
-        justifyContent: 'flex-end',
+        height: 0.1 * height,
         flexDirection:  'row',
+        justifyContent: 'flex-end',
+    },
+    photoContainer:{
+        flexDirection:  'row', 
+        justifyContent: 'center',
+        marginRight: 0.2 *width,
     },
     photo:{
-        marginRight: 80,
-        marginTop: 70,
-        justifyContent:'space-around',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        marginTop: 0.035 * height,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        
+    },
+    cameraContainer:{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        marginTop: 0.125*height,
+        justifyContent: 'flex-end'
     },
     camera:{
         borderRadius: 30,
         borderWidth: 0.5,
         borderColor: '#3DACE1',
         backgroundColor: '#FFF8F8',
-        marginLeft: 70,
-        marginTop: 60,
-        marginBottom: 20,
-        height: 35,
-        width: 35,
+        height: 0.085 * width,
+        width: 0.085 * width,
         justifyContent: 'center',
         alignItems: 'center'
     },
     standartAvatar:{
-        marginTop: 10,
+        marginTop: 0.08*height,
         alignSelf: 'center',
         borderRadius: 40,
         borderWidth: 0.5,
@@ -41,8 +57,8 @@ export default StyleSheet.create({
         backgroundColor: '#FFF8F8',
     },
     avatar: {
-        width: 80,
-        height: 80,
+        width: 0.20 * width,
+        height: 0.20 * width,
         resizeMode: 'cover',
         borderRadius: 40,
         borderWidth: 0.5,

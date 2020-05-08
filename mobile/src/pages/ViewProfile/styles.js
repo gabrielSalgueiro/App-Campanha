@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+let {height, width} = Dimensions.get('window');
 
 export default StyleSheet.create({
     profileContainer:{
@@ -6,21 +8,31 @@ export default StyleSheet.create({
         flex: 1,
     },
     photographyContainer:{
-        height: 120,
+        height: 0.16* height,
     },
     editButtonContainer:{
         backgroundColor: '#3DACE1',
-        height: 72,
-        justifyContent: 'flex-end',
+        height: 0.1 * height,
         flexDirection:  'row',
+        justifyContent: 'flex-end',
+    },
+    photoContainer:{
+        flexDirection:  'row', 
+        justifyContent: 'center',
+        marginRight: 0.2 *width,
     },
     photo:{
-        marginRight: 90,
-        marginTop: 70,
-        justifyContent:'space-around'
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        marginTop: 0.035 * height,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        
     },
     standartAvatar:{
-        marginTop: 10,
+        marginTop: 0.08*height,
         alignSelf: 'center',
         borderRadius: 40,
         borderWidth: 0.5,
@@ -28,15 +40,14 @@ export default StyleSheet.create({
         backgroundColor: '#FFF8F8',
     },
     avatar: {
-        width: 80,
-        height: 80,
+        width: 0.20 * width,
+        height: 0.20 * width,
         resizeMode: 'cover',
         borderRadius: 40,
         borderWidth: 0.5,
         borderColor: '#3DACE1',
         alignSelf: 'center'
     },
-
     infoContainer:{
         alignItems: 'center',
     },

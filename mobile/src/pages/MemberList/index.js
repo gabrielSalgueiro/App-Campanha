@@ -17,7 +17,7 @@ export default function MemberList() {
 
     const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
     const [name, setName] = useState('');
-    const [team, setTeam] = useState('');
+    const [team, setTeam] = useState('all');
     const [checkCar, setCheckCar] = useState(false);
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);

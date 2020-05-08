@@ -1,10 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+let {height, width} = Dimensions.get('window');
+
+
 
 export default StyleSheet.create({
 
     searchBar: {
         backgroundColor: '#3DACE1',
-        height: 150,
+        height: 0.2 * height,
     },
     nameSearch: {
         flexDirection: "row",
@@ -12,8 +16,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     inputText: {
-        height: 46,
-        width: 350,
+        height: 0.07 * height,
+        width: 0.85 * width,
         alignSelf: 'stretch',
         backgroundColor: '#fff',
         borderWidth: 1,
@@ -26,8 +30,7 @@ export default StyleSheet.create({
     filter: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: 'flex-start',
-        paddingLeft: 40
+        justifyContent: 'center',
     },
     PickerView: {
         marginLeft: 5,
@@ -40,67 +43,69 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         height: 23,
         width: 117,
-        paddingHorizontal: 16,
+        paddingHorizontal: 0.027 * width,
     },
     line: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
-        width: 340,
+        width: 0.80 * width,
         alignSelf: 'center',
         margin: 5,
     },
     cardsContainer:{
         flex: 1,
         backgroundColor: '#3DACE1',
-        paddingHorizontal: 10,
+        paddingHorizontal: 0.025 * width,
     },
     card: {
         borderColor: '#DDD',
         borderRadius: 6,
         borderWidth: 0.5,
         marginTop: 5,
-        height: 100,
+        height: 0.15 * height,
         elevation: 2,
         flexDirection: 'row',
         backgroundColor: '#F3F3F3',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
+        paddingHorizontal: 0.05 * width
     },
     standartAvatar:{
         backgroundColor: '#FFF8F8',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginRight: 0.025 * width
     },
     avatar: {
-        width: 80,
-        height: 80,
+        width: 0.22 * width,
+        height: 0.22 * width,
         resizeMode: 'cover',
         borderRadius: 17,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     memberInfo:{
-        paddingLeft: 20,
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        paddingLeft: 0.025 * width
     },
     nickname:{
         fontSize: 16,
         fontWeight: "bold",
-        width: 180,
+        width: 0.4* width,
     },
     name:{
         fontSize: 14,
-        width: 180,
+        width: 0.4* width,
         color: '#B7B7B7'
     },
     team:{
         fontSize: 14,
-        width: 180,
+        width: 0.4* width,
     },
 
     iconsInfo:{
-        paddingLeft: 40,
+        paddingLeft: 0.1 * width,
         alignItems: 'center',
         justifyContent: 'space-evenly'
     },
     carIcon:{
-        paddingLeft: 48,
+        paddingLeft: 0.12 * width,
     }
 });
