@@ -7,15 +7,11 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import { showMessage} from "react-native-flash-message";
 
 // ICONS
-import { MaterialIcons, Feather, FontAwesome5, FontAwesome} from '@expo/vector-icons';
+import { MaterialIcons, Feather, Entypo, FontAwesome5, FontAwesome} from '@expo/vector-icons';
 import personIcon from '../../assets/Icons/person.png';
 import carIcon from '../../assets/Icons/Car.png'
 import notCarIcon from '../../assets/Icons/notCar.png'
-import infraIcon from '../../assets/Icons/infraIcon.png'
-import reIcon from '../../assets/Icons/reIcon.png'
-import divulgaIcon from '../../assets/Icons/divulgaIcon.png'
-import entidadesIcon from '../../assets/Icons/entidadesIcon.png'
-import geralIcon from '../../assets/Icons/geralIcon.png'
+
 
 // ESTILOS
 import styles from './styles';
@@ -24,6 +20,7 @@ import globalStyles from '../../globalStyles';
 // COMPONENTES
 import ShowCrown from '../../components/showCrown'
 import ShowEditSave from '../../components/showEditSave'
+import TeamIcon from '../../components/TeamIcon'
 
 // API
 import api from '../../services/api';
@@ -34,15 +31,15 @@ export default function ViewProfile(){
     const navigation =  useNavigation();
 
     const [loaded, setLoaded] =  useState(false)
-    const [teamIcon, setTeamIcon] = useState()
+    const [teamIcon, setTeamIcon] = useState({})
     const [member, setMember] = useState({
-        wpp: ''
+        wpp: '',
+        team:{
+            name:''
+        }
     })
     const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
-    
-    
-    
-    
+
     function NavigateToEditProfile(member){
         navigation.navigate('EditProfile', {member});
     }
@@ -64,17 +61,9 @@ export default function ViewProfile(){
             })
             setMember(resp.data)
 
-            // ESCOLHENDO O ICONE CONFORME O TIME
-            if(resp.data.team.name == 'Geral')
-                setTeamIcon(geralIcon)
-            else if(resp.data.team.name == 'Infraestrutura')
-                setTeamIcon(infraIcon)
-            else if(resp.data.team.name == 'Entidades')
-                setTeamIcon(entidadesIcon)
-            else if(resp.data.team.name == 'Divulgação')
-                setTeamIcon(divulgaIcon)
-            else
-                setTeamIcon(reIcon)
+            /* // ESCOLHENDO O ICONE CONFORME O TIME
+            Team(resp.data) */
+            
             setLoaded(true)
         }
         getMember();
@@ -179,7 +168,7 @@ export default function ViewProfile(){
                     >
                         <View style = {styles.carTeamContainer}>
                             <Image style = {styles.car} source = {member.hasCar == 0 ? notCarIcon : carIcon}/>
-                            <Image source = {teamIcon}/>
+                            <TeamIcon color='#003D5C' size={28} team={member.team.name}/>
                         </View>
                     </ShimmerPlaceHolder>
 

@@ -13,24 +13,26 @@ export default StyleSheet.create({
     },
 
     footer:{
-        backgroundColor: '#003D5C',
+        //backgroundColor: '#003D5C',
         height: 0.08 * height,
     },
     footerText:{
         fontWeight: '500',
-        color: '#FEFEFE',
         fontSize: 12,
         justifyContent: 'center',
         textAlign: 'center'
     },
     showCrown:{
         alignSelf: 'center',
+        position: 'absolute',
+        bottom: 35,
+        left: 20,
     },
     hideCrown:{
         alignSelf: 'center',
     },
     editSaveButton:{
-        marginRight: 0.12 * width,
+        marginRight: 0.1 * width,
         alignSelf: 'center'
     },
     hideEditSaveButton:{

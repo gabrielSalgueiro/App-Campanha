@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Picker, View, TextInput, Text} from 'react-native';
+import { FlatList, Picker, View, TextInput, Text, Modal} from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/native'
 
@@ -22,6 +22,7 @@ export default function MemberList() {
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
     const [loading, setLoading] =  useState(true)
+    const [modalVisible, setModalVisible] = useState(true)
 
     function handleCheckBox() {
         
@@ -142,6 +143,15 @@ export default function MemberList() {
         <View 
         
         style={globalStyles.container}>
+
+            <Modal animationType="slide" visible={modalVisible}  transparent = {true}>
+                <View style = {{flex:1, backgroundColor: '#000000aa'}}>
+                    <View style={{backgroundColor: '#fff', margin:100}}>
+                    <Text> Bem vindo ao Modal</Text>
+                    </View>
+                    
+                </View>
+            </Modal>
 
 
             {/* SEARCH BAR */}

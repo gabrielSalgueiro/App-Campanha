@@ -19,17 +19,12 @@ export default StyleSheet.create({
     photoContainer:{
         flexDirection:  'row', 
         justifyContent: 'center',
-        marginRight: 0.2 *width,
+        marginRight: 0.23 *width,
     },
     photo:{
         flexDirection: 'column',
         justifyContent: 'space-around',
-        marginTop: 0.035 * height,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-        
+        marginTop: 0.01 * height,
     },
     standartAvatar:{
         marginTop: 0.08*height,

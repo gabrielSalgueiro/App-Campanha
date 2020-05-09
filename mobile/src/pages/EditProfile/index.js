@@ -10,11 +10,6 @@ import { MaterialIcons, Feather, FontAwesome5, FontAwesome} from '@expo/vector-i
 import personIcon from '../../assets/Icons/person.png';
 import carIcon from '../../assets/Icons/Car.png'
 import notCarIcon from '../../assets/Icons/notCar.png'
-import infraIcon from '../../assets/Icons/infraIcon.png'
-import reIcon from '../../assets/Icons/reIcon.png'
-import divulgaIcon from '../../assets/Icons/divulgaIcon.png'
-import entidadesIcon from '../../assets/Icons/entidadesIcon.png'
-import geralIcon from '../../assets/Icons/geralIcon.png'
 
 // ESTILOS
 import styles from './styles';
@@ -23,10 +18,12 @@ import globalStyles from '../../globalStyles';
 // COMPONENTES
 import ShowCrown from '../../components/showCrown'
 import ShowEditSave from '../../components/showEditSave'
+import TeamIcon from '../../components/TeamIcon'
 
 import api from '../../services/api';
 
 export default function EditProfile(){
+
 
     // NAVIGATION PROPS
     const route = useRoute();
@@ -34,7 +31,6 @@ export default function EditProfile(){
     const member = route.params.member; // ID DO MEMBRO DO PERFIL
     
     //STATES
-    const [teamIcon, setTeamIcon] = useState()
     const [name, setName] =  useState(member.name)
     const [nickname, setNickName] = useState(member.realName)
     const [email, setEmail] =  useState(member.email)
@@ -43,18 +39,6 @@ export default function EditProfile(){
     const [hasCar, setHasCar] = useState(member.hasCar)
     const [photo, setPhoto] = useState(member.image)
 
-    useEffect(()=>{
-        if(member.team.name == 'Geral')
-            setTeamIcon(geralIcon)
-        else if(member.team.name == 'Infraestrutura')
-            setTeamIcon(infraIcon)
-        else if(member.team.name == 'Entidades')
-            setTeamIcon(entidadesIcon)
-        else if(member.team.name == 'Divulgação')
-            setTeamIcon(divulgaIcon)
-        else
-            setTeamIcon(reIcon)
-    }, [])
     let data ={
         name: name,
         realName: nickname,
@@ -67,6 +51,11 @@ export default function EditProfile(){
         hasCar: hasCar,
         coord: member.coord
     }
+
+    function Cancel(){
+        navigation.goBack();
+    }
+
     async function saveInformations(){
         const resp = await api.put(`/members/${member._id}`, data)
         
@@ -99,7 +88,12 @@ export default function EditProfile(){
                 
                     <View style = {styles.photographyContainer}>
                         <View style = {styles.editButtonContainer}>
-                        
+                            
+                            <TouchableOpacity onPress={Cancel}style={styles.cancelButton}>
+                                <Text style = {styles.cancelText}>Cancelar</Text>
+                            </TouchableOpacity>
+                            
+
                             <View style = {styles.photoContainer}>
                                 <View style = {styles.photo}>
                                     <ShowCrown show ={member.coord}/>
@@ -110,7 +104,7 @@ export default function EditProfile(){
                                 </View>
                                 <View style = {styles.cameraContainer}>
                                     <TouchableOpacity activeOpacity={0.4} style =  {styles.camera}>    
-                                        <MaterialIcons name = "photo-camera" color = "#003D5C" size={28}/>
+                                        <MaterialIcons name = "photo-camera" color = "#003D5C" size={26}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -122,8 +116,6 @@ export default function EditProfile(){
                 {/* Informações do membro */}
                 
                 <View styles =  {styles.infoContainer}>
-                    
-                   
                         <View style =  {styles.names}>
                             <View style ={styles.nameBox}>
                                 <TextInput 
@@ -159,8 +151,6 @@ export default function EditProfile(){
                                         onChangeText={email=>setEmail(email)}
                                     />
                                 </View>
-                                
-                                
                             </View>
                             <View style={styles.iconTextContainer}>
                                 <MaterialIcons name={'school'} color = '#003D5C'size={29}/>
@@ -197,7 +187,7 @@ export default function EditProfile(){
                                 <Image style = {styles.car} source = {hasCar == 0 ? notCarIcon : carIcon}/>
                             </TouchableOpacity>
                             <TouchableOpacity style = {styles.carTeamButton}>
-                                <Image source = {teamIcon}/>
+                                <TeamIcon color='#003D5C' size={22}team={member.team.name}/>
                             </TouchableOpacity>
                         </View>
 

@@ -10,31 +10,38 @@ export default StyleSheet.create({
     photographyContainer:{
         height: 0.16* height,
     },
+    cancelButton:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 0.05*width
+    },
+    cancelText:{
+        textAlign: 'center',
+        color:'#003D5C',
+        fontSize: 16,
+        fontWeight: '500'
+    },
     editButtonContainer:{
         backgroundColor: '#3DACE1',
         height: 0.1 * height,
         flexDirection:  'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-around',
     },
     photoContainer:{
         flexDirection:  'row', 
         justifyContent: 'center',
-        marginRight: 0.2 *width,
+        marginRight: 0.05 *width
     },
     photo:{
         flexDirection: 'column',
         justifyContent: 'space-around',
-        marginTop: 0.035 * height,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-        
+        marginTop: 0.01 * height,
     },
     cameraContainer:{
         position: 'absolute',
-        top: 0,
-        bottom: 0,
+        top: -2,
+        bottom: 40,
+        left: 65,
         marginTop: 0.125*height,
         justifyContent: 'flex-end'
     },
@@ -43,8 +50,8 @@ export default StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#3DACE1',
         backgroundColor: '#FFF8F8',
-        height: 0.085 * width,
-        width: 0.085 * width,
+        height: 0.075 * width,
+        width: 0.075 * width,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -70,17 +77,15 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     names:{
-        marginHorizontal: 40,
-        marginBottom: 10
+        marginHorizontal: 0.1* width,
+        marginBottom: 0.015*height, // margin entre os nomes e as info
     },
     nameBox:{
         backgroundColor: '#fff',
         borderWidth: 1,
         borderColor: '#003D5C',
         borderRadius: 3,
-        marginTop: 13,
-        paddingHorizontal: 16,
-        justifyContent: 'center'
+        marginTop: 0.02*height, // margem entre as box de nome
     },
     nameInput:{
         textAlign: 'center',
@@ -88,31 +93,29 @@ export default StyleSheet.create({
         color: '#7D7D7D'
     },
     informations:{
-        alignItems: 'center',
+        marginHorizontal: 0.1* width,
     },
     iconTextContainer:{
-        width: 360,
         flexDirection: 'row',
-        marginTop: 10,
-        paddingHorizontal: 20,
+        marginTop: 0.015*height, //  margem entre as info
     },
     infoBox:{
         backgroundColor: '#fff',
         borderWidth: 1,
         borderColor: '#003D5C',
         borderRadius: 3,
-        width: 280,
-        justifyContent: 'center',
-        marginLeft: 10
+        width: 0.69*width,
+        justifyContent: 'center', // centralizar o texto na box
+        marginLeft: 0.04*width // margin entre a box e o icone
     },
     infoInput:{
         alignSelf: 'stretch',
-        paddingHorizontal: 10,
+        paddingHorizontal: 0.025*width, // padding entre o texto e o inicio da box
         color: '#7D7D7D',
         fontSize: 14,
     },
     carTeamContainer:{
-        marginTop: 20,
+        marginTop: 0.027*height,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
     },
@@ -121,8 +124,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: '#003D5C',
         borderRadius: 3,
-        height: 35,
-        width: 35,
+        height: 0.085 * width,
+        width: 0.085 * width,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -130,9 +133,9 @@ export default StyleSheet.create({
         alignSelf: 'center'
     },
     passwordContainer:{
-        marginTop: 24,
-        width: 116,
-        height: 24,
+        marginTop: 0.033*height,
+        width: 0.28*width,
+        height: 0.033*height,
         alignSelf: 'center',
         borderWidth: 1,
         borderRadius: 3,

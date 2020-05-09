@@ -10,6 +10,7 @@ import MemberListStackScreen from './memberListStack';
 
 // ESTILOS E ICONES
 import styles from '../globalStyles'
+import { MaterialIcons, Entypo, FontAwesome} from '@expo/vector-icons';
 import profileIcon from '../assets/Icons/profile.png';
 import homeIcon from '../assets/Icons/home.png'
 import searchIcon from '../assets/Icons/search.png'
@@ -26,16 +27,21 @@ export default function BottomTab(){
         <Tabs.Navigator  
             screenOptions={{headerShown: false}}
             initialRouteName="Membros"
-            tabBarOptions={{style: styles.footer
-                ,labelStyle: styles.footerText,
+            tabBarOptions={{style: styles.footer,
+                labelStyle: styles.footerText,
+                activeTintColor: '#FFF',
+                activeBackgroundColor:'#003D5C',
+                inactiveTintColor: '#003D5C',
+                inactiveBackgroundColor: '#FFF',
+                keyboardHidesTabBar: true
             }}
             
         >
             <Tabs.Screen 
                 name  =  "Inicio" 
                 options={{
-                    tabBarIcon:() => (
-                        <Image source = {homeIcon}/>
+                    tabBarIcon:({color}) => (
+                        <Entypo name="home" color={color} size={28}/>
                 )
                 }} 
                 component = {MemberList}
@@ -43,8 +49,8 @@ export default function BottomTab(){
             <Tabs.Screen 
                 name  =  "Eventos" 
                 options={{
-                    tabBarIcon:() => (
-                        <Image source = {calendarIcon}/>
+                    tabBarIcon:({color}) => (
+                        <FontAwesome name="calendar" color={color} size={28}/>
                 )
                 }}
                 component = {MemberList}
@@ -59,8 +65,8 @@ export default function BottomTab(){
                     }
                 })}
                 options={{
-                    tabBarIcon:() => (
-                        <Image source = {searchIcon}/>
+                    tabBarIcon:({color}) => (
+                        <FontAwesome name="search" color={color} size={28}/>
                 )
                 }}
                 component = {MemberListStackScreen} 
@@ -68,8 +74,8 @@ export default function BottomTab(){
             <Tabs.Screen 
                 name  =  "Perfil" 
                 options={{
-                    tabBarIcon:() => (
-                        <Image source = {profileIcon}/>
+                    tabBarIcon:({color}) => (
+                        <MaterialIcons name="person" color={color} size={28}/>
                 )
                 }}
                 component = {ViewProfile} 
