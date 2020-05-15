@@ -34,7 +34,7 @@ routes.get('/:id', celebrate({
 }), MemberController.show);
 
 // UPDATE ROUTE
-routes.put('/:id', celebrate({
+routes.put('/:id', multer(multerConfig).single('image'), celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.string().required()
     }),
@@ -45,7 +45,7 @@ routes.put('/:id', celebrate({
         password: Joi.string().required(),
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
-        image: Joi.string().optional().default(''),
+        image: Joi.any().meta({ swaggerType: 'file' }).optional().allow(''),
         course: Joi.string().required(),
         hasCar: Joi.number().optional(),
         coord: Joi.boolean().optional()

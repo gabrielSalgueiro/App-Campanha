@@ -1,4 +1,6 @@
 const Member = require('../database/models/member');
+const aws = require('aws-sdk');
+const s3 = new aws.S3();
 
 module.exports = {
     index(req, res) {
@@ -59,7 +61,24 @@ module.exports = {
         });
     },
 
-    update(req, res) {
+    async update(req, res) {
+        const member = await Member.findById(req.params.id);
+        var image = {};
+        
+        if (req.file) {
+            if (member.image.key) {
+                s3.deleteObject({
+                    Bucket: process.env.AWS_BUCKET,
+                    Key: member.image.key
+                }).promise();
+            }
+            image.key = req.file.key;
+            image.url = req.file.location;
+        }
+        else {
+            image = member.image;
+        }
+        
         const newMemberInfos = {
             name: req.body.name,
             realName: req.body.realName,
@@ -67,21 +86,14 @@ module.exports = {
             password: req.body.password,
             wpp: req.body.wpp,
             team: req.body.team,
-            image: req.body.image,
+            image: image,
             course: req.body.course,
             hasCar: req.body.hasCar,
             coord: req.body.coord
         };
 
-        Member.findByIdAndUpdate(req.params.id, newMemberInfos, { new: true }, (err, member) => {
-            if (err) {
-                return res.status(400).json({
-                    error: `Error on database: ${ err.message }`
-                });
-            } else {
-                return res.json(member);
-            }
-        });
+        await member.updateOne(newMemberInfos);
+        return res.json(newMemberInfos);
     },
 
     async destroy(req, res) {
