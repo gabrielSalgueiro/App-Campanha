@@ -17,6 +17,12 @@ module.exports = {
     },
 
     create(req, res) {
+        var image = {};
+        if (req.file) {
+            image.key = req.file.key;
+            image.url = req.file.location;
+        }
+        
         const newMember =  {
             name: req.body.name,
             realName: req.body.realName,
@@ -24,7 +30,7 @@ module.exports = {
             password: req.body.password,
             wpp: req.body.wpp,
             team: req.body.team,
-            image: req.body.image,
+            image: image,
             course: req.body.course,
             hasCar: req.body.hasCar,
             coord: req.body.coord
@@ -78,9 +84,9 @@ module.exports = {
         });
     },
 
-    destroy(req, res) {
-        Member.findByIdAndRemove(req.params.id, function (err) {
-            return res.status(204).send();
-        });
+    async destroy(req, res) {
+        const member = await Member.findById(req.params.id);
+        await member.remove();
+        return res.status(204).send();
     }
 }
