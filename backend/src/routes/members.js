@@ -46,6 +46,7 @@ routes.put('/:id', multer(multerConfig).single('image'), celebrate({
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
         image: Joi.any().meta({ swaggerType: 'file' }).optional().allow(''),
+        deleteImage: Joi.boolean().optional().default(false),
         course: Joi.string().required(),
         hasCar: Joi.number().optional(),
         coord: Joi.boolean().optional()

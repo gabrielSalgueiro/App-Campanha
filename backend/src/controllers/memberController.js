@@ -63,20 +63,19 @@ module.exports = {
 
     async update(req, res) {
         const member = await Member.findById(req.params.id);
-        var image = {};
+        var image = member.image;
+
+        if (member.image.key && (req.body.deleteImage || req.file)) {
+            s3.deleteObject({
+                Bucket: process.env.AWS_BUCKET,
+                Key: member.image.key
+            }).promise();
+            image = {};
+        }
         
         if (req.file) {
-            if (member.image.key) {
-                s3.deleteObject({
-                    Bucket: process.env.AWS_BUCKET,
-                    Key: member.image.key
-                }).promise();
-            }
             image.key = req.file.key;
             image.url = req.file.location;
-        }
-        else {
-            image = member.image;
         }
         
         const newMemberInfos = {
