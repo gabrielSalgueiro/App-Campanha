@@ -13,7 +13,6 @@ export default StyleSheet.create({
     },
 
     footer:{
-        //backgroundColor: '#003D5C',
         height: 0.08 * height,
     },
     footerText:{

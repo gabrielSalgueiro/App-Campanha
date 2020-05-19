@@ -1,7 +1,7 @@
 // REACT E REACT NATIVES IMPORTS
 
 import React, { useState, useEffect } from 'react';
-import { Image, ImageBackground, View, Text, TextInput,TouchableOpacity,} from 'react-native';
+import { Image, Alert, ImageBackground, View, Text, TextInput,TouchableOpacity,} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { showMessage} from "react-native-flash-message";
 
@@ -19,6 +19,7 @@ import globalStyles from '../../globalStyles';
 import ShowCrown from '../../components/showCrown'
 import ShowEditSave from '../../components/showEditSave'
 import TeamIcon from '../../components/TeamIcon'
+import CameraModal from '../../components/cameraModal'
 
 import api from '../../services/api';
 
@@ -37,7 +38,8 @@ export default function EditProfile(){
     const [course, setCourse] =  useState(member.course)
     const [wpp, setWpp] =  useState(member.wpp)
     const [hasCar, setHasCar] = useState(member.hasCar)
-    const [photo, setPhoto] = useState(member.image)
+    const [photo, setPhoto] = useState(member.image.url)
+    const [cameraVisible, setCameraVisible] = useState(false)
 
     let data ={
         name: name,
@@ -56,10 +58,61 @@ export default function EditProfile(){
         navigation.goBack();
     }
 
-    async function saveInformations(){
-        const resp = await api.put(`/members/${member._id}`, data)
-        
+    function clearWpp(){
 
+        var temp = String(wpp)
+
+        temp = temp.replace(' ', '')
+        temp = temp.replace('(', '')
+        temp = temp.replace(')', '')
+
+        setWpp(temp)
+    }
+
+    function validateEmail() {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(String(email).toLowerCase())) {
+            return true;
+        } else {
+            Alert.alert(
+                'Erro de Submissão',
+                'E-mail no formato Incorreto !'
+
+            )
+            //alert("E-mail no formato Incorreto !");
+            return false;
+        }
+    }
+
+    function validateWhatsApp(){
+        var re = /(\+\d{2})?\s?(\(?\d{2}\)?\s?)(\d{4,5}\-?\d{4})/;
+        if (re.test(wpp)){
+            console.log('wpp funfo')
+
+            clearWpp()
+            return true;
+            
+        } else {
+            console.log('wpp deu ruim')
+            Alert.alert(
+                'Erro de Submissão',
+                'Whatsapp no formato Incorreto !'
+
+            )
+            //alert("E-mail no formato Incorreto !");
+            return false;
+        }
+    }
+
+    async function saveInformations(){
+
+        if(validateEmail() === false){
+            return ;
+        }
+        validateWhatsApp()
+        return; 
+        try{
+            const resp = await api.put(`/members/${member._id}`, data)
         // reseta a pagina de perfil
         // ainda não entendi como funciona direito
         navigation.reset({
@@ -75,13 +128,23 @@ export default function EditProfile(){
             message: "Informações salvas com sucesso!",
             type: "info",
             backgroundColor: "#3DACE1",
-            position: { top: 70, left: 20, right: 20 }
+            position: { top: 70, left: 20, right: 20 },
+            style:{alignItems: 'center'}
           });
+        }catch(error){
+            Alert.alert(error
+            )
+        }
     }
 
     return (
         <View 
             style={globalStyles.container}>
+            <CameraModal visible={cameraVisible}
+                cancel={()=>setCameraVisible(false)}
+                save={()=>setCameraVisible(false)}
+            />
+
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
@@ -103,7 +166,8 @@ export default function EditProfile(){
                                     
                                 </View>
                                 <View style = {styles.cameraContainer}>
-                                    <TouchableOpacity activeOpacity={0.4} style =  {styles.camera}>    
+                                    <TouchableOpacity onPress={() =>setCameraVisible(true)} 
+                                    activeOpacity={0.4} style =  {styles.camera}>    
                                         <MaterialIcons name = "photo-camera" color = "#003D5C" size={26}/>
                                     </TouchableOpacity>
                                 </View>
@@ -190,11 +254,6 @@ export default function EditProfile(){
                                 <TeamIcon color='#003D5C' size={22}team={member.team.name}/>
                             </TouchableOpacity>
                         </View>
-
-                        <TouchableOpacity style = {styles.passwordContainer}>
-                              <Text style={styles.password}>Alterar Senha</Text>
-                        </TouchableOpacity>
-
                 </View>
             </View>
 

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, Picker, View, TextInput, Text} from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/native'
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
 import MemberCard from '../../components/memberCard';
-import Loading from '../../components/Loading';
+
 
 import api from '../../services/api';
 
@@ -21,7 +22,7 @@ export default function MemberList() {
     const [checkCar, setCheckCar] = useState(false);
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
-    const [loading, setLoading] =  useState(true)
+    const [loaded, setLoaded] =  useState(false)
 
     function handleCheckBox() {
         
@@ -120,7 +121,7 @@ export default function MemberList() {
             })
             setAllMembers(resp.data);
             setFilteredMembers(resp.data)
-            setLoading(false)
+            setLoaded(true)
         }
         loadMembers();
     }, [])
@@ -133,66 +134,81 @@ export default function MemberList() {
         navigation.navigate('MemberViewProfile', {id: member._id} );
     }
 
-    if(loading == true)
+ /*    if(loading == true)
         return(
             <Loading/>
         )
-    else if(loading == false)
+    else if(loading == false) */
         return (
+            
+        
         <View 
         
-        style={globalStyles.container}>
 
+
+        style={globalStyles.container}>
 
             {/* SEARCH BAR */}
             <View style={styles.searchBar}>
 
                 {/* VIEW COM LEITURA DO NOME DO MEMBRO E 
                         ICONE DE PESQUISA */}
-                <View style={styles.nameSearch}>
-                    <TextInput
-                        autoCapitalize="words" // sem a primeira letra maiuscula
-                        placeholder="Nome do Membro..."
-                        placeholderTextColor="#B7B7B7"
-                        style={styles.inputText}
-                        onChangeText={name => filterMembersbyName(name)}
-                    >
-                    </TextInput>
-    
-                </View>
+                <ShimmerPlaceHolder
+                    style={styles.nameSearchPlaceholder} 
+                    autoRun={true} 
+                    visible={loaded}
+                >
+                    <View style={styles.nameSearch}>
+                        <TextInput
+                            autoCapitalize="words" // sem a primeira letra maiuscula
+                            placeholder="Nome do Membro..."
+                            placeholderTextColor="#B7B7B7"
+                            style={styles.inputText}
+                            onChangeText={name => filterMembersbyName(name)}
+                        >
+                        </TextInput>
+        
+                    </View>
+                </ShimmerPlaceHolder>
                 
                 {/* VIEW COM OS FILTROS DE CARRO E NÚCLEO*/}
-                <View style={styles.filter}>
-                    <Text>Carro:</Text>
-                    <CheckBox
-                        checked = {checkCar}
-                        center
-                        onPress={handleCheckBox}
-                        uncheckedColor='#003D5C'
-                        checkedColor='#003D5C'
-                    />
+                <ShimmerPlaceHolder
+                    style={styles.filterPlaceholder} 
+                    autoRun={true} 
+                    visible={loaded}
+                >
+                    <View style={styles.filter}>
+                        <Text>Carro:</Text>
+                        <CheckBox
+                            checked = {checkCar}
+                            center
+                            onPress={handleCheckBox}
+                            uncheckedColor='#003D5C'
+                            checkedColor='#003D5C'
+                        />
 
-                    <Text>Time:</Text>
-                    <View style={styles.PickerView}>
-                        <Picker
-                            selectedValue={team}
-                            onValueChange={(itemValue, itemIndex) => {filterMembersbyTeam(itemValue)}}
-                            style={styles.Picker}
-                            mode = 'dropdown'
-                        >
+                        <Text>Time:</Text>
+                        <View style={styles.PickerView}>
+                            <Picker
+                                selectedValue={team}
+                                onValueChange={(itemValue, itemIndex) => {filterMembersbyTeam(itemValue)}}
+                                style={styles.Picker}
+                                mode = 'dropdown'
+                            >
+                                
+                                <Picker.Item color='#B7B7B7' value='all' label='Núcleo...' />
+                                <Picker.Item label="Entidades" value="Entidades" />
+                                <Picker.Item label="Divulgação" value="Divulgação" />
+                                <Picker.Item label="Infra" value="Infraestrutura" />
+                                <Picker.Item label="RE" value="Relações Externas" />
+                                <Picker.Item label="Geral" value="Geral" />
+
+                            </Picker>
                             
-                            <Picker.Item color='#B7B7B7' value='all' label='Núcleo...' />
-                            <Picker.Item label="Entidades" value="Entidades" />
-                            <Picker.Item label="Divulgação" value="Divulgação" />
-                            <Picker.Item label="Infra" value="Infraestrutura" />
-                            <Picker.Item label="RE" value="Relações Externas" />
-                            <Picker.Item label="Geral" value="Geral" />
+                        </View>
 
-                        </Picker>
-                        
                     </View>
-
-                </View>
+                </ShimmerPlaceHolder>
                 <View style={styles.line} />
                 <View style={styles.line} />
 
@@ -205,7 +221,7 @@ export default function MemberList() {
                     showsVerticalScrollIndicator={false}
                     keyExtractor = {member => member._id}
                     renderItem = { ( { item: member } ) => (
-                        <MemberCard member={member} navigateFunction = {() => NavigateToViewProfile(member)}/>
+                        <MemberCard member={member} loaded={loaded} navigateFunction = {() => NavigateToViewProfile(member)}/>
                     )}
                 />
 

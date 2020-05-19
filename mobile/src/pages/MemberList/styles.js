@@ -26,12 +26,26 @@ export default StyleSheet.create({
         marginTop: 13,
         paddingHorizontal: 16,
     },
+    nameSearchPlaceholder:{
+        height: 0.08 * height,
+        width: 0.9 * width,
+        borderRadius: 30,
+        marginTop: 13,
+        alignSelf: 'center'
+    },
 
     filter: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: 'center',
     },
+    filterPlaceholder:{
+        height: 0.15 * height,
+        width: 0.9 * width,
+        marginTop: 13,
+        alignSelf: 'center'
+    },
+
     PickerView: {
         marginLeft: 5,
         borderRadius: 30,
@@ -58,6 +72,7 @@ export default StyleSheet.create({
         paddingHorizontal: 0.025 * width,
     },
     card: {
+        alignItems: 'center',
         borderColor: '#DDD',
         borderRadius: 6,
         borderWidth: 0.5,

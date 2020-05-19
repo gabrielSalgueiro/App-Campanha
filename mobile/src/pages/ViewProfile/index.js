@@ -18,6 +18,8 @@ import styles from './styles';
 import globalStyles from '../../globalStyles';
 
 // COMPONENTES
+import DrawerModal from '../../components/drawerModal';
+import PasswordModal from '../../components/passwordModal'
 import ShowCrown from '../../components/showCrown'
 import ShowEditSave from '../../components/showEditSave'
 import TeamIcon from '../../components/TeamIcon'
@@ -25,22 +27,29 @@ import TeamIcon from '../../components/TeamIcon'
 // API
 import api from '../../services/api';
 
+
 export default function ViewProfile(){
 
     const route = useRoute();
     const navigation =  useNavigation();
 
+    const [drawerVisible, setDrawerVisible] = useState(false)
+    const [passwordVisible, setPasswordVisible] = useState(false)
     const [loaded, setLoaded] =  useState(false)
-    const [teamIcon, setTeamIcon] = useState({})
     const [member, setMember] = useState({
         wpp: '',
         team:{
             name:''
+        },
+        image:{
+            url:''
         }
     })
-    const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
+
+    const logged_memberID = "5ec0116c85150250b8e80bb3" // ID DO PSY
 
     function NavigateToEditProfile(member){
+        setDrawerVisible(false)
         navigation.navigate('EditProfile', {member});
     }
     let memberId
@@ -61,9 +70,6 @@ export default function ViewProfile(){
             })
             setMember(resp.data)
 
-            /* // ESCOLHENDO O ICONE CONFORME O TIME
-            Team(resp.data) */
-            
             setLoaded(true)
         }
         getMember();
@@ -76,16 +82,72 @@ export default function ViewProfile(){
     function copyToClipboard(){
         Clipboard.setString(member.email)
         showMessage({
-            message: "Copiado para a Área de Transferência.",
+            message: "Copiado para a Área de Transferência",
             type: "info",
-            backgroundColor: "#3DACE1"
+            backgroundColor: "#3DACE1",
+            style:{alignItems: 'center'}
           });
+    }
+
+    let data ={
+        name: member.name,
+        realName: member.realName,
+        email: member.email,
+        password: member.password,
+        wpp: member.wpp,
+        team: member.team._id,
+        course: member.course,
+        hasCar: member.hasCar,
+        coord: member.coord
+    }
+
+    async function saveInformations(newPassword){
+        data.password = newPassword
+        const resp = await api.put(`/members/${member._id}`, data)
+        // reseta a pagina de perfil
+        // ainda não entendi como funciona direito
+        navigation.reset({
+            index: 0,
+            routes: [{name: "Perfil"}]
+        });
+  
+        // Navega para a tela de perfil da BottomTab
+        navigation.navigate('BottomTab', {
+            screen: "Perfil"
+        })
+        showMessage({
+            message: "Senha alterada com sucesso!",
+            type: "info",
+            backgroundColor: "#3DACE1",
+            position: { top: 70, left: 20, right: 20 },
+            style:{alignItems: 'center'}
+          });
+    }
+
+    function changePasswordButton(){
+        setDrawerVisible(false)
+        setPasswordVisible(true)
+    }
+
+    function cancelPasswordModal(){
+        setPasswordVisible(false)
     }
 
     return (
         <View 
             style={globalStyles.container}>
-            
+            <DrawerModal 
+                visible={drawerVisible} 
+                close={() => setDrawerVisible(false)}
+                editProfile={() =>NavigateToEditProfile(member)}
+                changePassword={changePasswordButton}
+            />
+            <PasswordModal
+                password={member.password}
+                visible={passwordVisible}
+                save={saveInformations}
+                cancel={cancelPasswordModal}
+            />
             
             <View style={styles.profileContainer}>
                 
@@ -101,12 +163,12 @@ export default function ViewProfile(){
                                 <View style = {styles.photo}>
                                 <ShowCrown show ={member.coord}/>
                                     <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                        <Image style={styles.avatar}  source={{uri: member.image}} />
+                                        <Image style={styles.avatar}  source={{uri: member.image.url}} />
                                     </ImageBackground>
                                     
                                 </View>
                             </View>
-                            <ShowEditSave type="edit" onPress={()=>NavigateToEditProfile(member)}show = {member._id == logged_memberID}/>
+                            <ShowEditSave type="edit" onPress={()=>setDrawerVisible(true)}show = {member._id == logged_memberID}/>
                         
                         </View>
                     </View>
