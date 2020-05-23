@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal,  View, TextInput, Dimensions, Text, StyleSheet, TouchableWithoutFeedback,  TouchableOpacity} from 'react-native';
+import React from 'react';
+import { Modal,  View, Dimensions, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 let {height, width} = Dimensions.get('window');
 
 export default function DrawerModal({visible, editProfile, changePassword, close}){
@@ -19,10 +19,10 @@ export default function DrawerModal({visible, editProfile, changePassword, close
       >
         <TouchableWithoutFeedback>
           <View style={styles.modalView}>
-            <TouchableOpacity onPress={editProfile} style={styles.button}>
+            <TouchableOpacity activeOpacity ={0.4}onPress={editProfile} style={styles.button}>
               <Text style={styles.labelText}>Editar Perfil</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={changePassword} style={styles.button} >
+            <TouchableOpacity activeOpacity ={0.4} onPress={changePassword} style={styles.button} >
                 <Text style={styles.labelText}>Trocar Senha</Text>
             </TouchableOpacity>
           </View>
@@ -36,26 +36,20 @@ export default function DrawerModal({visible, editProfile, changePassword, close
 const styles = StyleSheet.create({
     centeredView: {
       flex: 1,
-      marginTop: 4,
       alignItems: 'flex-end',
       marginRight: 2
 
     },
     modalView: {
-      justifyContent: 'flex-start',
-      backgroundColor:'#003D5C',
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 10
+      backgroundColor: '#fff'
     },
     button:{
-      marginHorizontal: 35,
-      marginVertical: 10,
+      alignItems: 'center',
+      width: 0.35 *width,
+      height: 0.05 * height,
+      backgroundColor: '#003D5C',
+      justifyContent: 'center',
+      paddingHorizontal: 0.05 * width
     },
     labelText:{
       alignSelf: 'center',

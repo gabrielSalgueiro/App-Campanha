@@ -1,22 +1,29 @@
+// REACT E REACT NATIVES IMPORTS
 import React, { useState, useEffect } from 'react';
 import { FlatList, Picker, View, TextInput, Text} from 'react-native';
-import { CheckBox } from 'react-native-elements';
+import { CheckBox, Divider } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/native'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
+// ESTILOS
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
+// COMPONENTES
 import MemberCard from '../../components/memberCard';
 
-
+// API
 import api from '../../services/api';
+
+// UTILS
+import {filterMembers} from '../../utils'
 
 export default function MemberList() {
 
+    // NAVIGATION PROPS
     const navigation =  useNavigation();
 
-    const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
+    // STATES
     const [name, setName] = useState('');
     const [team, setTeam] = useState('all');
     const [checkCar, setCheckCar] = useState(false);
@@ -24,129 +31,55 @@ export default function MemberList() {
     const [filteredMembers, setFilteredMembers] = useState([]);
     const [loaded, setLoaded] =  useState(false)
 
-    function handleCheckBox() {
-        
-        if (checkCar == true) {
-            setCheckCar(false)
-            filterMembersbyCar(false);
-        } else {
-            setCheckCar(true)
-            filterMembersbyCar(true);
-        }
-        
+    // ID DO MEMBRO LOGADO
+    const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY
+
+    // FILTRAGEM DOS MEMBROS
+    function filterMembersbyCar() {
+        setCheckCar(!checkCar)
+        const newData = filterMembers(allMembers, name, team, !checkCar)
+        setFilteredMembers(newData);
     }
 
     function filterMembersbyTeam(team){
         setTeam(team);
-        const newData = allMembers.filter(member =>{
-            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
-            const textData =  name.toUpperCase();
-            if(checkCar == false){
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1)
-                else
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.team.name.toUpperCase() == team.toUpperCase())
-            }else{
-
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.hasCar == 1);
-                else
-                    return  (memberData.indexOf(textData) > -1) &&
-                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
-                            (member.hasCar == 1);
-            }
-        });
-
+        const newData = filterMembers(allMembers, name, team, checkCar)
         setFilteredMembers(newData);
     };
 
-    function filterMembersbyCar(hasCar){
-        const newData = allMembers.filter(member =>{
-            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
-            const textData =  name.toUpperCase();
-            if(hasCar == false){
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1)
-                else
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.team.name.toUpperCase() == team.toUpperCase())
-            }else{
-
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.hasCar == 1);
-                else
-                    return  (memberData.indexOf(textData) > -1) &&
-                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
-                            (member.hasCar == 1);
-            }
-            
-        });
-
-        setFilteredMembers(newData);
-    };
-    
     function filterMembersbyName(name){
         setName(name);
-        const newData = allMembers.filter(member =>{
-            const memberData = `${member.name.toUpperCase()} ${member.realName.toUpperCase()}`
-            const textData =  name.toUpperCase();
-            if(checkCar == false){
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1)
-                else
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.team.name.toUpperCase() == team.toUpperCase())
-            }else{
-
-                if(team == 'all')
-                    return (memberData.indexOf(textData) > -1) &&
-                        (member.hasCar == 1);
-                else
-                    return  (memberData.indexOf(textData) > -1) &&
-                            (member.team.name.toUpperCase() == team.toUpperCase()) &&
-                            (member.hasCar == 1);
-            }
-        });
-
+        const newData = filterMembers(allMembers, name, team, checkCar)
         setFilteredMembers(newData);
     };
 
+    // CARREGA TODOS OS MEMBROS DO BANCO
+    async function loadMembers(){
+        const resp = await api.get('/members', {
+            
+        })
+        setAllMembers(resp.data);
+        setFilteredMembers(resp.data)
+        setLoaded(true)
+    }
+
     useEffect(() => {
-        async function loadMembers(){
-            const resp = await api.get('/members', {
-                
-            })
-            setAllMembers(resp.data);
-            setFilteredMembers(resp.data)
-            setLoaded(true)
-        }
         loadMembers();
     }, [])
 
+    // NAVEGA PARA A TELA DE VER O PERFIL DO MEMBRO
     function NavigateToViewProfile(member){
+
+        // SE O MEMBRO FOR O MEMBRO LOGADO ELE VAI PRA TELA DE PERFIL
+        // DA BOTTOM TAB
         if(member._id == logged_memberID){
             navigation.navigate('Perfil');
-        }
-
-        navigation.navigate('MemberViewProfile', {id: member._id} );
+        }else //SENAO NAVEGA PARA A TELA DE MEMBRO DA STACK PASSANDO O ID DO MEMBRO
+            navigation.navigate('MemberViewProfile', {id: member._id} );
     }
 
- /*    if(loading == true)
-        return(
-            <Loading/>
-        )
-    else if(loading == false) */
-        return (
-            
-        
-        <View 
-        
-
-
-        style={globalStyles.container}>
+    return (
+        <View style={globalStyles.container}>
 
             {/* SEARCH BAR */}
             <View style={styles.searchBar}>
@@ -182,7 +115,7 @@ export default function MemberList() {
                         <CheckBox
                             checked = {checkCar}
                             center
-                            onPress={handleCheckBox}
+                            onPress={filterMembersbyCar}
                             uncheckedColor='#003D5C'
                             checkedColor='#003D5C'
                         />
@@ -209,8 +142,8 @@ export default function MemberList() {
 
                     </View>
                 </ShimmerPlaceHolder>
-                <View style={styles.line} />
-                <View style={styles.line} />
+                <Divider style={styles.line} />
+                <Divider style={styles.line} />
 
             </View>
 
@@ -221,12 +154,15 @@ export default function MemberList() {
                     showsVerticalScrollIndicator={false}
                     keyExtractor = {member => member._id}
                     renderItem = { ( { item: member } ) => (
-                        <MemberCard member={member} loaded={loaded} navigateFunction = {() => NavigateToViewProfile(member)}/>
+                        <MemberCard 
+                            member={member} 
+                            loaded={loaded} 
+                            navigateFunction = {() => NavigateToViewProfile(member)}
+                        />
                     )}
                 />
 
             </View>
-             {/* HEADER DA PÁGINA <Footer />*/}
              
         </View>
     )

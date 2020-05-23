@@ -1,27 +1,31 @@
 // REACT E REACT NATIVES IMPORTS
-
-import React, { useState, useEffect } from 'react';
-import { Image, Alert, ImageBackground, View, Text, TextInput,TouchableOpacity,} from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'
+import React, { useState} from 'react';
+import { Image, Alert, ImageBackground, View, Text, TextInput,TouchableOpacity} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { showMessage} from "react-native-flash-message";
+import * as ImagePicker from 'expo-image-picker'
 
 // ICONS
-import { MaterialIcons, Feather, FontAwesome5, FontAwesome} from '@expo/vector-icons';
+import { MaterialIcons, Feather,FontAwesome} from '@expo/vector-icons';
 import personIcon from '../../assets/Icons/person.png';
-import carIcon from '../../assets/Icons/Car.png'
-import notCarIcon from '../../assets/Icons/notCar.png'
+import carIcon from '../../assets/Icons/Car.png';
+import notCarIcon from '../../assets/Icons/notCar.png';
 
 // ESTILOS
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
 // COMPONENTES
-import ShowCrown from '../../components/showCrown'
-import ShowEditSave from '../../components/showEditSave'
-import TeamIcon from '../../components/TeamIcon'
-import CameraModal from '../../components/cameraModal'
+import ShowCrown from '../../components/showCrown';
+import ShowEditSave from '../../components/showEditSave';
+import TeamIcon from '../../components/TeamIcon';
+import ImagePickerModal from '../../modals/imagePickerModal';
 
+// API
 import api from '../../services/api';
+
+// UTILS
+import {validateEmail, validateWhatsApp, clearWpp} from '../../utils'
 
 export default function EditProfile(){
 
@@ -38,81 +42,52 @@ export default function EditProfile(){
     const [course, setCourse] =  useState(member.course)
     const [wpp, setWpp] =  useState(member.wpp)
     const [hasCar, setHasCar] = useState(member.hasCar)
-    const [photo, setPhoto] = useState(member.image.url)
-    const [cameraVisible, setCameraVisible] = useState(false)
+    const [photo, setPhoto] = useState(member.image ? member.image : 'none')
+    const [deleteImage, setDeleteImage] = useState(false)
+    const [cameraModalVisible, setCameraModalVisible] = useState(false)
 
-    let data ={
-        name: name,
-        realName: nickname,
-        email: email,
-        password: member.password,
-        wpp: wpp,
-        team: member.team._id,
-        image: photo,
-        course: course,
-        hasCar: hasCar,
-        coord: member.coord
-    }
-
+    // FUNCTIONS 
     function Cancel(){
         navigation.goBack();
     }
 
-    function clearWpp(){
 
-        var temp = String(wpp)
-
-        temp = temp.replace(' ', '')
-        temp = temp.replace('(', '')
-        temp = temp.replace(')', '')
-
-        setWpp(temp)
-    }
-
-    function validateEmail() {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(String(email).toLowerCase())) {
-            return true;
-        } else {
-            Alert.alert(
-                'Erro de Submissão',
-                'E-mail no formato Incorreto !'
-
-            )
-            //alert("E-mail no formato Incorreto !");
-            return false;
-        }
-    }
-
-    function validateWhatsApp(){
-        var re = /(\+\d{2})?\s?(\(?\d{2}\)?\s?)(\d{4,5}\-?\d{4})/;
-        if (re.test(wpp)){
-            console.log('wpp funfo')
-
-            clearWpp()
-            return true;
-            
-        } else {
-            console.log('wpp deu ruim')
-            Alert.alert(
-                'Erro de Submissão',
-                'Whatsapp no formato Incorreto !'
-
-            )
-            //alert("E-mail no formato Incorreto !");
-            return false;
-        }
-    }
-
+    // MANDA AS INFORMAÇÕES PARA O BANCO
     async function saveInformations(){
 
-        if(validateEmail() === false){
+        /* if(validateEmail() === false){
             return ;
+        } */
+        //validateWhatsApp()
+        //return; 
+        let data = new FormData()
+        data.append('name', name)
+        data.append('realName', nickname)
+        data.append('email', email)
+        data.append('password',member.password)
+        data.append('wpp', wpp)
+        data.append('team', member.team._id)
+        data.append('course', course)
+        data.append('coord',member.coord)
+        data.append('hasCar', hasCar)
+        if(deleteImage===true){
+            data.append('deleteImage' , true)
+        }else if(photo !== 'none'){
+            console.log(photo)
+		    const fileName = photo.uri.split("/").pop();
+            const ext = photo.uri.split(".").pop();
+            data.append("image", {
+                uri: photo.uri,
+                name:fileName,
+                type: photo.type+'/'+ext
+            });
+            console.log('data')
+            console.log(data)
         }
-        validateWhatsApp()
-        return; 
+        
         try{
             const resp = await api.put(`/members/${member._id}`, data)
+
         // reseta a pagina de perfil
         // ainda não entendi como funciona direito
         navigation.reset({
@@ -132,17 +107,58 @@ export default function EditProfile(){
             style:{alignItems: 'center'}
           });
         }catch(error){
-            Alert.alert(error
-            )
+            Alert.alert(error)
         }
     }
+    function DeleteImage(){
+        setDeleteImage(true)
+        setCameraModalVisible(false)
+        setPhoto('none')
+    }
 
+    async function openGallery(){
+        setCameraModalVisible(false)
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images
+            });
+            if (!result.cancelled) {
+                setPhoto(result);
+            }
+            
+          } catch (E) {
+            console.log(E);
+          }
+    }
+
+    // ABRE A CAMERA DO CELULAR
+    async function openCamera(){
+        setCameraModalVisible(false)
+        try {
+            let result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images
+            });
+            if (!result.cancelled) {
+                setPhoto(result);
+            }
+            
+          } catch (E) {
+            console.log(E);
+          }
+          
+    }
     return (
         <View 
             style={globalStyles.container}>
-            <CameraModal visible={cameraVisible}
-                cancel={()=>setCameraVisible(false)}
-                save={()=>setCameraVisible(false)}
+
+                        {/* MODALS */}
+            {/* IMAGE PICKER */}
+            <ImagePickerModal visible={cameraModalVisible}
+                cancel={()=>setCameraModalVisible(false)}
+                save={()=>setCameraModalVisible(false)}
+                openCamera={openCamera}
+                openGallery={openGallery}
+                deleteImage={DeleteImage}
             />
 
             <View style={styles.profileContainer}>
@@ -161,13 +177,16 @@ export default function EditProfile(){
                                 <View style = {styles.photo}>
                                     <ShowCrown show ={member.coord}/>
                                     <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                        <Image style={styles.avatar}  source={{uri: photo}} />
+                                        <Image style={styles.avatar}  source={{uri: photo.url?photo.url:photo.uri}} />
                                     </ImageBackground>
                                     
                                 </View>
                                 <View style = {styles.cameraContainer}>
-                                    <TouchableOpacity onPress={() =>setCameraVisible(true)} 
-                                    activeOpacity={0.4} style =  {styles.camera}>    
+                                    <TouchableOpacity 
+                                        onPress={() =>setCameraModalVisible(true)} 
+                                        activeOpacity={0.4} 
+                                        style =  {styles.camera}
+                                    >    
                                         <MaterialIcons name = "photo-camera" color = "#003D5C" size={26}/>
                                     </TouchableOpacity>
                                 </View>

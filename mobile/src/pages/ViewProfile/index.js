@@ -1,38 +1,43 @@
 // REACT E REACT NATIVES IMPORTS
 
 import React, { useState, useEffect } from 'react';
-import { Image, Clipboard,ImageBackground, View, Text, TouchableOpacity, Linking } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import { Image,ImageBackground, StatusBar, View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import { showMessage} from "react-native-flash-message";
 
 // ICONS
-import { MaterialIcons, Feather, Entypo, FontAwesome5, FontAwesome} from '@expo/vector-icons';
+import { MaterialIcons, Feather,FontAwesome5, FontAwesome} from '@expo/vector-icons';
 import personIcon from '../../assets/Icons/person.png';
-import carIcon from '../../assets/Icons/Car.png'
-import notCarIcon from '../../assets/Icons/notCar.png'
-
+import carIcon from '../../assets/Icons/Car.png';
+import notCarIcon from '../../assets/Icons/notCar.png';
 
 // ESTILOS
 import styles from './styles';
 import globalStyles from '../../globalStyles';
 
+// MODALS
+import DrawerModal from '../../modals/drawerModal';
+import PasswordModal from '../../modals/passwordModal';
+
 // COMPONENTES
-import DrawerModal from '../../components/drawerModal';
-import PasswordModal from '../../components/passwordModal'
-import ShowCrown from '../../components/showCrown'
-import ShowEditSave from '../../components/showEditSave'
-import TeamIcon from '../../components/TeamIcon'
+import ShowCrown from '../../components/showCrown';
+import ShowEditSave from '../../components/showEditSave';
+import TeamIcon from '../../components/TeamIcon';
 
 // API
 import api from '../../services/api';
 
+// UTILS
+import { copyToClipboard, sendWhatsapp } from '../../utils'
 
 export default function ViewProfile(){
 
+    // NAVIGATION PROPS
     const route = useRoute();
     const navigation =  useNavigation();
 
+    // STATES
     const [drawerVisible, setDrawerVisible] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [loaded, setLoaded] =  useState(false)
@@ -42,53 +47,15 @@ export default function ViewProfile(){
             name:''
         },
         image:{
-            url:''
+            url:'hello' //EVITAR O WARNING DE INICIAR A IMAGE COMO VAZIA
         }
     })
 
-    const logged_memberID = "5ec0116c85150250b8e80bb3" // ID DO PSY
+    // ID DO MEMBRO LOGADO
+    const logged_memberID = "5ec7e3acef160e3d60165de0" // ID DO MIOJO
+    let memberId;
 
-    function NavigateToEditProfile(member){
-        setDrawerVisible(false)
-        navigation.navigate('EditProfile', {member});
-    }
-    let memberId
-    // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
-    useEffect(()=>{
-
-        // O PADRAO DA TELA É A TELA DE PERFIL DO USUARIO LOGADO
-        // SE HOUVER UM ID NA ROTA, ENTAO EU PEGO OS DADOS DO MEMBRO QUE TEM ESSE ID NOVO
-        memberId = logged_memberID
-        if (route.params?.id) {
-            memberId = route.params?.id
-          }
-
-
-        async function getMember(){
-            const resp =  await api.get(`/members/${memberId}`,{
-
-            })
-            setMember(resp.data)
-
-            setLoaded(true)
-        }
-        getMember();
-    }, [])
-
-    function sendWhatsapp(){
-        Linking.openURL(`whatsapp://send?phone=+55${member.wpp}`)
-    }
-
-    function copyToClipboard(){
-        Clipboard.setString(member.email)
-        showMessage({
-            message: "Copiado para a Área de Transferência",
-            type: "info",
-            backgroundColor: "#3DACE1",
-            style:{alignItems: 'center'}
-          });
-    }
-
+    // OBJETO PRA SALVAR NO BANCO
     let data ={
         name: member.name,
         realName: member.realName,
@@ -101,7 +68,50 @@ export default function ViewProfile(){
         coord: member.coord
     }
 
-    async function saveInformations(newPassword){
+
+    // NAVEGA PARA A TELA DE EDITAR PERFIL
+    function NavigateToEditProfile(member){
+        setDrawerVisible(false)
+        navigation.navigate('EditProfile', {member});
+    }
+
+    // FECHA O DRAWER MODAL E MOSTRA O PASSWORD MODAL
+    function changePasswordButton(){
+        setDrawerVisible(false)
+        setPasswordVisible(true)
+    }
+
+    // FECHA O MODAL DO PASSWORD
+    function cancelPasswordModal(){
+        setPasswordVisible(false)
+    }
+
+
+    // RECUPERA AS INFORMAÇÕES DO MEMBRO NO BANCO
+    async function getMember(memberId){
+        const resp =  await api.get(`/members/${memberId}`,{
+
+        })
+        setMember(resp.data)
+
+        setLoaded(true)
+    }
+    
+    // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
+    useEffect(()=>{
+
+        // O PADRAO DA TELA É A TELA DE PERFIL DO USUARIO LOGADO
+        // SE HOUVER UM ID NA ROTA, ENTAO EU PEGO OS DADOS DO MEMBRO QUE TEM ESSE ID NOVO
+        memberId = logged_memberID
+        if (route.params?.id) {
+            memberId = route.params?.id
+          }
+        getMember(memberId);
+    }, [])
+
+
+    // SALVA A NOVA SENHA NO BANCO E ATUALIZA A PÁGINA
+    async function savePassword(newPassword){
         data.password = newPassword
         const resp = await api.put(`/members/${member._id}`, data)
         // reseta a pagina de perfil
@@ -124,18 +134,11 @@ export default function ViewProfile(){
           });
     }
 
-    function changePasswordButton(){
-        setDrawerVisible(false)
-        setPasswordVisible(true)
-    }
-
-    function cancelPasswordModal(){
-        setPasswordVisible(false)
-    }
-
     return (
         <View 
             style={globalStyles.container}>
+
+                    {/* MODALS */}
             <DrawerModal 
                 visible={drawerVisible} 
                 close={() => setDrawerVisible(false)}
@@ -145,10 +148,15 @@ export default function ViewProfile(){
             <PasswordModal
                 password={member.password}
                 visible={passwordVisible}
-                save={saveInformations}
+                save={savePassword}
                 cancel={cancelPasswordModal}
             />
+            <StatusBar backgroundColor="#3DACFF" barStyle='dark-content' translucent />
+            <View>
+                <StatusBar hidden={false} />
+            </View>
             
+                        {/* PAGE */}
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
@@ -163,12 +171,16 @@ export default function ViewProfile(){
                                 <View style = {styles.photo}>
                                 <ShowCrown show ={member.coord}/>
                                     <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                        <Image style={styles.avatar}  source={{uri: member.image.url}} />
+                                        <Image style={styles.avatar}  source={{uri: member.image?member.image.url:'none'}} />
                                     </ImageBackground>
                                     
                                 </View>
                             </View>
-                            <ShowEditSave type="edit" onPress={()=>setDrawerVisible(true)}show = {member._id == logged_memberID}/>
+                            <ShowEditSave 
+                                type="edit" 
+                                onPress={()=>setDrawerVisible(true)}
+                                show = {member._id == logged_memberID}
+                            />
                         
                         </View>
                     </View>
@@ -199,7 +211,10 @@ export default function ViewProfile(){
                                 <Text style = {styles.textInfo}>
                                     {member.email}
                                 </Text>
-                                <TouchableOpacity  onPress = {copyToClipboard}style = {styles.clipboard}>
+                                <TouchableOpacity  
+                                    onPress = {() => copyToClipboard(member.email)}
+                                    style = {styles.clipboard}
+                                >
                                     <FontAwesome5 name={'copy'} color = '#003D5C' size={22}/>
                                 </TouchableOpacity>
                                 
@@ -214,9 +229,14 @@ export default function ViewProfile(){
                             <View style={styles.iconTextContainer}>
                                 <FontAwesome name={'whatsapp'} color = '#003D5C'size={34}/>
                                 <Text style = {styles.textInfo}>
-                                    ({member.wpp.slice(0,2)}) {member.wpp.slice(2,7)} - {member.wpp.slice(7)}
+                                    ({member.wpp.slice(0,2)}) 
+                                    {member.wpp.slice(2,7)}
+                                     - {member.wpp.slice(7)}
                                 </Text>
-                                <TouchableOpacity onPress = {sendWhatsapp}style = {styles.clipboard}>
+                                <TouchableOpacity 
+                                    onPress = {() => sendWhatsapp(member.wpp)}
+                                    style = {styles.clipboard}
+                                >
                                     <FontAwesome5 name={'link'} color = '#003D5C' size={18}/>
                                 </TouchableOpacity>
                             </View>
@@ -229,16 +249,19 @@ export default function ViewProfile(){
                         visible={loaded}
                     >
                         <View style = {styles.carTeamContainer}>
-                            <Image style = {styles.car} source = {member.hasCar == 0 ? notCarIcon : carIcon}/>
+                            <Image 
+                                style = {styles.car} 
+                                source = {member.hasCar == 0 ? notCarIcon : carIcon}
+                            />
                             <TeamIcon color='#003D5C' size={28} team={member.team.name}/>
                         </View>
                     </ShimmerPlaceHolder>
 
                     {/* Card de Frequencia*/}
                     <ShimmerPlaceHolder
-                    style={{height:160, width: '80%', marginHorizontal: 30, marginTop: 30}} 
-                    autoRun={true} 
-                    visible={loaded}
+                        style={{height:160, width: '80%', marginHorizontal: 30, marginTop: 30}} 
+                        autoRun={true} 
+                        visible={loaded}
                     >
                         <View style={styles.frequencyCard}>
                             <Text style={styles.title}>Frequência:</Text>

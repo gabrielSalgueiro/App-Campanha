@@ -3,7 +3,6 @@ import Constants from 'expo-constants';
 
 let {height, width} = Dimensions.get('window');
 
-
 export default StyleSheet.create({
 
     container: {

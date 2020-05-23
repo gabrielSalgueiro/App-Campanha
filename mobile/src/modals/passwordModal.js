@@ -7,13 +7,15 @@ let {height, width} = Dimensions.get('window');
 
 export default function PasswordModal({visible, password, save, cancel}){
 
+  // STATES
     const [currentPassword,setCurrentPassword] = useState('')
+    const [wrongCurrentPassword, setWrongCurrentPassword] = useState(false)
     const [newPassword,setNewPassword] = useState('')
     const [newPassword2,setNewPassword2] = useState('')
+    const [wrongNewPassword, setWrongNewPassword] = useState(false)
+
     const [showPassword, setShowPassword] = useState(false)
     const [securePassword, setSecurePassword] = useState(true)
-    const [wrongCurrentPassword, setWrongCurrentPassword] = useState(false)
-    const [wrongNewPassword, setWrongNewPassword] = useState(false)
 
     function passwordView(){
       if(showPassword === false){
@@ -37,8 +39,8 @@ export default function PasswordModal({visible, password, save, cancel}){
       setWrongNewPassword(false)
       cancel()
     }
-
-    function savePassword(){
+    // VERIFICANDO AS SENHAS
+    function verifyPassword(){
       if((currentPassword === '')
         || (newPassword === '')
         || (newPassword2 === '')){
@@ -68,7 +70,6 @@ export default function PasswordModal({visible, password, save, cancel}){
     }
 
     return (
-      
         <Modal
           statusBarTranslucent={true}
             animationType="fade"
@@ -146,7 +147,7 @@ export default function PasswordModal({visible, password, save, cancel}){
                   <TouchableOpacity onPress={resetAndClose}style={styles.saveButton}>
                         <Text style={styles.saveText}>Cancelar</Text>
                     </TouchableOpacity>
-                  <TouchableOpacity onPress={savePassword}style={styles.saveButton}>
+                  <TouchableOpacity onPress={verifyPassword}style={styles.saveButton}>
                         <Text style={styles.saveText}>Salvar</Text>
                     </TouchableOpacity>
                 </View>

@@ -9,7 +9,7 @@ import personIcon from '../assets/Icons/person.png';
 
 export default function MemberCard({member, loaded, navigateFunction}){
 
-    
+
     return (
         <ShimmerPlaceHolder
             style={{height:120, width:'100%', marginTop: 10, borderRadius: 6, }} 
@@ -21,7 +21,7 @@ export default function MemberCard({member, loaded, navigateFunction}){
                 onPress ={navigateFunction}>
                 
                     <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                        <Image style={styles.avatar}  source={{uri: member.image.url}} />
+                        <Image style={styles.avatar}  source={{uri: member.image?member.image.url:'none'}} />
                     </ImageBackground>
                 
                 <View style = {styles.memberInfo}>

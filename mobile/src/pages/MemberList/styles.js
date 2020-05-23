@@ -60,8 +60,8 @@ export default StyleSheet.create({
         paddingHorizontal: 0.027 * width,
     },
     line: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
+        backgroundColor: '#000',
+        height: 1,
         width: 0.80 * width,
         alignSelf: 'center',
         margin: 5,
