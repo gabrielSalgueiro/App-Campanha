@@ -1,20 +1,16 @@
 // REACT E REACT NAVIGATION IMPORTS
 import React from 'react';
-import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // COMPONENTS
 import MemberList from '../pages/MemberList';
 import ViewProfile from '../pages/ViewProfile';
-import MemberListStackScreen from './memberListStack';
+import Dashboard from '../pages/Dashboard';
+import MemberListStackScreen from './MemberList.routes';
 
 // ESTILOS E ICONES
 import styles from '../globalStyles'
 import { MaterialIcons, Entypo, FontAwesome} from '@expo/vector-icons';
-import profileIcon from '../assets/Icons/profile.png';
-import homeIcon from '../assets/Icons/home.png'
-import searchIcon from '../assets/Icons/search.png'
-import calendarIcon from '../assets/Icons/calendar.png'
 
 
 // BOTTOM TAB NAVIGATOR
@@ -26,7 +22,7 @@ export default function BottomTab(){
 
         <Tabs.Navigator  
             screenOptions={{headerShown: false}}
-            initialRouteName="Membros"
+            initialRouteName="Inicio"
             tabBarOptions={{style: styles.footer,
                 labelStyle: styles.footerText,
                 activeTintColor: '#FFF',
@@ -44,7 +40,7 @@ export default function BottomTab(){
                         <Entypo name="home" color={color} size={28}/>
                 )
                 }} 
-                component = {MemberList}
+                component = {Dashboard}
             />
             <Tabs.Screen 
                 name  =  "Eventos" 

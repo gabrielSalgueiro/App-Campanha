@@ -147,5 +147,5 @@ export default StyleSheet.create({
         fontSize: 12,
         fontWeight: "500",
     }
-
+ 
 })
