@@ -5,6 +5,8 @@ import { CheckBox, Divider } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/native'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
+
+
 // ESTILOS
 import styles from './styles';
 import globalStyles from '../../globalStyles';
@@ -30,6 +32,7 @@ export default function MemberList() {
     const [allMembers, setAllMembers] = useState([]);
     const [filteredMembers, setFilteredMembers] = useState([]);
     const [loaded, setLoaded] =  useState(false)
+    
 
     // ID DO MEMBRO LOGADO
     const logged_memberID = "5e9f710aba69b800176e0abf" // ID DO PSY

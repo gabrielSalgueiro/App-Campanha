@@ -22,7 +22,7 @@ export default StyleSheet.create({
         color: '#FFF',
         alignSelf: 'center'
     },
-    input:{
+    inputBox:{
         width: 0.86*width,
         height: 0.06*height,
         fontSize: 16,
@@ -32,8 +32,19 @@ export default StyleSheet.create({
         borderRadius: 5,
         alignSelf: 'center', 
         color: '#FFF',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
     },
-    sendButton:{
+    infoInput:{
+        alignSelf: 'stretch',
+        color: '#7D7D7D',
+        fontSize: 14,
+        width: '90%'
+    },
+    eyeButton:{
+        justifyContent: 'center',
+    },
+    button:{
         marginTop: 0.03*height,
         backgroundColor: '#3DACE1', 
         alignItems:'center',
@@ -43,5 +54,5 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: '#003D5C',
         borderRadius: 10,
-    },
+    }
 })

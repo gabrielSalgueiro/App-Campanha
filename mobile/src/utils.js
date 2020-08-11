@@ -7,28 +7,39 @@ export function validateWhatsApp(wpp){
         return true;
         
     } else {
-        console.log('wpp deu ruim')
-        Alert.alert(
-            'Erro de Submissão',
-            'Whatsapp no formato Incorreto !'
-
-        )
-        //alert("E-mail no formato Incorreto !");
+        showMessage({
+            message: 'Whatsapp no formato Incorreto !',
+            type: "info",
+            backgroundColor: "#F79839",
+            position: { top: 330, left: 20, right: 20 },
+            style:{alignItems: 'center'}
+        });
         return false;
+    }
+}
+
+export function verificaEspaço(string){
+    var re = /\s/g
+    if(re.test(string)){
+        return true;
+    }else{
+        return false
     }
 }
 
 export function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
     if (re.test(String(email).toLowerCase())) {
         return true;
     } else {
-        Alert.alert(
-            'Erro de Submissão',
-            'E-mail no formato Incorreto !'
-
-        )
-        //alert("E-mail no formato Incorreto !");
+        showMessage({
+            message: "E-mail no formato Incorreto!",
+            type: "info",
+            backgroundColor: "#F79839",
+            position: { top: 330, left: 20, right: 20 },
+            style:{alignItems: 'center'}
+        });
         return false;
     }
 }

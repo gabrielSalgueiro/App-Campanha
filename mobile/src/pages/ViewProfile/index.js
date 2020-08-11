@@ -1,14 +1,15 @@
 // REACT E REACT NATIVES IMPORTS
 
 import React, { useState, useEffect } from 'react';
-import { Image,ImageBackground, StatusBar, View, Text, TouchableOpacity } from 'react-native';
+import { Image,StatusBar, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
-import { showMessage} from "react-native-flash-message";
+import { Avatar } from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 // ICONS
 import { MaterialIcons, Feather,FontAwesome5, FontAwesome} from '@expo/vector-icons';
-import personIcon from '../../assets/Icons/person.png';
 import carIcon from '../../assets/Icons/Car.png';
 import notCarIcon from '../../assets/Icons/notCar.png';
 
@@ -18,7 +19,6 @@ import globalStyles from '../../globalStyles';
 
 // MODALS
 import DrawerModal from '../../modals/drawerModal';
-import PasswordModal from '../../modals/passwordModal';
 
 // COMPONENTES
 import ShowCrown from '../../components/showCrown';
@@ -39,21 +39,14 @@ export default function ViewProfile(){
 
     // STATES
     const [drawerVisible, setDrawerVisible] = useState(false)
-    const [passwordVisible, setPasswordVisible] = useState(false)
     const [loaded, setLoaded] =  useState(false)
+    const [logged_memberID, setLoggedMemberID] = useState('')
     const [member, setMember] = useState({
         wpp: '',
         team:{
             name:''
-        },
-        image:{
-            url:'hello' //EVITAR O WARNING DE INICIAR A IMAGE COMO VAZIA
         }
     })
-
-    // ID DO MEMBRO LOGADO
-    const logged_memberID = "5ec7e3acef160e3d60165de0" // ID DO MIOJO
-    let memberId;
 
     // OBJETO PRA SALVAR NO BANCO
     let data ={
@@ -78,14 +71,8 @@ export default function ViewProfile(){
     // FECHA O DRAWER MODAL E MOSTRA O PASSWORD MODAL
     function changePasswordButton(){
         setDrawerVisible(false)
-        setPasswordVisible(true)
+        navigation.navigate('Trocar Senha', {member_id: logged_memberID});
     }
-
-    // FECHA O MODAL DO PASSWORD
-    function cancelPasswordModal(){
-        setPasswordVisible(false)
-    }
-
 
     // RECUPERA AS INFORMAÇÕES DO MEMBRO NO BANCO
     async function getMember(memberId){
@@ -93,46 +80,29 @@ export default function ViewProfile(){
 
         })
         setMember(resp.data)
-
         setLoaded(true)
     }
     
+    
     // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
     useEffect(()=>{
+        async function getLoggedMember(){
+            const resp = JSON.parse(await AsyncStorage.getItem('@CampanhaAuth:user'))
+            setMember(resp)
+            setLoggedMemberID(resp._id)
+        };
 
         // O PADRAO DA TELA É A TELA DE PERFIL DO USUARIO LOGADO
         // SE HOUVER UM ID NA ROTA, ENTAO EU PEGO OS DADOS DO MEMBRO QUE TEM ESSE ID NOVO
-        memberId = logged_memberID
+        getLoggedMember()
         if (route.params?.id) {
-            memberId = route.params?.id
-          }
-        getMember(memberId);
+            getMember(route.params.id)
+        }else{
+            setLoaded(true)
+        }
+        
     }, [])
 
-
-    // SALVA A NOVA SENHA NO BANCO E ATUALIZA A PÁGINA
-    async function savePassword(newPassword){
-        data.password = newPassword
-        const resp = await api.put(`/members/${member._id}`, data)
-        // reseta a pagina de perfil
-        // ainda não entendi como funciona direito
-        navigation.reset({
-            index: 0,
-            routes: [{name: "Perfil"}]
-        });
-  
-        // Navega para a tela de perfil da BottomTab
-        navigation.navigate('BottomTab', {
-            screen: "Perfil"
-        })
-        showMessage({
-            message: "Senha alterada com sucesso!",
-            type: "info",
-            backgroundColor: "#3DACE1",
-            position: { top: 70, left: 20, right: 20 },
-            style:{alignItems: 'center'}
-          });
-    }
 
     return (
         <View 
@@ -144,12 +114,6 @@ export default function ViewProfile(){
                 close={() => setDrawerVisible(false)}
                 editProfile={() =>NavigateToEditProfile(member)}
                 changePassword={changePasswordButton}
-            />
-            <PasswordModal
-                password={member.password}
-                visible={passwordVisible}
-                save={savePassword}
-                cancel={cancelPasswordModal}
             />
             <StatusBar backgroundColor="#3DACFF" barStyle='dark-content' translucent />
             <View>
@@ -170,10 +134,15 @@ export default function ViewProfile(){
                             <View style = {styles.photoContainer}>
                                 <View style = {styles.photo}>
                                 <ShowCrown show ={member.coord}/>
-                                    <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                        <Image style={styles.avatar}  source={{uri: member.image?member.image.url:'none'}} />
-                                    </ImageBackground>
-                                    
+                                <Avatar
+                                    containerStyle={styles.standartAvatar}
+                                    size="large"
+                                    rounded
+                                    title={member.name?member.name.slice(0,2):'UN'}
+                                    onPress={() => console.log("Works!")}
+                                    activeOpacity={0.8}
+                                    source={{uri: member.image?member.image.url:'none'}}
+                                />
                                 </View>
                             </View>
                             <ShowEditSave 

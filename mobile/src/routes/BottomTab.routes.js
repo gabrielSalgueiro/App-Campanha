@@ -20,7 +20,7 @@ export default function BottomTab(){
 
     return (
 
-        <Tabs.Navigator  
+        <Tabs.Navigator 
             screenOptions={{headerShown: false}}
             initialRouteName="Inicio"
             tabBarOptions={{style: styles.footer,

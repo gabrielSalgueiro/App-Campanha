@@ -5,7 +5,7 @@ import { createStackNavigator }  from '@react-navigation/stack';
 
 // COMPONENTS
 
-import ViewProfile from '../pages/ViewProfile';
+import ViewProfile from '../pages/ViewProfile'
 import MemberList from '../pages/MemberList';
 
 

@@ -1,13 +1,14 @@
 // REACT E REACT NATIVES IMPORTS
 import React, { useState} from 'react';
-import { Image, Alert, ImageBackground, View, Text, TextInput,TouchableOpacity} from 'react-native';
+import { Image, View, Text, TextInput,TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { showMessage} from "react-native-flash-message";
 import * as ImagePicker from 'expo-image-picker'
+import { Avatar } from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage'
 
 // ICONS
 import { MaterialIcons, Feather,FontAwesome} from '@expo/vector-icons';
-import personIcon from '../../assets/Icons/person.png';
 import carIcon from '../../assets/Icons/Car.png';
 import notCarIcon from '../../assets/Icons/notCar.png';
 
@@ -20,15 +21,15 @@ import ShowCrown from '../../components/showCrown';
 import ShowEditSave from '../../components/showEditSave';
 import TeamIcon from '../../components/TeamIcon';
 import ImagePickerModal from '../../modals/imagePickerModal';
+import LoaderModal from '../../modals/loaderModal'
 
 // API
 import api from '../../services/api';
 
 // UTILS
-import {validateEmail, validateWhatsApp, clearWpp} from '../../utils'
+import {validateEmail, validateWhatsApp} from '../../utils'
 
 export default function EditProfile(){
-
 
     // NAVIGATION PROPS
     const route = useRoute();
@@ -45,35 +46,47 @@ export default function EditProfile(){
     const [photo, setPhoto] = useState(member.image ? member.image : 'none')
     const [deleteImage, setDeleteImage] = useState(false)
     const [cameraModalVisible, setCameraModalVisible] = useState(false)
+    const [loaderVisible, setLoaderVisible] = useState(false)
 
     // FUNCTIONS 
     function Cancel(){
         navigation.goBack();
     }
 
+    async function saveMemberStorage(){
+        try{
+            const resp =  await api.get(`/members/${member._id}`,{})
+            await AsyncStorage.setItem('@CampanhaAuth:user', JSON.stringify(resp.data))
+        }catch(error){
+            const { data } = error.response;
+            console.log(data)
+        }
+        
+    }
 
     // MANDA AS INFORMAÇÕES PARA O BANCO
     async function saveInformations(){
 
-        /* if(validateEmail() === false){
+        if(validateEmail(email) === false){
             return ;
-        } */
-        //validateWhatsApp()
-        //return; 
+        }
+        if(validateWhatsApp(wpp) === false){
+            return ;
+        }
         let data = new FormData()
         data.append('name', name)
         data.append('realName', nickname)
         data.append('email', email)
-        data.append('password',member.password)
         data.append('wpp', wpp)
         data.append('team', member.team._id)
         data.append('course', course)
         data.append('coord',member.coord)
         data.append('hasCar', hasCar)
+
         if(deleteImage===true){
             data.append('deleteImage' , true)
-        }else if(photo !== 'none'){
-            console.log(photo)
+        }else if(photo !== 'none' && photo.uri){
+            photo.type = 'image'
 		    const fileName = photo.uri.split("/").pop();
             const ext = photo.uri.split(".").pop();
             data.append("image", {
@@ -81,20 +94,21 @@ export default function EditProfile(){
                 name:fileName,
                 type: photo.type+'/'+ext
             });
-            console.log('data')
-            console.log(data)
         }
         
         try{
+            setLoaderVisible(true)
             const resp = await api.put(`/members/${member._id}`, data)
+            await saveMemberStorage()
 
         // reseta a pagina de perfil
         // ainda não entendi como funciona direito
         navigation.reset({
             index: 0,
             routes: [{name: "Perfil"}]
+            
         });
-
+        setLoaderVisible(false)
         // Navega para a tela de perfil da BottomTab
         navigation.navigate('BottomTab', {
             screen: "Perfil"
@@ -107,7 +121,15 @@ export default function EditProfile(){
             style:{alignItems: 'center'}
           });
         }catch(error){
-            Alert.alert(error)
+            setLoaderVisible(false)
+            const { data } = error.response;
+            showMessage({
+                message: data.err,
+                type: "info",
+                backgroundColor: "#F79839",
+                position: { top: 330, left: 20, right: 20 },
+                style:{alignItems: 'center'}
+            });
         }
     }
     function DeleteImage(){
@@ -124,11 +146,19 @@ export default function EditProfile(){
             });
             if (!result.cancelled) {
                 setPhoto(result);
+                setDeleteImage(false)
             }
             
-          } catch (E) {
-            console.log(E);
-          }
+        }catch (error) {
+            const { data } = error.response;
+            showMessage({
+                message: data.err,
+                type: "info",
+                backgroundColor: "#F79839",
+                position: { top: 330, left: 20, right: 20 },
+                style:{alignItems: 'center'}
+            });
+        }
     }
 
     // ABRE A CAMERA DO CELULAR
@@ -140,11 +170,19 @@ export default function EditProfile(){
             });
             if (!result.cancelled) {
                 setPhoto(result);
+                setDeleteImage(false)
             }
             
-          } catch (E) {
-            console.log(E);
-          }
+        }catch (error) {
+            const { data } = error.response;
+            showMessage({
+                message: data.err,
+                type: "info",
+                backgroundColor: "#F79839",
+                position: { top: 330, left: 20, right: 20 },
+                style:{alignItems: 'center'}
+            });
+        }
           
     }
     return (
@@ -160,7 +198,10 @@ export default function EditProfile(){
                 openGallery={openGallery}
                 deleteImage={DeleteImage}
             />
-
+            <LoaderModal
+                visible={loaderVisible}
+                text='Salvando as informações...'
+            />
             <View style={styles.profileContainer}>
                 
                 {/* Parte com o botão de editar e a foto */}
@@ -176,18 +217,23 @@ export default function EditProfile(){
                             <View style = {styles.photoContainer}>
                                 <View style = {styles.photo}>
                                     <ShowCrown show ={member.coord}/>
-                                    <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                                        <Image style={styles.avatar}  source={{uri: photo.url?photo.url:photo.uri}} />
-                                    </ImageBackground>
+                                    <Avatar
+                                        containerStyle={styles.standartAvatar}
+                                        size="large"
+                                        rounded
+                                        activeOpacity ={0.2}
+                                        title={member.name?member.name.slice(0,2):'UN'}
+                                        source={{uri: photo.url?photo.url:photo.uri?photo.uri: 'none'}}
+                                    />
                                     
                                 </View>
                                 <View style = {styles.cameraContainer}>
                                     <TouchableOpacity 
-                                        onPress={() =>setCameraModalVisible(true)} 
-                                        activeOpacity={0.4} 
-                                        style =  {styles.camera}
+                                        onPress={() =>setCameraModalVisible(true)}
+                                        style = {styles.camera}
+                                        activeOpacity ={0.2}
                                     >    
-                                        <MaterialIcons name = "photo-camera" color = "#003D5C" size={26}/>
+                                        <MaterialIcons name = "photo-camera" color = "#003D5C" size={32}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>

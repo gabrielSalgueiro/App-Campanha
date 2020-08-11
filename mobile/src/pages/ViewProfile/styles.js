@@ -27,9 +27,8 @@ export default StyleSheet.create({
         marginTop: 0.01 * height,
     },
     standartAvatar:{
-        marginTop: 0.08*height,
+        marginTop: 0.06*height,
         alignSelf: 'center',
-        borderRadius: 40,
         borderWidth: 0.5,
         borderColor: '#3DACE1',
         backgroundColor: '#FFF8F8',

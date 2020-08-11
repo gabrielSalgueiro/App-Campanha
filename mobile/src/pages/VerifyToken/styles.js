@@ -26,16 +26,17 @@ export default StyleSheet.create({
         width: 0.86*width,
         height: 0.06*height,
         fontSize: 16,
+        fontWeight: "normal",
         marginTop: 10,
         borderBottomWidth: 1,
         borderColor: '#FFF',
         borderRadius: 5,
-        alignSelf: 'center', 
-        color: '#FFF',
+        alignSelf: 'center',
+        color: '#FFF'
     },
     sendButton:{
         marginTop: 0.03*height,
-        backgroundColor: '#3DACE1', 
+        backgroundColor: '#F79839', 
         alignItems:'center',
         justifyContent: 'center',
         width: 0.7*width,
@@ -44,4 +45,19 @@ export default StyleSheet.create({
         borderColor: '#003D5C',
         borderRadius: 10,
     },
+    failedButton:{
+        marginTop: 0.04*height
+        //paddingBottom: 0.08*height
+    },
+    button:{
+        marginTop: 0.01*height,
+        backgroundColor: '#3DACE1', 
+        alignItems:'center',
+        justifyContent: 'center',
+        width: 0.7*width,
+        height: 0.05*height,
+        borderWidth: 1,
+        borderColor: '#003D5C',
+        borderRadius: 10,
+    }
 })

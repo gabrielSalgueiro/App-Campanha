@@ -11,11 +11,15 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#003D5C'
     },
+    inputContainer:{
+        justifyContent: 'space-between',
+
+    },
     input:{
         width: 0.7*width,
+        height: 0.05* height,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginTop: 10,
         backgroundColor: '#FFFCFC',
         borderWidth: 1,
         borderColor: '#003D5C',
@@ -24,12 +28,11 @@ export default StyleSheet.create({
         alignSelf: 'center' 
     },
     forgotPassword:{
-        marginTop: 5,
+        marginTop: 20,
         marginLeft: 2,
-        alignItems:'flex-start',
-        justifyContent: 'center',
+        alignSelf: 'center',
         fontWeight: 'bold',
-        fontSize: 10,
+        fontSize: 16,
         color: '#F79839',
     },
     logIn:{
@@ -41,6 +44,12 @@ export default StyleSheet.create({
         height: 0.05*height,
         borderWidth: 1,
         borderColor: '#003D5C',
-        borderRadius: 10,
+        borderRadius: 20,
     },
+    buttonText:{
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: '#FFF'
+    }
 })

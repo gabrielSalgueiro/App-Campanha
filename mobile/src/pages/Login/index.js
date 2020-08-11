@@ -3,6 +3,9 @@ import React, { useState, useEffect} from 'react';
 import {Animated, Dimensions, View, Text, TextInput, TouchableOpacity, Keyboard} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import LoaderModal from '../../modals/loaderModal'
+
+
 import Logo from '../../assets/Logo/Logo.png'
 
 import styles from './styles'
@@ -23,6 +26,7 @@ export default function Login(){
     const [offset] = useState(new Animated.ValueXY({x:0, y: height*0.19}))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({x:width, y: height*0.2}))
+    const [loaderVisible, setLoaderVisible] = useState(false)
 
     // NAVIGATION PROPS
     const navigation =  useNavigation();
@@ -32,7 +36,7 @@ export default function Login(){
     const [password, setPassword] = useState('')
 
     function handleSubmit(){
-        SignIn(email, password)
+        SignIn(email, password, setLoaderVisible)
     }
 
     useEffect(() => {
@@ -58,7 +62,10 @@ export default function Login(){
 
     return (
         <View style = {styles.container}>
-            <View style = {styles.image}>
+            <LoaderModal
+                visible={loaderVisible}
+            />
+            <View>
                 <Animated.Image 
                     style={{
                         width: logo.x,
@@ -90,9 +97,9 @@ export default function Login(){
                     onChangeText ={email => setEmail(email)}
                 />
                 <TextInput
-                    style = {styles.input}
+                    style = {{...styles.input, marginTop: 25,}}
                     placeholder='Senha' 
-                    secureTextEntry={false}
+                    secureTextEntry={true}
                     autoCapitalize="none" // sem a primeira letra maiuscula
                     autoCorrect={false}
                     value={password}
@@ -102,7 +109,7 @@ export default function Login(){
                     <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleSubmit} style={styles.logIn}>
-                    <Text>Entrar</Text>
+                    <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
 
             </Animated.View>

@@ -24,13 +24,14 @@ export default StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         bottom: 35,
-        left: 20,
     },
     hideCrown:{
         alignSelf: 'center',
+        position: 'absolute',
+        bottom: 35,
     },
     editSaveButton:{
-        marginRight: 0.1 * width,
+        marginRight: 0.11 * width,
         alignSelf: 'center'
     },
     hideEditSaveButton:{

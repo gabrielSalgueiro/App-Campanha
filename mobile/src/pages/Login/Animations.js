@@ -21,11 +21,11 @@ export function ShowUpAnimation(offset,opacity){
 export function keyboardDidShowAnimation(logo){
     Animated.parallel([
         Animated.timing(logo.x, {
-            toValue: width*0.7,
+            toValue: width*0.6,
             duration: 20
         }),
         Animated.timing(logo.y, {
-            toValue: height*0.15,
+            toValue: height*0.12,
             duration: 20
         })
     ]).start()

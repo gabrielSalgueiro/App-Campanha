@@ -56,7 +56,7 @@ export default StyleSheet.create({
     Picker: {
         backgroundColor: '#fff',
         height: 23,
-        width: 117,
+        width: 117,        
         paddingHorizontal: 0.027 * width,
     },
     line: {
@@ -84,16 +84,8 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         paddingHorizontal: 0.05 * width
     },
-    standartAvatar:{
+    avatar:{
         backgroundColor: '#FFF8F8',
-        alignSelf: 'center',
-        marginRight: 0.025 * width
-    },
-    avatar: {
-        width: 0.22 * width,
-        height: 0.22 * width,
-        resizeMode: 'cover',
-        borderRadius: 17,
         alignSelf: 'center',
     },
     memberInfo:{

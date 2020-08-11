@@ -39,9 +39,9 @@ export default StyleSheet.create({
     },
     cameraContainer:{
         position: 'absolute',
-        top: -2,
+        top: 5,
         bottom: 40,
-        left: 65,
+        left: 55,
         marginTop: 0.125*height,
         justifyContent: 'flex-end'
     },
@@ -50,13 +50,13 @@ export default StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#3DACE1',
         backgroundColor: '#FFF8F8',
-        height: 0.075 * width,
-        width: 0.075 * width,
+        height: 0.1 * width,
+        width: 0.1 * width,
         justifyContent: 'center',
         alignItems: 'center'
     },
     standartAvatar:{
-        marginTop: 0.08*height,
+        marginTop: 0.065*height,
         alignSelf: 'center',
         borderRadius: 40,
         borderWidth: 0.5,
@@ -64,8 +64,8 @@ export default StyleSheet.create({
         backgroundColor: '#FFF8F8',
     },
     avatar: {
-        width: 0.20 * width,
-        height: 0.20 * width,
+        width: 0.18 * width,
+        height: 0.18 * width,
         resizeMode: 'cover',
         borderRadius: 40,
         borderWidth: 0.5,

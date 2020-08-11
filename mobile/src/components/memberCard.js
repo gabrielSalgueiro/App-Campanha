@@ -2,27 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
+import { Avatar } from 'react-native-elements';
+import ViewImageModal from '../modals/viewImageModal'
+
 import styles from '../pages/MemberList/styles'
 
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import personIcon from '../assets/Icons/person.png';
-
-export default function MemberCard({member, loaded, navigateFunction}){
 
 
+function MemberCard({member, loaded, navigateFunction}){
+
+    const [ViewImageVisible, setViewImageVisible] = useState(false)
+    
     return (
+
         <ShimmerPlaceHolder
             style={{height:120, width:'100%', marginTop: 10, borderRadius: 6, }} 
             autoRun={true} 
             visible={loaded}
         >
+            <ViewImageModal 
+                visible={ViewImageVisible}
+                cancel={()=>setViewImageVisible(false)}
+                image={member.image?member.image.url:'none'}
+                name={member.realName}
+            />
             <TouchableOpacity 
                 style = {styles.card}
                 onPress ={navigateFunction}>
-                
-                    <ImageBackground style={styles.standartAvatar} source={personIcon}>
-                        <Image style={styles.avatar}  source={{uri: member.image?member.image.url:'none'}} />
-                    </ImageBackground>
+
+                <Avatar
+                size="large"
+                rounded
+                title={member.name.slice(0,2)}
+                onPress={() => setViewImageVisible(true)}
+                activeOpacity={0.8}
+                source={{uri: member.image?member.image.url:'none'}}
+                />
                 
                 <View style = {styles.memberInfo}>
                         <View> 
@@ -39,3 +55,5 @@ export default function MemberCard({member, loaded, navigateFunction}){
         </ShimmerPlaceHolder>
     )
 }
+
+export default React.memo(MemberCard)
