@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 
-import Routes from './src/routes/index'
+import Routes from "./src/routes/index"
 
-import { AuthProvider } from './src/contexts/auth'
+import { AuthProvider } from "./src/contexts/auth"
 
 // COMPONENT DE FLASH MESSAGE
 import FlashMessage from "react-native-flash-message";
