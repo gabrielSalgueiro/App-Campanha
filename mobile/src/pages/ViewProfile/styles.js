@@ -60,7 +60,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   informations: {
-    alignItems: 'center',
+    paddingHorizontal: width * 0.02,
   },
   iconTextContainer: {
     width: 360,
@@ -92,7 +92,7 @@ export default StyleSheet.create({
     marginTop: 30,
     backgroundColor: '#ECECEC',
     justifyContent: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: width * 0.04,
   },
   title: {
     color: '#003D5C',

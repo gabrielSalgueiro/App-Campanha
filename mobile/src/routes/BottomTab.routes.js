@@ -10,7 +10,7 @@ import Dashboard from '../pages/Dashboard';
 import MemberListStackScreen from './MemberList.routes';
 
 // ESTILOS E ICONES
-import styles from '../globalStyles';
+import globalStyles from '../globalStyles';
 
 // BOTTOM TAB NAVIGATOR
 const Tabs = createBottomTabNavigator();
@@ -21,8 +21,8 @@ export default function BottomTab() {
       screenOptions={{ headerShown: false }}
       initialRouteName="Inicio"
       tabBarOptions={{
-        style: styles.footer,
-        labelStyle: styles.footerText,
+        style: globalStyles.footer,
+        labelStyle: globalStyles.footerText,
         activeTintColor: '#FFF',
         activeBackgroundColor: '#003D5C',
         inactiveTintColor: '#003D5C',

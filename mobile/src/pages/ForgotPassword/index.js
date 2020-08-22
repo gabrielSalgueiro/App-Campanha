@@ -2,22 +2,30 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
-import styles from './styles';
+import globalStyles from '../../globalStyles';
 
 // API
 import api from '../../services/api';
 
 // UTILS
-import { validateEmail, verificaEspaço } from '../../utils';
+import { validateEmail, checkSpace } from '../../utils';
+
+const { height, width } = Dimensions.get('window');
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const navigation = useNavigation();
 
   async function sendToken() {
-    if (email === '' || verificaEspaço(email) === true) {
+    if (email === '' || checkSpace(email) === true) {
       showMessage({
         message: 'Por favor, preencha o campo designado!',
         type: 'info',
@@ -58,17 +66,28 @@ export default function ForgotPassword() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.authContainer}>
       <TextInput
-        style={styles.input}
+        style={{
+          ...globalStyles.input,
+          width: 0.86 * width,
+          height: 0.06 * height,
+        }}
         placeholder="Digite seu Email"
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
         onChangeText={(email) => setEmail(email)}
       />
-      <TouchableOpacity onPress={sendToken} style={styles.sendButton}>
-        <Text>Enviar Código de Segurança</Text>
+      <TouchableOpacity
+        onPress={sendToken}
+        style={{
+          ...globalStyles.successButton,
+          width: 0.8 * width,
+          height: 0.06 * height,
+        }}
+      >
+        <Text style={globalStyles.buttonText}>Enviar Código de Segurança</Text>
       </TouchableOpacity>
     </View>
   );

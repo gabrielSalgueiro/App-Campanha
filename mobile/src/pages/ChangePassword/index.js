@@ -3,16 +3,25 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import LoaderModal from '../../modals/loaderModal';
 
 import styles from './styles';
+import globalStyles from '../../globalStyles';
 
 // UTILS
-import { verificaEspaço } from '../../utils';
+import { checkSpace } from '../../utils';
 
 // API
 import api from '../../services/api';
+
+const { height, width } = Dimensions.get('window');
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -45,11 +54,11 @@ export default function ChangePassword() {
   async function savePassword() {
     if (
       currentPassword === '' ||
-      verificaEspaço(currentPassword) === true ||
+      checkSpace(currentPassword) === true ||
       newPassword === '' ||
-      verificaEspaço(newPassword2) === true ||
+      checkSpace(newPassword2) === true ||
       newPassword2 === '' ||
-      verificaEspaço(newPassword2) === true
+      checkSpace(newPassword2) === true
     ) {
       showMessage({
         message: 'Por favor, preencha todos os campos!',
@@ -102,11 +111,17 @@ export default function ChangePassword() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.authContainer}>
       <LoaderModal visible={loaderVisible} text="Salvando as informações..." />
-      <View style={styles.inputBox}>
+      <View
+        style={{
+          ...globalStyles.input,
+          width: 0.86 * width,
+          height: 0.06 * height,
+        }}
+      >
         <TextInput
-          style={styles.infoInput}
+          style={{ width: '90%' }}
           secureTextEntry={securePassword}
           placeholder="Digite sua senha atual"
           autoCapitalize="none"
@@ -116,16 +131,23 @@ export default function ChangePassword() {
             setCurrentPassword(currentPassword)
           }
         />
-        <TouchableOpacity onPress={passwordView} style={styles.eyeButton}>
+        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye' : 'eye-off'}
             size={20}
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.inputBox}>
+      <View
+        style={{
+          ...globalStyles.input,
+          marginTop: 20,
+          width: 0.86 * width,
+          height: 0.06 * height,
+        }}
+      >
         <TextInput
-          style={styles.infoInput}
+          style={{ width: '90%' }}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha"
           autoCapitalize="none"
@@ -133,7 +155,7 @@ export default function ChangePassword() {
           value={newPassword}
           onChangeText={(newPassword) => setNewPassword(newPassword)}
         />
-        <TouchableOpacity onPress={passwordView} style={styles.eyeButton}>
+        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye' : 'eye-off'}
             size={20}
@@ -141,9 +163,16 @@ export default function ChangePassword() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.inputBox}>
+      <View
+        style={{
+          ...globalStyles.input,
+          marginTop: 20,
+          width: 0.86 * width,
+          height: 0.06 * height,
+        }}
+      >
         <TextInput
-          style={styles.infoInput}
+          style={{ width: '90%' }}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha novamente"
           autoCapitalize="none"
@@ -151,7 +180,7 @@ export default function ChangePassword() {
           value={newPassword2}
           onChangeText={(newPassword2) => setNewPassword2(newPassword2)}
         />
-        <TouchableOpacity onPress={passwordView} style={styles.eyeButton}>
+        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye' : 'eye-off'}
             size={20}
@@ -160,13 +189,16 @@ export default function ChangePassword() {
       </View>
       <View style={styles.buttonsView}>
         <TouchableOpacity
-          onPress={navigation.goBack}
-          style={styles.cancelButton}
+          onPress={savePassword}
+          style={globalStyles.successButton}
         >
-          <Text style={styles.text}>Cancelar</Text>
+          <Text style={globalStyles.buttonText}>Salvar</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={savePassword} style={styles.saveButton}>
-          <Text style={styles.text}>Salvar</Text>
+        <TouchableOpacity
+          onPress={navigation.goBack}
+          style={globalStyles.errorButton}
+        >
+          <Text style={globalStyles.buttonText}>Cancelar</Text>
         </TouchableOpacity>
       </View>
     </View>

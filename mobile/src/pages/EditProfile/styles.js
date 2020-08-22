@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   cancelText: {
     textAlign: 'center',
-    color: '#003D5C',
+    color: '#FFF',
     fontSize: 16,
     fontWeight: '500',
   },
@@ -84,7 +84,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#003D5C',
-    borderRadius: 3,
+    borderRadius: 5,
     marginTop: 0.02 * height, // margem entre as box de nome
   },
   nameInput: {
@@ -103,7 +103,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#003D5C',
-    borderRadius: 3,
+    borderRadius: 5,
     width: 0.69 * width,
     justifyContent: 'center', // centralizar o texto na box
     marginLeft: 0.04 * width, // margin entre a box e o icone

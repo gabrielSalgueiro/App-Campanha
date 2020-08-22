@@ -16,6 +16,7 @@ import LoaderModal from '../../modals/loaderModal';
 import Logo from '../../assets/Logo/Logo.png';
 
 import styles from './styles';
+import globalStyles from '../../globalStyles';
 
 import {
   ShowUpAnimation,
@@ -94,7 +95,7 @@ export default function Login() {
 
       <Animated.View
         style={
-          ([styles.inputContainer],
+          ([styles.content],
           {
             opacity,
             transform: [{ translateY: offset.y }],
@@ -102,7 +103,7 @@ export default function Login() {
         }
       >
         <TextInput
-          style={styles.input}
+          style={globalStyles.input}
           placeholder="Email"
           autoCapitalize="none"
           keyboardType="email-address"
@@ -110,7 +111,7 @@ export default function Login() {
           onChangeText={(email) => setEmail(email)}
         />
         <TextInput
-          style={{ ...styles.input, marginTop: 25 }}
+          style={{ ...globalStyles.input, marginTop: 25 }}
           placeholder="Senha"
           secureTextEntry
           autoCapitalize="none" // sem a primeira letra maiuscula
@@ -121,8 +122,13 @@ export default function Login() {
         <TouchableOpacity onPress={forgotPassword}>
           <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubmit} style={styles.logIn}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <TouchableOpacity
+          onPress={handleSubmit}
+          style={globalStyles.successButton}
+        >
+          <Text style={{ ...globalStyles.buttonText, fontSize: 18 }}>
+            Entrar
+          </Text>
         </TouchableOpacity>
       </Animated.View>
     </View>

@@ -28,7 +28,6 @@ export default function AuthStackScreen() {
         options={{
           headerTransparent: false,
           headerTitleAlign: 'center',
-          headerLeft: null,
         }}
         name="Verificar Código"
         component={VerifyToken}

@@ -3,15 +3,23 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
-import styles from './styles';
+import globalStyles from '../../globalStyles';
 
 // UTILS
-import { verificaEspaço } from '../../utils';
+import { checkSpace } from '../../utils';
 
 // API
 import api from '../../services/api';
+
+const { height, width } = Dimensions.get('window');
 
 export default function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -44,9 +52,9 @@ export default function ResetPassword() {
   async function savePassword() {
     if (
       password === '' ||
-      verificaEspaço(password) === true ||
+      checkSpace(password) === true ||
       password2 === '' ||
-      verificaEspaço(password2) === true
+      checkSpace(password2) === true
     ) {
       showMessage({
         message: 'Por favor, preencha os campos designados!',
@@ -92,10 +100,16 @@ export default function ResetPassword() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputBox}>
+    <View style={globalStyles.authContainer}>
+      <View
+        style={{
+          ...globalStyles.input,
+          width: 0.86 * width,
+          height: 0.06 * height,
+        }}
+      >
         <TextInput
-          style={styles.infoInput}
+          style={{ width: '90%' }}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha"
           autoCapitalize="none"
@@ -103,7 +117,7 @@ export default function ResetPassword() {
           value={password}
           onChangeText={(password) => setPassword(password)}
         />
-        <TouchableOpacity onPress={passwordView} style={styles.eyeButton}>
+        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye' : 'eye-off'}
             size={20}
@@ -111,9 +125,16 @@ export default function ResetPassword() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.inputBox}>
+      <View
+        style={{
+          ...globalStyles.input,
+          width: 0.86 * width,
+          height: 0.06 * height,
+          marginTop: 20,
+        }}
+      >
         <TextInput
-          style={styles.infoInput}
+          style={{ width: '90%' }}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha novamente"
           autoCapitalize="none"
@@ -121,15 +142,18 @@ export default function ResetPassword() {
           value={password2}
           onChangeText={(password2) => setPassword2(password2)}
         />
-        <TouchableOpacity onPress={passwordView} style={styles.eyeButton}>
+        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye' : 'eye-off'}
             size={20}
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={savePassword} style={styles.button}>
-        <Text>Criar Nova Senha</Text>
+      <TouchableOpacity
+        onPress={savePassword}
+        style={globalStyles.successButton}
+      >
+        <Text style={globalStyles.buttonText}>Criar Nova Senha</Text>
       </TouchableOpacity>
     </View>
   );

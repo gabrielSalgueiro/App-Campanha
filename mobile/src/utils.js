@@ -16,7 +16,7 @@ export function validateWhatsApp(wpp) {
   return false;
 }
 
-export function verificaEspaço(string) {
+export function checkSpace(string) {
   const re = /\s/g;
   if (re.test(string)) {
     return true;
