@@ -37,7 +37,7 @@ export default function ForgotPassword() {
     if (token === '' || checkSpace(token) === true) {
       showMessage({
         message:
-          'Por favor, preencha o campo designado ou Verifique se há espaço em branco no codígo!',
+          'Por favor, preencha o campo designado\n\nou\n\nVerifique se há espaço em branco no codígo!',
         type: 'info',
         backgroundColor: '#F79839',
         position: { top: 330, left: 20, right: 20 },
@@ -56,7 +56,7 @@ export default function ForgotPassword() {
             width: 0.86 * width,
             height: 0.06 * height,
           }}
-          placeholder="Digite o Código"
+          placeholder="Cole aqui o token recebido"
           autoCapitalize="none"
           keyboardType="default"
           value={token}

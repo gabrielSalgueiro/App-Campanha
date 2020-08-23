@@ -15,6 +15,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   failedButton: {
-    marginTop: 0.04 * height,
+    marginTop: 0.06 * height,
   },
 });

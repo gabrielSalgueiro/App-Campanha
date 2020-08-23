@@ -119,7 +119,7 @@ export default function ResetPassword() {
         />
         <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
-            name={showPassword === false ? 'eye' : 'eye-off'}
+            name={showPassword === false ? 'eye-off' : 'eye'}
             size={20}
           />
         </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function ResetPassword() {
         />
         <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
           <MaterialCommunityIcons
-            name={showPassword === false ? 'eye' : 'eye-off'}
+            name={showPassword === false ? 'eye-off' : 'eye'}
             size={20}
           />
         </TouchableOpacity>

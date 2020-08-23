@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#003D5C',
-    paddingVertical: 20,
+    paddingVertical: 48,
   },
   footer: {
     height: 0.08 * height,
@@ -53,6 +53,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 15,
     alignSelf: 'center',
+    marginBottom: 20,
   },
   inputIcon: {
     justifyContent: 'center',

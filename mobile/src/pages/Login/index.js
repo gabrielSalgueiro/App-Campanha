@@ -51,7 +51,7 @@ export default function Login() {
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
-    KeyboardDidShowListener = Keyboard.addListener(
+    keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       // eslint-disable-next-line no-use-before-define
       keyboardDidShow
@@ -64,6 +64,13 @@ export default function Login() {
     );
 
     ShowUpAnimation(offset, opacity);
+
+    return function cleanup() {
+      // eslint-disable-next-line no-undef
+      keyboardDidShowListener.remove();
+      // eslint-disable-next-line no-undef
+      keyboardDidHideListener.remove();
+    };
   }, []);
 
   function keyboardDidShow() {
