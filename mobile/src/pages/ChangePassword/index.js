@@ -113,13 +113,7 @@ export default function ChangePassword() {
   return (
     <View style={globalStyles.authContainer}>
       <LoaderModal visible={loaderVisible} text="Salvando as informações..." />
-      <View
-        style={{
-          ...globalStyles.input,
-          width: 0.86 * width,
-          height: 0.06 * height,
-        }}
-      >
+      <View style={globalStyles.input}>
         <TextInput
           style={{ width: '90%' }}
           secureTextEntry={securePassword}
@@ -142,8 +136,6 @@ export default function ChangePassword() {
         style={{
           ...globalStyles.input,
           marginTop: 20,
-          width: 0.86 * width,
-          height: 0.06 * height,
         }}
       >
         <TextInput
@@ -167,8 +159,6 @@ export default function ChangePassword() {
         style={{
           ...globalStyles.input,
           marginTop: 20,
-          width: 0.86 * width,
-          height: 0.06 * height,
         }}
       >
         <TextInput

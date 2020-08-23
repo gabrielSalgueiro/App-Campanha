@@ -8,7 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
   },
   text: {
-    marginTop: 5,
+    marginTop: height * 0.03,
     fontWeight: 'bold',
     fontSize: 16,
     color: '#FFF',

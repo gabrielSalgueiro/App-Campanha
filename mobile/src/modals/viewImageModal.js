@@ -28,18 +28,19 @@ export default function ViewImageModal({ visible, image, cancel, name }) {
   return (
     <Modal
       statusBarTranslucent
-      animationType="slide"
+      animationType="fade"
       transparent
       visible={visible}
       onRequestClose={cancel}
     >
       <TouchableOpacity
-        style={styles.centeredView}
+        style={styles.modalContainer}
         activeOpacity={1}
-        onPressOut={cancel}
+        onPress={cancel}
       >
         <TouchableWithoutFeedback>
-          <View style={styles.modalView}>
+          {/* TouchableWithoutFeedback MUST have ONLY ONE child component */}
+          <View style={styles.infoContainer}>
             <View>
               <Text style={styles.title}>{name}</Text>
               <ImageBackground
@@ -68,31 +69,33 @@ export default function ViewImageModal({ visible, image, cancel, name }) {
 }
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    backgroundColor: '#000000aa',
-  },
-  modalView: {
-    flex: 1,
+  modalContainer: {
+    height, // ALL height
+    width, // ALL width
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
-  standartAvatar: {
-    alignSelf: 'center',
-    backgroundColor: '#FFF8F8',
-  },
-  title: {
-    backgroundColor: '#000000',
-    width: 0.9 * width,
-    height: 0.05 * height,
-    color: '#FFF',
-    flexDirection: 'row',
-    alignSelf: 'center',
+  infoContainer: {
+    width: '90%',
+    height: '45%',
     justifyContent: 'center',
   },
+  title: {
+    backgroundColor: '#222222',
+    color: '#FFF',
+    height: '10%',
+    textAlign: 'center',
+    paddingTop: '1.5%',
+    fontSize: 18,
+  },
+  standartAvatar: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#FFF8F8',
+  },
   avatar: {
-    width: 0.9 * width,
-    height: 0.6 * height,
+    height: '100%',
     resizeMode: 'stretch',
   },
   activityIndicator: {

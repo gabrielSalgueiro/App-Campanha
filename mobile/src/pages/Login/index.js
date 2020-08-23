@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import LoaderModal from '../../modals/loaderModal';
 
@@ -32,10 +33,20 @@ const { height, width } = Dimensions.get('window');
 export default function Login() {
   const { SignIn } = useAuth();
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  function passwordView() {
+    if (showPassword === false) {
+      setShowPassword(true);
+    } else {
+      setShowPassword(false);
+    }
+  }
+
   // ANIMATIONS PROPS
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: height * 0.19 }));
   const [opacity] = useState(new Animated.Value(0));
-  const [logo] = useState(new Animated.ValueXY({ x: width, y: height * 0.2 }));
+  const [logo] = useState(new Animated.ValueXY({ x: width, y: height * 0.15 }));
   const [loaderVisible, setLoaderVisible] = useState(false);
 
   // NAVIGATION PROPS
@@ -110,33 +121,51 @@ export default function Login() {
         }
       >
         <TextInput
-          style={globalStyles.input}
+          style={{ ...globalStyles.input, marginTop: 20 }}
           placeholder="Email"
           autoCapitalize="none"
           keyboardType="email-address"
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
-        <TextInput
-          style={{ ...globalStyles.input, marginTop: 25 }}
-          placeholder="Senha"
-          secureTextEntry
-          autoCapitalize="none" // sem a primeira letra maiuscula
-          autoCorrect={false}
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-        />
-        <TouchableOpacity onPress={forgotPassword}>
-          <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSubmit}
-          style={globalStyles.successButton}
+        <View
+          style={{
+            ...globalStyles.input,
+            marginTop: 20,
+          }}
         >
-          <Text style={{ ...globalStyles.buttonText, fontSize: 18 }}>
-            Entrar
-          </Text>
-        </TouchableOpacity>
+          <TextInput
+            style={{ width: '90%' }}
+            placeholder="Senha"
+            secureTextEntry={showPassword}
+            autoCapitalize="none" // sem a primeira letra maiuscula
+            autoCorrect={false}
+            value={password}
+            onChangeText={(password) => setPassword(password)}
+          />
+          <TouchableOpacity
+            onPress={passwordView}
+            style={globalStyles.inputIcon}
+          >
+            <MaterialCommunityIcons
+              name={showPassword === false ? 'eye' : 'eye-off'}
+              size={20}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity onPress={forgotPassword}>
+            <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleSubmit}
+            style={globalStyles.successButton}
+          >
+            <Text style={{ ...globalStyles.buttonText, fontSize: 18 }}>
+              Entrar
+            </Text>
+          </TouchableOpacity>
+        </View>
       </Animated.View>
     </View>
   );

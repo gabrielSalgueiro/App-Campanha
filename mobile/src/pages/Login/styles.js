@@ -13,7 +13,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   forgotPassword: {
-    marginTop: height * 0.03,
+    marginBottom: height * 0.03,
     marginLeft: 2,
     alignSelf: 'center',
     fontWeight: 'bold',

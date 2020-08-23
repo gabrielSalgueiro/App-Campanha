@@ -104,8 +104,6 @@ export default function ResetPassword() {
       <View
         style={{
           ...globalStyles.input,
-          width: 0.86 * width,
-          height: 0.06 * height,
         }}
       >
         <TextInput
@@ -128,8 +126,6 @@ export default function ResetPassword() {
       <View
         style={{
           ...globalStyles.input,
-          width: 0.86 * width,
-          height: 0.06 * height,
           marginTop: 20,
         }}
       >

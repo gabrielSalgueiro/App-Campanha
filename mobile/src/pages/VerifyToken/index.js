@@ -51,11 +51,7 @@ export default function ForgotPassword() {
     <View style={globalStyles.authContainer}>
       <View style={styles.emailContainer}>
         <TextInput
-          style={{
-            ...globalStyles.input,
-            width: 0.86 * width,
-            height: 0.06 * height,
-          }}
+          style={globalStyles.input}
           placeholder="Cole aqui o token recebido"
           autoCapitalize="none"
           keyboardType="default"
@@ -74,11 +70,7 @@ export default function ForgotPassword() {
         <Text style={styles.text}>Não recebeu o código?</Text>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{
-            ...globalStyles.errorButton,
-            width: 0.8 * width,
-            height: 0.06 * height,
-          }}
+          style={globalStyles.errorButton}
         >
           <Text style={globalStyles.buttonText}>
             Reenviar Código de Segurança

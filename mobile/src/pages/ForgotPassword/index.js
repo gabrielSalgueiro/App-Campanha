@@ -68,11 +68,7 @@ export default function ForgotPassword() {
   return (
     <View style={globalStyles.authContainer}>
       <TextInput
-        style={{
-          ...globalStyles.input,
-          width: 0.86 * width,
-          height: 0.06 * height,
-        }}
+        style={globalStyles.input}
         placeholder="Digite seu Email"
         autoCapitalize="none"
         keyboardType="email-address"
@@ -83,8 +79,6 @@ export default function ForgotPassword() {
         onPress={sendToken}
         style={{
           ...globalStyles.successButton,
-          width: 0.8 * width,
-          height: 0.06 * height,
         }}
       >
         <Text style={globalStyles.buttonText}>Enviar Código de Segurança</Text>
