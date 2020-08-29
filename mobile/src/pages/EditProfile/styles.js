@@ -1,10 +1,12 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
+import { colors } from '../../globalStyles';
+
 const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   profileContainer: {
-    backgroundColor: '#FFF',
+    backgroundColor: colors.white,
     flex: 1,
   },
   photographyContainer: {
@@ -17,12 +19,12 @@ export default StyleSheet.create({
   },
   cancelText: {
     textAlign: 'center',
-    color: '#FFF',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '500',
   },
   editButtonContainer: {
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
     height: 0.1 * height,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -48,8 +50,8 @@ export default StyleSheet.create({
   camera: {
     borderRadius: 30,
     borderWidth: 0.5,
-    borderColor: '#3DACE1',
-    backgroundColor: '#FFF8F8',
+    borderColor: colors.secondary,
+    backgroundColor: colors.white,
     height: 0.1 * width,
     width: 0.1 * width,
     justifyContent: 'center',
@@ -60,8 +62,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 40,
     borderWidth: 0.5,
-    borderColor: '#3DACE1',
-    backgroundColor: '#FFF8F8',
+    borderColor: colors.secondary,
+    backgroundColor: colors.white,
   },
   avatar: {
     width: 0.18 * width,
@@ -69,7 +71,7 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 40,
     borderWidth: 0.5,
-    borderColor: '#3DACE1',
+    borderColor: colors.secondary,
     alignSelf: 'center',
   },
 
@@ -81,16 +83,16 @@ export default StyleSheet.create({
     marginBottom: 0.015 * height, // margin entre os nomes e as info
   },
   nameBox: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 5,
     marginTop: 0.02 * height, // margem entre as box de nome
   },
   nameInput: {
     textAlign: 'center',
     fontSize: 18,
-    color: '#7D7D7D',
+    color: colors.grey2,
   },
   informations: {
     marginHorizontal: 0.1 * width,
@@ -100,9 +102,9 @@ export default StyleSheet.create({
     marginTop: 0.015 * height, //  margem entre as info
   },
   infoBox: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 5,
     width: 0.69 * width,
     justifyContent: 'center', // centralizar o texto na box
@@ -111,7 +113,7 @@ export default StyleSheet.create({
   infoInput: {
     alignSelf: 'stretch',
     paddingHorizontal: 0.025 * width, // padding entre o texto e o inicio da box
-    color: '#7D7D7D',
+    color: colors.grey2,
     fontSize: 14,
   },
   carTeamContainer: {
@@ -120,9 +122,9 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   carTeamButton: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 3,
     height: 0.085 * width,
     width: 0.085 * width,
@@ -139,7 +141,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
   },
   password: {
     marginTop: 1,

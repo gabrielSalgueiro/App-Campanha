@@ -7,6 +7,7 @@ import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import ViewImageModal from '../modals/viewImageModal';
 
 import styles from '../pages/MemberList/styles';
+import { colors } from '../globalStyles';
 
 function MemberCard({ member, loaded, navigateFunction }) {
   const [ViewImageVisible, setViewImageVisible] = useState(false);
@@ -43,12 +44,12 @@ function MemberCard({ member, loaded, navigateFunction }) {
         <View style={styles.iconsInfo}>
           <FontAwesome5
             name="crown"
-            color={member.coord === true ? '#003D5C' : '#F3F3F3'}
+            color={member.coord === true ? colors.primary : colors.white}
             size={28}
           />
           <MaterialIcons
             name="directions-car"
-            color={member.hasCar === 1 ? '#003D5C' : '#F3F3F3'}
+            color={member.hasCar === 1 ? colors.primary : colors.white}
             size={32}
           />
         </View>

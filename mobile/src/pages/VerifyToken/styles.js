@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../globalStyles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -11,7 +12,7 @@ export default StyleSheet.create({
     marginTop: height * 0.03,
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#FFF',
+    color: colors.white,
     alignSelf: 'center',
   },
   failedButton: {

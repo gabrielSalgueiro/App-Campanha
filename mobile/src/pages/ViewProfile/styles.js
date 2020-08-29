@@ -1,17 +1,18 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../globalStyles';
 
 const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   profileContainer: {
-    backgroundColor: '#FFF',
+    backgroundColor: colors.white,
     flex: 1,
   },
   photographyContainer: {
     height: 0.16 * height,
   },
   editButtonContainer: {
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
     height: 0.1 * height,
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -30,8 +31,8 @@ export default StyleSheet.create({
     marginTop: 0.06 * height,
     alignSelf: 'center',
     borderWidth: 0.5,
-    borderColor: '#3DACE1',
-    backgroundColor: '#FFF8F8',
+    borderColor: colors.secondary,
+    backgroundColor: colors.white,
   },
   avatar: {
     width: 0.2 * width,
@@ -39,7 +40,7 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 40,
     borderWidth: 0.5,
-    borderColor: '#3DACE1',
+    borderColor: colors.secondary,
     alignSelf: 'center',
   },
   infoContainer: {
@@ -90,12 +91,12 @@ export default StyleSheet.create({
     marginHorizontal: 30,
     borderRadius: 8,
     marginTop: 30,
-    backgroundColor: '#ECECEC',
+    backgroundColor: colors.grey5,
     justifyContent: 'center',
     paddingHorizontal: width * 0.04,
   },
   title: {
-    color: '#003D5C',
+    color: colors.primary,
     fontWeight: 'bold',
     fontSize: 24,
     marginBottom: 5,
@@ -110,7 +111,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   colorBox: {
-    backgroundColor: '#B93B3B',
+    backgroundColor: colors.red,
     height: 16,
     width: 16,
     marginRight: 10,

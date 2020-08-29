@@ -3,17 +3,32 @@ import Constants from 'expo-constants';
 
 const { height, width } = Dimensions.get('window');
 
+export const colors = {
+  primary: '#003D5C',
+  secondary: '#3DACE1',
+  orange: '#F79839',
+  black: '#000000',
+  transBlack: '#000000aa',
+  grey1: '#222222',
+  grey2: '#7D7D7D',
+  grey3: '#B7B7B7',
+  grey4: '#DDD',
+  grey5: '#ECECEC',
+  white: '#FFFFFF',
+  red: '#B93B3B',
+};
+
 export default StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
   },
   authContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#003D5C',
+    backgroundColor: colors.primary,
     paddingVertical: 48,
   },
   footer: {
@@ -47,9 +62,9 @@ export default StyleSheet.create({
     height: 0.07 * height,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: '#FFFCFC',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 5,
     paddingHorizontal: 15,
     alignSelf: 'center',
@@ -60,30 +75,30 @@ export default StyleSheet.create({
   },
   successButton: {
     marginTop: 0.03 * height,
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
     alignItems: 'center',
     justifyContent: 'center',
     width: 0.75 * width,
     height: 0.07 * height,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 30,
   },
   buttonText: {
     alignSelf: 'center',
     fontWeight: '900',
     fontSize: 16,
-    color: '#FFF',
+    color: colors.white,
   },
   errorButton: {
     marginTop: 0.03 * height,
-    backgroundColor: '#F79839',
+    backgroundColor: colors.orange,
     alignItems: 'center',
     justifyContent: 'center',
     width: 0.75 * width,
     height: 0.07 * height,
     borderWidth: 1,
-    borderColor: '#003D5C',
+    borderColor: colors.primary,
     borderRadius: 30,
   },
 });
