@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.grey4,
+    backgroundColor: colors.grey5,
     width: width * 0.8,
     height: 0.12 * height,
     borderRadius: 10,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   loaderText: {
     alignSelf: 'center',
     fontSize: 18,
-    color: colors.orange,
+    color: colors.primary,
     fontWeight: 'bold',
   },
 });

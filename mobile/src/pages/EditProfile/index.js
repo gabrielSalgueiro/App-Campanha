@@ -15,7 +15,7 @@ import notCarIcon from '../../assets/Icons/notCar.png';
 
 // ESTILOS
 import styles from './styles';
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // COMPONENTES
 import ShowCrown from '../../components/showCrown';
@@ -116,7 +116,7 @@ export default function EditProfile() {
       showMessage({
         message: 'Informações salvas com sucesso!',
         type: 'info',
-        backgroundColor: '#3DACE1',
+        backgroundColor: colors.green,
         position: { top: 70, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -126,7 +126,7 @@ export default function EditProfile() {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -153,7 +153,7 @@ export default function EditProfile() {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -176,7 +176,7 @@ export default function EditProfile() {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });

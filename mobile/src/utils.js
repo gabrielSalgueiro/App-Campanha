@@ -1,15 +1,17 @@
 import { Clipboard, Linking } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
+import { colors } from './globalStyles';
+
 export function validateWhatsApp(wpp) {
   const re = /(\+\d{2})?\s?(\(?\d{2}\)?\s?)(\d{4,5}-?\d{4})/;
   if (re.test(wpp)) {
     return true;
   }
   showMessage({
-    message: 'Whatsapp no formato Incorreto !',
+    message: 'Whatsapp no formato incorreto!',
     type: 'info',
-    backgroundColor: '#F79839',
+    backgroundColor: colors.red,
     position: { top: 330, left: 20, right: 20 },
     style: { alignItems: 'center' },
   });
@@ -31,9 +33,9 @@ export function validateEmail(email) {
     return true;
   }
   showMessage({
-    message: 'E-mail no formato Incorreto!',
+    message: 'E-mail no formato incorreto!',
     type: 'info',
-    backgroundColor: '#F79839',
+    backgroundColor: colors.red,
     position: { top: 330, left: 20, right: 20 },
     style: { alignItems: 'center' },
   });
@@ -55,7 +57,7 @@ export function copyToClipboard(text) {
   showMessage({
     message: 'Copiado para a Área de Transferência',
     type: 'info',
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.green,
     style: { alignItems: 'center' },
   });
 }

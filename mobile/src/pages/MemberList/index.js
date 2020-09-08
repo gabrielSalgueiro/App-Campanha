@@ -8,7 +8,7 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import AsyncStorage from '@react-native-community/async-storage';
 // ESTILOS
 import styles from './styles';
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // COMPONENTES
 import MemberCard from '../../components/memberCard';
@@ -92,8 +92,8 @@ export default function MemberList() {
           <View style={styles.nameSearch}>
             <TextInput
               autoCapitalize="words" // sem a primeira letra maiuscula
-              placeholder="Nome do Membro..."
-              placeholderTextColor="#B7B7B7"
+              placeholder="Nome do membro..."
+              placeholderTextColor={colors.grey3}
               style={styles.inputText}
               onChangeText={(name) => filterMembersbyName(name)}
             />
@@ -112,8 +112,8 @@ export default function MemberList() {
               checked={checkCar}
               center
               onPress={filterMembersbyCar}
-              uncheckedColor="#003D5C"
-              checkedColor="#003D5C"
+              uncheckedColor={colors.primary}
+              checkedColor={colors.primary}
             />
 
             <Text>Time:</Text>
@@ -126,7 +126,11 @@ export default function MemberList() {
                 style={styles.Picker}
                 mode="dropdown"
               >
-                <Picker.Item color="#B7B7B7" value="all" label="Núcleo..." />
+                <Picker.Item
+                  color={colors.grey3}
+                  value="all"
+                  label="Núcleo..."
+                />
                 <Picker.Item label="Entidades" value="Entidades" />
                 <Picker.Item label="Divulgação" value="Divulgação" />
                 <Picker.Item label="Infra" value="Infraestrutura" />

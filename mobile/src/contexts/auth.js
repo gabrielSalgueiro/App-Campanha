@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { showMessage } from 'react-native-flash-message';
 import api from '../services/api';
 
+import { colors } from '../globalStyles';
+
 import { validateEmail } from '../utils';
 
 const AuthContext = createContext({});
@@ -26,7 +28,7 @@ export function AuthProvider({ children }) {
       showMessage({
         message: 'Preencha Email e Senha!',
         type: 'info',
-        backgroundColor: '#FF0000',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -36,7 +38,7 @@ export function AuthProvider({ children }) {
       showMessage({
         message: 'Digite um email válido!',
         type: 'info',
-        backgroundColor: '#FF0000',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -61,7 +63,7 @@ export function AuthProvider({ children }) {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#FF0000',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });

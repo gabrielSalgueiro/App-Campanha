@@ -15,7 +15,8 @@ export const colors = {
   grey4: '#DDD',
   grey5: '#ECECEC',
   white: '#FFFFFF',
-  red: '#B93B3B',
+  green: '#8EA604',
+  red: '#F22B29',
 };
 
 export default StyleSheet.create({

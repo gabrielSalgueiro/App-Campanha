@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // API
 import api from '../../services/api';
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
       showMessage({
         message: 'Por favor, preencha o campo designado!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -47,7 +47,7 @@ export default function ForgotPassword() {
       showMessage({
         message: resp.data.message,
         type: 'info',
-        backgroundColor: '#3DACE1',
+        backgroundColor: colors.green,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -58,7 +58,7 @@ export default function ForgotPassword() {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
