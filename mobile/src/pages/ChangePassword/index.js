@@ -13,7 +13,7 @@ import {
 import LoaderModal from '../../modals/loaderModal';
 
 import styles from './styles';
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // UTILS
 import { checkSpace } from '../../utils';
@@ -63,7 +63,7 @@ export default function ChangePassword() {
       showMessage({
         message: 'Por favor, preencha todos os campos!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -71,9 +71,9 @@ export default function ChangePassword() {
     }
     if (newPassword !== newPassword2) {
       showMessage({
-        message: 'Por favor repita corretamente a nova senha!',
+        message: 'Por favor, repita corretamente a nova senha!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -88,7 +88,7 @@ export default function ChangePassword() {
       showMessage({
         message: resp.data.message,
         type: 'info',
-        backgroundColor: '#3DACE1',
+        backgroundColor: colors.green,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -103,7 +103,7 @@ export default function ChangePassword() {
       showMessage({
         message: data.message,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });

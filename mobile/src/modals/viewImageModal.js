@@ -13,6 +13,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { colors } from '../globalStyles';
+
 // ICONS
 import personIcon from '../assets/Icons/person.png';
 
@@ -82,8 +84,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    backgroundColor: '#222222',
-    color: '#FFF',
+    backgroundColor: colors.grey1,
+    color: colors.white,
     height: '10%',
     textAlign: 'center',
     paddingTop: '1.5%',
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   standartAvatar: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#FFF8F8',
+    backgroundColor: colors.white,
   },
   avatar: {
     height: '100%',

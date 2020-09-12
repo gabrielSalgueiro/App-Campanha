@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import { colors } from '../globalStyles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -61,19 +62,19 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   modalView: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   button: {
     alignItems: 'center',
     width: 0.35 * width,
     height: 0.05 * height,
-    backgroundColor: '#003D5C',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     paddingHorizontal: 0.05 * width,
   },
   labelText: {
     alignSelf: 'center',
-    color: '#FFFCFC',
+    color: colors.white,
     fontSize: 12,
   },
 });

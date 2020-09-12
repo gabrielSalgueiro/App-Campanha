@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../globalStyles';
 
 const { height } = Dimensions.get('window');
 
@@ -7,7 +8,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#003D5C',
+    backgroundColor: colors.primary,
   },
   content: {
     justifyContent: 'space-between',
@@ -18,6 +19,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#F79839',
+    color: colors.orange,
   },
 });

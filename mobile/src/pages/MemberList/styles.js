@@ -1,10 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../globalStyles';
 
 const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   searchBar: {
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
     height: 0.2 * height,
   },
   nameSearch: {
@@ -16,9 +17,9 @@ export default StyleSheet.create({
     height: 0.07 * height,
     width: 0.85 * width,
     alignSelf: 'stretch',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: colors.black,
     borderRadius: 30,
     marginTop: 13,
     paddingHorizontal: 16,
@@ -47,17 +48,17 @@ export default StyleSheet.create({
     marginLeft: 5,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: colors.black,
     overflow: 'hidden',
   },
   Picker: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     height: 23,
     width: 117,
     paddingHorizontal: 0.027 * width,
   },
   line: {
-    backgroundColor: '#000',
+    backgroundColor: colors.black,
     height: 1,
     width: 0.8 * width,
     alignSelf: 'center',
@@ -65,24 +66,24 @@ export default StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
-    backgroundColor: '#3DACE1',
+    backgroundColor: colors.secondary,
     paddingHorizontal: 0.025 * width,
   },
   card: {
     alignItems: 'center',
-    borderColor: '#DDD',
+    borderColor: colors.grey4,
     borderRadius: 6,
     borderWidth: 0.5,
     marginTop: 5,
     height: 0.15 * height,
     elevation: 2,
     flexDirection: 'row',
-    backgroundColor: '#F3F3F3',
+    backgroundColor: colors.white,
     justifyContent: 'space-around',
     paddingHorizontal: 0.05 * width,
   },
   avatar: {
-    backgroundColor: '#FFF8F8',
+    backgroundColor: colors.white,
     alignSelf: 'center',
   },
   memberInfo: {
@@ -97,7 +98,7 @@ export default StyleSheet.create({
   name: {
     fontSize: 14,
     width: 0.4 * width,
-    color: '#B7B7B7',
+    color: colors.grey3,
   },
   team: {
     fontSize: 14,

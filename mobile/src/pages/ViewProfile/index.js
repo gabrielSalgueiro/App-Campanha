@@ -20,7 +20,7 @@ import notCarIcon from '../../assets/Icons/notCar.png';
 
 // ESTILOS
 import styles from './styles';
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // MODALS
 import DrawerModal from '../../modals/drawerModal';
@@ -99,7 +99,7 @@ export default function ViewProfile() {
         changePassword={changePasswordButton}
       />
       <StatusBar
-        backgroundColor="#3DACFF"
+        backgroundColor={colors.secondary}
         barStyle="dark-content"
         translucent
       />
@@ -169,30 +169,30 @@ export default function ViewProfile() {
           >
             <View style={styles.informations}>
               <View style={styles.iconTextContainer}>
-                <Feather name="mail" color="#003D5C" size={29} />
+                <Feather name="mail" color={colors.primary} size={29} />
                 <Text style={styles.textInfo}>{member.email}</Text>
                 <TouchableOpacity
                   onPress={() => copyToClipboard(member.email)}
                   style={styles.clipboard}
                 >
-                  <FontAwesome5 name="copy" color="#003D5C" size={22} />
+                  <FontAwesome5 name="copy" color={colors.primary} size={22} />
                 </TouchableOpacity>
               </View>
               <View style={styles.iconTextContainer}>
-                <MaterialIcons name="school" color="#003D5C" size={29} />
+                <MaterialIcons name="school" color={colors.primary} size={29} />
                 <Text style={styles.textInfo}>{member.course}</Text>
               </View>
               <View style={styles.iconTextContainer}>
-                <FontAwesome name="whatsapp" color="#003D5C" size={34} />
+                <FontAwesome name="whatsapp" color={colors.primary} size={34} />
                 <Text style={styles.textInfo}>
-                  ({member.wpp.slice(0, 2)}){member.wpp.slice(2, 7)}-{' '}
+                  ({member.wpp.slice(0, 2)}) {member.wpp.slice(2, 7)}-{''}
                   {member.wpp.slice(7)}
                 </Text>
                 <TouchableOpacity
                   onPress={() => sendWhatsapp(member.wpp)}
                   style={styles.clipboard}
                 >
-                  <FontAwesome5 name="link" color="#003D5C" size={18} />
+                  <FontAwesome5 name="link" color={colors.primary} size={18} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -212,7 +212,11 @@ export default function ViewProfile() {
                 style={styles.car}
                 source={member.hasCar === 0 ? notCarIcon : carIcon}
               />
-              <TeamIcon color="#003D5C" size={28} team={member.team.name} />
+              <TeamIcon
+                color={colors.primary}
+                size={28}
+                team={member.team.name}
+              />
             </View>
           </ShimmerPlaceHolder>
 

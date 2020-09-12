@@ -13,6 +13,8 @@ import {
 // ICONS
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
+import { colors } from '../globalStyles';
+
 const { height, width } = Dimensions.get('window');
 
 export default function ImagePickerModal({
@@ -51,11 +53,11 @@ export default function ImagePickerModal({
               style={styles.button}
               onPress={openCamera}
             >
-              <FontAwesome5 name="camera" size={28} color="#003D5C" />
+              <FontAwesome5 name="camera" size={28} color={colors.primary} />
               <Text style={styles.labelText}>Camera</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={openGallery}>
-              <FontAwesome name="image" size={28} color="#003D5C" />
+              <FontAwesome name="image" size={28} color={colors.primary} />
               <Text style={styles.labelText}>Galeria</Text>
             </TouchableOpacity>
           </View>
@@ -68,11 +70,11 @@ export default function ImagePickerModal({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    backgroundColor: '#000000aa',
+    backgroundColor: colors.transBlack,
     justifyContent: 'flex-end',
   },
   modalView: {
-    backgroundColor: '#FFFCFC',
+    backgroundColor: colors.white,
     paddingTop: 10,
   },
   button: {
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width,
     height: 0.07 * height,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     justifyContent: 'flex-start',
     padding: 0.05 * width,
   },
@@ -88,6 +90,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     fontSize: 18,
     fontWeight: '500',
-    color: '#003D5C',
+    color: colors.primary,
   },
 });

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Animated, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');

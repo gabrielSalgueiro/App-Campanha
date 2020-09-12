@@ -13,6 +13,8 @@ import {
 import LottieView from 'lottie-react-native';
 import Loader from '../9764-loader.json';
 
+import { colors } from '../globalStyles';
+
 const { height, width } = Dimensions.get('window');
 
 export default function LoaderModal({ visible, text = 'Autenticando...' }) {
@@ -41,13 +43,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 2,
-    backgroundColor: '#000000aa',
+    backgroundColor: colors.transBlack,
   },
   modalView: {
     paddingVertical: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f3f3f3',
+    backgroundColor: colors.grey5,
     width: width * 0.8,
     height: 0.12 * height,
     borderRadius: 10,
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
   loaderText: {
     alignSelf: 'center',
     fontSize: 18,
-    color: '#F79839',
+    color: colors.primary,
     fontWeight: 'bold',
   },
 });

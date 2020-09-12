@@ -13,7 +13,7 @@ import { showMessage } from 'react-native-flash-message';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import styles from './styles';
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // UTILS
 import { checkSpace } from '../../utils';
@@ -37,9 +37,9 @@ export default function ForgotPassword() {
     if (token === '' || checkSpace(token) === true) {
       showMessage({
         message:
-          'Por favor, preencha o campo designado\n\nou\n\nVerifique se há espaço em branco no codígo!',
+          'Por favor, preencha o campo designado\nOU\nVerifique se há espaços em branco no codígo!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });

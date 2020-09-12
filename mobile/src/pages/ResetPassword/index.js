@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import globalStyles from '../../globalStyles';
+import globalStyles, { colors } from '../../globalStyles';
 
 // UTILS
 import { checkSpace } from '../../utils';
@@ -59,7 +59,7 @@ export default function ResetPassword() {
       showMessage({
         message: 'Por favor, preencha os campos designados!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -69,7 +69,7 @@ export default function ResetPassword() {
       showMessage({
         message: 'As senhas digitadas devem ser iguais!',
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -82,7 +82,7 @@ export default function ResetPassword() {
       showMessage({
         message: resp.data.message,
         type: 'info',
-        backgroundColor: '#3DACE1',
+        backgroundColor: colors.green,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
@@ -92,7 +92,7 @@ export default function ResetPassword() {
       showMessage({
         message: data.err,
         type: 'info',
-        backgroundColor: '#F79839',
+        backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },
         style: { alignItems: 'center' },
       });
