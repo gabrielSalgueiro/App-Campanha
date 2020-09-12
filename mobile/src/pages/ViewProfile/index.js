@@ -99,8 +99,8 @@ export default function ViewProfile() {
         changePassword={changePasswordButton}
       />
       <StatusBar
-        backgroundColor={colors.secondary}
-        barStyle="dark-content"
+        backgroundColor={colors.primary}
+        barStyle="light-content"
         translucent
       />
       <View>

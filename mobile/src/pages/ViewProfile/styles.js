@@ -12,7 +12,7 @@ export default StyleSheet.create({
     height: 0.16 * height,
   },
   editButtonContainer: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     height: 0.1 * height,
     flexDirection: 'row',
     justifyContent: 'flex-end',

@@ -24,7 +24,7 @@ export default StyleSheet.create({
     fontWeight: '500',
   },
   editButtonContainer: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     height: 0.1 * height,
     flexDirection: 'row',
     justifyContent: 'space-around',

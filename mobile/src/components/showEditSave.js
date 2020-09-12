@@ -11,13 +11,13 @@ export default function ShowEditSave({ show, onPress, type }) {
   if (type === 'save') {
     return (
       <TouchableOpacity onPress={onPress} style={globalStyles.editSaveButton}>
-        <MaterialIcons name="check" color={colors.primary} size={28} />
+        <MaterialIcons name="check" color={colors.white} size={28} />
       </TouchableOpacity>
     );
   }
   return (
     <TouchableOpacity onPress={onPress} style={globalStyles.editSaveButton}>
-      <MaterialIcons name="edit" color={colors.primary} size={28} />
+      <MaterialIcons name="edit" color={colors.white} size={28} />
     </TouchableOpacity>
   );
 }
