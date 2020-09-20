@@ -1,7 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 // REACT E REACT NATIVES IMPORTS
 import React, { useState, useEffect } from 'react';
-import { FlatList, Picker, View, TextInput, Text } from 'react-native';
+import {
+  FlatList,
+  Picker,
+  View,
+  TextInput,
+  Text,
+  StatusBar,
+} from 'react-native';
 import { CheckBox, Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
@@ -80,6 +87,15 @@ export default function MemberList() {
 
   return (
     <View style={globalStyles.container}>
+      <StatusBar
+        backgroundColor={colors.primary}
+        barStyle="light-content"
+        translucent
+      />
+      <View>
+        <StatusBar hidden={false} />
+      </View>
+
       {/* SEARCH BAR */}
       <View style={styles.searchBar}>
         {/* VIEW COM LEITURA DO NOME DO MEMBRO E 
