@@ -223,7 +223,6 @@ export default function EditProfile() {
                 <TouchableOpacity
                   onPress={() => setCameraModalVisible(true)}
                   style={styles.camera}
-                  activeOpacity={0.2}
                 >
                   <MaterialIcons
                     name="photo-camera"

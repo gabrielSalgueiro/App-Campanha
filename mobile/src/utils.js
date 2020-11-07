@@ -4,12 +4,13 @@ import { showMessage } from 'react-native-flash-message';
 import { colors } from './globalStyles';
 
 export function validateWhatsApp(wpp) {
-  const re = /(\+\d{2})?\s?(\(?\d{2}\)?\s?)(\d{4,5}-?\d{4})/;
+  const re = /(\d{11})/;
   if (re.test(wpp)) {
     return true;
   }
   showMessage({
-    message: 'Whatsapp no formato incorreto!',
+    message:
+      'Whatsapp no formato incorreto! Por favor digite somente números, inclua o seu DDD no começo, e não esqueça do digito 9!',
     type: 'info',
     backgroundColor: colors.red,
     position: { top: 330, left: 20, right: 20 },

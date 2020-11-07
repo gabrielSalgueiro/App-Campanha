@@ -1,19 +1,29 @@
-import React  from "react";
-import {View, Text, TouchableOpacity} from "react-native"
+import React from 'react';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
-import {useAuth} from "../../contexts/auth"
-export default function Dashboard (){
+import { useAuth } from '../../contexts/auth';
 
-    const {Logout} = useAuth()
+import { colors } from '../../globalStyles';
 
-    function handleLogout(){
-        Logout()
-    }
-    return (
-        <View style = {{flex:1, justifyContent: "center", alignItems: "center"}}>
-            <TouchableOpacity onPress = {handleLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
-        </View>
-    )
+export default function Dashboard() {
+  const { Logout } = useAuth();
+
+  function handleLogout() {
+    Logout();
+  }
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <StatusBar
+        backgroundColor={colors.primary}
+        barStyle="light-content"
+        translucent
+      />
+      <View>
+        <StatusBar hidden={false} />
+      </View>
+      <TouchableOpacity onPress={handleLogout}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
